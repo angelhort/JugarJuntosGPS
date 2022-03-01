@@ -13,5 +13,9 @@ public class DemoController {
 		model.addAttribute("name", name);
 		return "greeting";
 	}
-
+	
+	@GetMapping("/bootstrapTest")
+	public String bootstrapTest(Model model) {
+		return "bootstrapTest";
+	}
 }
