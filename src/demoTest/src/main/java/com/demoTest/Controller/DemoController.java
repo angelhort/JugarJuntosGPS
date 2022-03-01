@@ -13,5 +13,11 @@ public class DemoController {
 		model.addAttribute("name", name);
 		return "greeting";
 	}
+	
+	@GetMapping("/getAnuncios")
+	public String getAnuncios(Model model) {
+		
+		return "getAnuncios";
+	}
 
 }
