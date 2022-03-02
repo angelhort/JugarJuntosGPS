@@ -46,6 +46,13 @@ public class User implements Serializable{
 		return demoNumber;
 	}
 
+	public User(String demoName, int demoNumber, String demoLinkedValue) {
+		super();
+		this.demoName = demoName;
+		this.demoNumber = demoNumber;
+		this.demoLinkedValue = demoLinkedValue;
+	}
+
 	public void setDemoNumber(int demoNumber) {
 		this.demoNumber = demoNumber;
 	}
