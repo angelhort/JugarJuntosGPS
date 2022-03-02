@@ -15,24 +15,22 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "ANUNCIOS")
+@Table(name = "DEMO_FIRST_TABLE")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Anuncio implements Serializable{
+public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name = "PROPIETARIO")
+	@Column(name = "DEMO_NAME")
 	@NonNull
-	private String propietario;
+	private String demoName;
 	
-	@Column(name = "DESCRIPCION")
-	@NonNull
-	private String descripcion;
+	@Column(name = "DEMO_NUMBER")
+	private String demoNumber;
 	
-	@Column(name = "JUEGO")
-	@NonNull
-	private String juego;
+	@Column(name = "DEMO_LINKED_VALUE")
+	private String demoLinkedValue;
 }

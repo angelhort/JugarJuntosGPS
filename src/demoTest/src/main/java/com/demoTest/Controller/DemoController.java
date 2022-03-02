@@ -4,15 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.demoTest.AplicationServices.Anuncios.SAAnuncios;
+import com.demoTest.AplicationServices.Anuncios.SADemo;
 
 @Controller
+@RequestMapping(path = "/jj")
 public class DemoController {
 	
 	@Autowired
-	SAAnuncios anunciosService;
+	SADemo anunciosService;
 	
 	@GetMapping("/greeting")
 	public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
@@ -20,10 +22,9 @@ public class DemoController {
 		return "greeting";
 	}
 	
-	@GetMapping("/getAnuncios")
+	@GetMapping("/")
 	public String getAnuncios(Model model) {
-		model.addAttribute("anuncios", anunciosService.getAnuncios());
-		return "getAnuncios";
+		model.addAttribute("data", anunciosService.getDemos());
+		return "index";
 	}
-
 }
