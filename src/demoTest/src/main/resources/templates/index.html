@@ -1,5 +1,6 @@
+
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 
 <head>
 	<title>Getting Started: Serving Web Content</title>
@@ -41,11 +42,10 @@
 				</thead>
 				<tbody>
 					<tr th:each="d: ${data}">
-						<td th:text="${d.d1}" />
-						<td th:text="${d.d2}" />
-						<td th:text="${d.d3}" />
-						<td th:text="${d.d4}" />
-					</tr>
+                        <td th:text="${d.demoName}" />
+                        <td th:text="${d.demoNumber}" />
+                        <td th:text="${d.demoLinkedValue}" />
+                    </tr>
 				</tbody>
 			</table>
 		</div>
