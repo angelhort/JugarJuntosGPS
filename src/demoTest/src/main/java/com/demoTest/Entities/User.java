@@ -34,16 +34,8 @@ public class User implements Serializable{
 	@Column(name = "demo_linked_value")
 	private String demoLinkedValue;
 
-	public String getDemoName() {
-		return demoName;
-	}
-
-	public void setDemoName(String demoName) {
-		this.demoName = demoName;
-	}
-
-	public int getDemoNumber() {
-		return demoNumber;
+	public User() {
+		super();
 	}
 
 	public User(String demoName, int demoNumber, String demoLinkedValue) {
@@ -63,5 +55,18 @@ public class User implements Serializable{
 
 	public void setDemoLinkedValue(String demoLinkedValue) {
 		this.demoLinkedValue = demoLinkedValue;
+	}
+	
+
+	public String getDemoName() {
+		return demoName;
+	}
+
+	public void setDemoName(String demoName) {
+		this.demoName = demoName;
+	}
+
+	public int getDemoNumber() {
+		return demoNumber;
 	}
 }
