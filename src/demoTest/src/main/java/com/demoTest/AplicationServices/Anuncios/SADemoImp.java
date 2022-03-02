@@ -21,5 +21,10 @@ public class SADemoImp implements SADemo{
 	public List<User> getDemos() {
 		return demoRepository.findAll();
 	}
+	
+	@Override
+    public void addDemos(String demoName, int demoNumber, String demoLinkedValue) {
+        demoRepository.save(new User(demoName, demoNumber, demoLinkedValue));
+    }
 
 }
