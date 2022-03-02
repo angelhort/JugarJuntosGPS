@@ -12,10 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+//@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class SADemoImp implements SADemo{
 	
-	private final DemoRepository demoRepository;
+	@Autowired
+	private DemoRepository demoRepository;
 	@Override
 	public List<User> getDemos() {
 		return demoRepository.findAll();
