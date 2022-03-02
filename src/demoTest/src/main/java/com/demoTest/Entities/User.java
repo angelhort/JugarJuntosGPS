@@ -29,7 +29,7 @@ public class User implements Serializable{
 	private String demoName;
 	
 	@Column(name = "demo_number")
-	private String demoNumber;
+	private int demoNumber;
 	
 	@Column(name = "demo_linked_value")
 	private String demoLinkedValue;
