@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.demoTest.AplicationServices.Anuncios.SADemo;
 
 @Controller
-@RequestMapping(path = "/jj")
 public class DemoController {
 	
 	@Autowired
