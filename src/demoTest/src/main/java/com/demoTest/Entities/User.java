@@ -42,11 +42,11 @@ public class User implements Serializable{
 		this.demoName = demoName;
 	}
 
-	public String getDemoNumber() {
+	public int getDemoNumber() {
 		return demoNumber;
 	}
 
-	public void setDemoNumber(String demoNumber) {
+	public void setDemoNumber(int demoNumber) {
 		this.demoNumber = demoNumber;
 	}
 
