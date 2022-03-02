@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.demoTest.Entities.Anuncio;
+import com.demoTest.Entities.User;
 
 @Repository
-public interface AnunciosRepository extends CrudRepository<Anuncio, String>{
-	public List<Anuncio> findAll();
+public interface DemoRepository extends CrudRepository<User, String>{
+	public List<User> findAll();
 }

@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.demoTest.Entities.Anuncio;
-import com.demoTest.Repositories.AnunciosRepository;
+import com.demoTest.Entities.User;
+import com.demoTest.Repositories.DemoRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,12 +13,12 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class SAAnuncioImp implements SAAnuncios{
+public class SADemoImp implements SADemo{
 	
-	private final AnunciosRepository anunciosRepo;
+	private final DemoRepository demoRepository;
 	@Override
-	public List<Anuncio> getAnuncios() {
-		return anunciosRepo.findAll();
+	public List<User> getDemos() {
+		return demoRepository.findAll();
 	}
 
 }
