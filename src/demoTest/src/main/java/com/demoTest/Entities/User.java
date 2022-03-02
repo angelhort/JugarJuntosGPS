@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "DEMO_FIRST_TABLE")
+@Table(name = "demo_first_table")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,13 +24,13 @@ public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name = "DEMO_NAME")
+	@Column(name = "demo_name")
 	@NonNull
 	private String demoName;
 	
-	@Column(name = "DEMO_NUMBER")
+	@Column(name = "demo_number")
 	private String demoNumber;
 	
-	@Column(name = "DEMO_LINKED_VALUE")
+	@Column(name = "demo_linked_value")
 	private String demoLinkedValue;
 }
