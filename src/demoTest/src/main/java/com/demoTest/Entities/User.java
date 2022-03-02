@@ -33,4 +33,28 @@ public class User implements Serializable{
 	
 	@Column(name = "demo_linked_value")
 	private String demoLinkedValue;
+
+	public String getDemoName() {
+		return demoName;
+	}
+
+	public void setDemoName(String demoName) {
+		this.demoName = demoName;
+	}
+
+	public String getDemoNumber() {
+		return demoNumber;
+	}
+
+	public void setDemoNumber(String demoNumber) {
+		this.demoNumber = demoNumber;
+	}
+
+	public String getDemoLinkedValue() {
+		return demoLinkedValue;
+	}
+
+	public void setDemoLinkedValue(String demoLinkedValue) {
+		this.demoLinkedValue = demoLinkedValue;
+	}
 }
