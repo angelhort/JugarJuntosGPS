@@ -14,7 +14,7 @@ import com.demoTest.AplicationServices.Anuncios.SADemo;
 public class DemoController {
 	
 	@Autowired
-	SADemo anunciosService;
+	SADemo demoService;
 	
 	@GetMapping("/greeting")
 	public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
@@ -24,7 +24,7 @@ public class DemoController {
 	
 	@GetMapping("/")
 	public String getAnuncios(Model model) {
-		model.addAttribute("data", anunciosService.getDemos());
+		model.addAttribute("data", demoService.getDemos());
 		return "index";
 	}
 }
