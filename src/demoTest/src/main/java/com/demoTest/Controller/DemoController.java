@@ -16,29 +16,25 @@ public class DemoController {
 	@Autowired
 	SADemo demoService;
 	
-	@GetMapping("/greeting")
-	public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
-		model.addAttribute("name", name);
-		return "greeting";
-	}
-	
 	@GetMapping("/")
-	public String getAnuncios(Model model) {
+	public String index(Model model) {
 		model.addAttribute("data", demoService.getDemos());
 		return "index";
 	}
-	
-	@PostMapping("/add") // Map ONLY POST Requests
-    public String addAnuncio (@RequestParam(name="demoName", required=true, defaultValue="demoName") String demoName, @RequestParam(name="demoNumber", required=false) int demoNumber, @RequestParam(name="demoLinkedValue", required=false, defaultValue="test") String demoLinkedValue) {
-      // @ResponseBody means the returned String is the response, not a view name
-      // @RequestParam means it is a parameter from the GET or POST request
-       demoService.addDemos(demoName, demoNumber, demoLinkedValue);
-
-       return "index";
-    }
 	
 	@GetMapping("/form")
 	public String getForm(Model model) {
 		return "form";
 	}
+	
+	@PostMapping("/add") // Map ONLY POST Requests
+    public String addAnuncio (@RequestParam String demoName, 
+							  @RequestParam int demoNumber,
+							  @RequestParam String demoLinkedValue,
+							  Model m) {
+       demoService.addDemos(demoName, demoNumber, demoLinkedValue);
+
+       return "redirect:/";
+    }
+	
 }
