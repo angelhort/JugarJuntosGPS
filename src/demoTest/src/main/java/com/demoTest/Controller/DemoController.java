@@ -36,4 +36,9 @@ public class DemoController {
 
        return "index";
     }
+	
+	@GetMapping("/form")
+	public String getForm(Model model) {
+		return "form";
+	}
 }
