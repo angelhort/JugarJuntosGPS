@@ -1,6 +1,7 @@
 package com.demoTest.AplicationServices.Anuncios;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -26,5 +27,22 @@ public class SADemoImp implements SADemo{
     public void addDemos(String demoName, int demoNumber, String demoLinkedValue) {
         demoRepository.save(new User(demoName, demoNumber, demoLinkedValue));
     }
+
+	@Override
+	public void deleteDemo(String demoName, Integer demoNumber, String demoLinkedValue) {
+		if(demoNumber==null || demoLinkedValue==null) demoRepository.deleteById(demoName);
+		demoRepository.delete(new User(demoName, demoNumber, demoLinkedValue));
+	}
+
+	@Override
+	public void modifyDemo(String demoName, int demoNumber, String demoLinkedValue) {
+		demoRepository.save(new User(demoName, demoNumber, demoLinkedValue));
+		
+	}
+
+	@Override
+	public User getOneDemo(String demoName) {
+		return demoRepository.findById(demoName).get();
+	}
 
 }
