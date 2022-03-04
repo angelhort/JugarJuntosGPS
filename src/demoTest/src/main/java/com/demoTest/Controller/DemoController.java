@@ -27,6 +27,12 @@ public class DemoController {
 		return "form";
 	}
 	
+	@GetMapping("/deleteForm")
+	public String getdeleteForm(Model model) {
+		return "deleteForm";
+	}
+	
+	
 	@PostMapping("/add") // Map ONLY POST Requests
     public String addAnuncio (@RequestParam String demoName, 
 							  @RequestParam int demoNumber,
