@@ -44,7 +44,7 @@ public class DemoController {
        return "redirect:/";
     }
 	
-	@PostMapping("/delete")
+	@GetMapping("/delete")
 	public String deleteAnuncio(@RequestParam String demoName, 
 			  //@RequestParam int demoNumber,
 			  //@RequestParam String demoLinkedValue,

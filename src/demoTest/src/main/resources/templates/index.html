@@ -22,10 +22,7 @@
 
 
 		<div class="row">
-			<div class="d-flex justify-content-between bd-highlight mb-2">
-				<a class="btn btn-outline-primary justify-content-start" href="/deleteForm">
-					<i class="fa fa-plus"></i> Borrar datos
-				</a>
+			<div class="d-flex justify-content-end bd-highlight mb-2">
 				<a class="btn btn-outline-primary justify-content-end" href="/form">
 					<i class="fa fa-plus"></i> Agregar datos
 				</a>
@@ -39,6 +36,7 @@
 						<th scope="col">Field1</th>
 						<th scope="col">Field2</th>
 						<th scope="col">Field3</th>
+						<th scope="col">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -46,6 +44,7 @@
 						<td th:text="${d.demoName}" />
 						<td th:text="${d.demoNumber}" />
 						<td th:text="${d.demoLinkedValue}" />
+						<td><a th:href="@{/delete?demoName={id}(id=${d.demoName})}"><i class="fa-solid fa-trash-can"></i></a></td>
 					</tr>
 				</tbody>
 			</table>

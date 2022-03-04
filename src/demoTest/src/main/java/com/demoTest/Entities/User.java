@@ -9,17 +9,8 @@ import javax.persistence.Table;
 
 import org.springframework.lang.NonNull;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 @Entity
 @Table(name = "demo_first_table")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
