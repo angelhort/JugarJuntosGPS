@@ -44,12 +44,12 @@ public class DemoController {
        return "redirect:/";
     }
 	
-	@DeleteMapping("/delete")
+	@PostMapping("/delete")
 	public String deleteAnuncio(@RequestParam String demoName, 
-			  @RequestParam int demoNumber,
-			  @RequestParam String demoLinkedValue,
+			  //@RequestParam int demoNumber,
+			  //@RequestParam String demoLinkedValue,
 			  Model m) {
-		demoService.deleteDemo(demoName, demoNumber, demoLinkedValue);
+		demoService.deleteDemo(demoName,null,null);//, demoNumber, demoLinkedValue);
 		return "redirect:/";
 	}
 	

@@ -31,7 +31,7 @@ public class SADemoImp implements SADemo{
 	@Override
 	public void deleteDemo(String demoName, Integer demoNumber, String demoLinkedValue) {
 		if(demoNumber==null || demoLinkedValue==null) demoRepository.deleteById(demoName);
-		demoRepository.delete(new User(demoName, demoNumber, demoLinkedValue));
+		else demoRepository.delete(new User(demoName, demoNumber, demoLinkedValue));
 	}
 
 	@Override
