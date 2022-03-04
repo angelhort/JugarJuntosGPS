@@ -1,4 +1,3 @@
-
 <!DOCTYPE HTML>
 <html>
 
@@ -23,8 +22,11 @@
 
 
 		<div class="row">
-			<div class="d-flex justify-content-end">
-				<a class="btn btn-outline-primary" href="/form">
+			<div class="d-flex justify-content-between bd-highlight mb-2">
+				<a class="btn btn-outline-primary justify-content-start" href="/deleteForm">
+					<i class="fa fa-plus"></i> Borrar datos
+				</a>
+				<a class="btn btn-outline-primary justify-content-end" href="/form">
 					<i class="fa fa-plus"></i> Agregar datos
 				</a>
 			</div>
@@ -41,10 +43,10 @@
 				</thead>
 				<tbody>
 					<tr th:each="d: ${data}">
-                        <td th:text="${d.demoName}" />
-                        <td th:text="${d.demoNumber}" />
-                        <td th:text="${d.demoLinkedValue}" />
-                    </tr>
+						<td th:text="${d.demoName}" />
+						<td th:text="${d.demoNumber}" />
+						<td th:text="${d.demoLinkedValue}" />
+					</tr>
 				</tbody>
 			</table>
 		</div>
