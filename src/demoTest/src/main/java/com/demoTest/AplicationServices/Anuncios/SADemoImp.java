@@ -24,25 +24,52 @@ public class SADemoImp implements SADemo{
 	}
 	
 	@Override
-    public void addDemos(String demoName, int demoNumber, String demoLinkedValue) {
-        demoRepository.save(new User(demoName, demoNumber, demoLinkedValue));
-    }
-
-	@Override
-	public void deleteDemo(String demoName, Integer demoNumber, String demoLinkedValue) {
-		if(demoNumber==null || demoLinkedValue==null) demoRepository.deleteById(demoName);
-		else demoRepository.delete(new User(demoName, demoNumber, demoLinkedValue));
+    public boolean addDemos(String demoName, int demoNumber, String demoLinkedValue) {
+		try {
+		User u = demoRepository.findById(demoName).get();
+		}catch(Exception e) {
+		demoRepository.save(new User(demoName, demoNumber, demoLinkedValue));
+		return true;
+		
+        }
+		return false;
+    
 	}
 
 	@Override
-	public void modifyDemo(String demoName, int demoNumber, String demoLinkedValue) {
-		demoRepository.save(new User(demoName, demoNumber, demoLinkedValue));
+	public boolean deleteDemo(String demoName, Integer demoNumber, String demoLinkedValue) {
+		try {
+			User u = demoRepository.findById(demoName).get();
+			if(demoNumber==null || demoLinkedValue==null) demoRepository.deleteById(demoName);
+			else demoRepository.delete(new User(demoName, demoNumber, demoLinkedValue));
+			}catch(Exception e) {
+			return false;
+			
+	        }
+		return true;
+	}
+
+	@Override
+	public boolean modifyDemo(String demoName, int demoNumber, String demoLinkedValue) {
+		try {
+	        demoRepository.save(new User(demoName, demoNumber, demoLinkedValue));
+			}catch(Exception e) {
+	        	e.printStackTrace();
+	        	return false;
+	        }
+			return true;
 		
 	}
 
 	@Override
 	public User getOneDemo(String demoName) {
-		return demoRepository.findById(demoName).get();
+		try {
+			User u = demoRepository.findById(demoName).get();
+			return u;
+			}catch(Exception e) {
+			return null;
+			
+	        }
 	}
 
 }
