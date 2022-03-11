@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.demoTest.AplicationServices.Anuncios.SADemo;
-import com.demoTest.AplicationServices.Anuncios.SADemoImp;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.MethodName.class)
@@ -31,7 +29,7 @@ class DemoTestApplicationTests {
 	
 	@Test
 	void bcreateOneFineTest() {
-		assertTrue(sa.addDemos("test1", 20, "DemoDatatest"));
+		assertTrue(sa.addDemos("DemoData1", 20, "DemoDatatest"));
 	}
 	@Test
 	void ccreateOneWrongTest() {
