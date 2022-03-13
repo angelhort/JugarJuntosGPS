@@ -1,5 +1,6 @@
 # Jugar Juntos
 
+
 ## Reparto de equipos
 
 ### Equipo de FrontEnd
