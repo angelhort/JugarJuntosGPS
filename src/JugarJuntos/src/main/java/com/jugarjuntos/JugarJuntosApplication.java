@@ -1,13 +1,13 @@
-package com.demoTest;
+package com.jugarjuntos;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoTestApplication {
+public class JugarJuntosApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoTestApplication.class, args);
+		SpringApplication.run(JugarJuntosApplication.class, args);
 	}
 
 }
