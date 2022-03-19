@@ -1,8 +1,13 @@
 package com.jugarjuntos.Entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name = "com.jugarjuntos.Entities.Anuncio.findByparticipacion", query = "select obj from Anuncio obj where :participacion MEMBER OF obj.participacion ")})
 public class Anuncio {
 
 	@Id
@@ -18,13 +23,13 @@ public class Anuncio {
 	//Pendiente o finalizado
 	private String estado;
 	
-
+	@OneToMany(mappedBy = "anuncio")
+	private List<Participacion> participacion;
 
 	public Anuncio() {
 		super();
+		this.participacion=new ArrayList<Participacion>();
 	}
-
-	
 
 	public Anuncio(String juego, int personas_actuales, int max_personas, String estado) {
 		super();
@@ -32,9 +37,16 @@ public class Anuncio {
 		this.personas_actuales = personas_actuales;
 		this.max_personas = max_personas;
 		this.estado = estado;
+		this.participacion=new ArrayList<Participacion>();
 	}
 
+	public List<Participacion> getParticipacion() {
+		return participacion;
+	}
 
+	public void setParticipacion(List<Participacion> participacion) {
+		this.participacion = participacion;
+	}
 
 	public Integer getId() {
 		return id;
