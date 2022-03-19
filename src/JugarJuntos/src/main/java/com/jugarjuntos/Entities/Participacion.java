@@ -28,12 +28,18 @@ public class Participacion implements Serializable{
 	
 	//Pendiente -> Meter atributo para saber si está en lobby o solo te la has añadido (cuando se pueda añadir futuras partidas)
 
+	
+	
 	public Participacion(Usuario usuario, Anuncio anuncio) {
 		super();
 		
 		id = new ParticipacionId(usuario.getId(), anuncio.getId());
 		this.usuario=usuario;
 		this.anuncio=anuncio;
+	}
+
+	public Participacion() {
+		super();
 	}
 
 	public ParticipacionId getId() {

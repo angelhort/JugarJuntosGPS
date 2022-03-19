@@ -12,7 +12,7 @@ public class Anuncio {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private long id;
 	
 	private String juego;
 	
@@ -48,11 +48,11 @@ public class Anuncio {
 		this.participacion = participacion;
 	}
 
-	public Integer getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
