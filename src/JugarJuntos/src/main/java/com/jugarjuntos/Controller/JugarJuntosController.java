@@ -18,6 +18,7 @@ public class JugarJuntosController {
 	
 	@Autowired 
 	private EntityManager em;
+
 	/**
 	 * Web index
 	 * 
@@ -29,7 +30,18 @@ public class JugarJuntosController {
 		return "index";
 	}
 	
-
+	/**
+	 * New add view
+	 * 
+	 * @Param 	model 	model attribute holder
+	 * @return 	new add view
+	 */
+	@GetMapping("/crear")
+	public String crear(Model model) {
+		return "crearAnuncio.html";
+	}
+	
+	
 	@GetMapping("/test")
 	@Transactional
 	public void altaUsuario() {
