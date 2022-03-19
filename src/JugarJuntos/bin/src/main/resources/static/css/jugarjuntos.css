@@ -1,0 +1,86 @@
+body {
+	font-family: 'Inter', sans-serif;
+}
+
+.newAdd {
+	font-size: 48px;
+	font-weight: 700;
+	margin: 70px;
+}
+
+.formBackground {
+	width: 450px;
+	height: 350px;
+	background: #EFEFEF;
+	border-radius: 10px;
+	padding-top:20px;
+	padding-bottom:20px;
+}
+
+.form-group {
+	margin: 20px;
+}
+
+.submitForm {
+	background-color: #E2C044;
+	color: white;
+	width: 150px;
+	height: 50px;
+	font-size: 24px;
+	border-radius: 10px;
+	font-weight: 500;
+}
+
+.submitForm:hover {
+	background-color: #C39E16;
+	color: white;
+}
+
+.formLabel {
+	font-size: 24px;
+}
+
+.formInput {
+	border: 0;
+}
+
+.fullWidthHeader {
+	height: 250px;
+	background-color: #F7F7F7;
+	margin-bottom: 20px;
+	padding:30px;
+}
+
+.addCard {
+	width: 18rem;
+	border-radius:10px;
+	margin:20px;
+	border: 0px;
+}
+
+.card-title {
+	font-weight: 600;
+}
+
+.card-text {
+	color: #68717A;
+}
+
+.detailsButton {
+	background-color: #E2C044;
+	color: white;
+	font-weight: 500;
+}
+
+.detailsButton:hover {
+	background-color: #C39E16;
+	color: white;
+}
+
+.landingPage {
+	background-color: #EFEFEF;
+}
+
+.welcomePhrase {
+	font-weight: 700;
+}

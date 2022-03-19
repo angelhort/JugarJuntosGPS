@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.jugarjuntos.Entities.Anuncio;
 import com.jugarjuntos.Entities.Usuario;
 import com.jugarjuntos.Repositories.UserRepository;
+import com.jugarjuntos.ServiciosAplicacion.SAAnuncio;
 
 @Controller
 public class JugarJuntosController {
@@ -20,6 +21,9 @@ public class JugarJuntosController {
 	
 	@Autowired 
 	private EntityManager em;
+	
+	@Autowired
+	SAAnuncio saAnuncio;
 
 	/**
 	 * Web index
@@ -49,6 +53,12 @@ public class JugarJuntosController {
 		return "index";
 	}
 	
+	// BUSCAR ANUNCIOS POR NOMBRE DEL JUEGO
+	@GetMapping("/getAnuncios")
+	public String getAnunciosPorNombre(Model model, @RequestParam String juego) {
+		model.addAllAttributes(saAnuncio.getAnunciosByNombreJuego(juego));
+		return "listarAnuncios";
+	}
 	
 	@GetMapping("/test")
 	@Transactional
