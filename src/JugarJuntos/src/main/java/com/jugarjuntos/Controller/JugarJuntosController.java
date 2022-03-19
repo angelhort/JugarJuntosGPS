@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jugarjuntos.Entities.Anuncio;
 import com.jugarjuntos.Entities.Usuario;
@@ -36,9 +38,15 @@ public class JugarJuntosController {
 	 * @Param 	model 	model attribute holder
 	 * @return 	new add view
 	 */
-	@GetMapping("/crear")
-	public String crear(Model model) {
+	@GetMapping("/formAnuncio")
+	public String crearForm(Model model) {
 		return "crearAnuncio.html";
+	}
+	
+	@PostMapping("/procesarAlta")
+	public String crearAnuncio(Model model, @RequestParam String juego, @RequestParam String max_personas) {
+		System.out.print(juego + " ---- " + max_personas);
+		return "index";
 	}
 	
 	
