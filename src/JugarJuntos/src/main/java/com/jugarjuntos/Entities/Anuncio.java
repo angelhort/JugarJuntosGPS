@@ -23,6 +23,9 @@ public class Anuncio {
 	//Pendiente o finalizado
 	private String estado;
 	
+	@ManyToOne
+	private Usuario anunciante;
+	
 	@OneToMany(mappedBy = "anuncio")
 	private List<Participacion> participacion;
 
@@ -64,6 +67,15 @@ public class Anuncio {
 		this.juego = juego;
 	}
 	
+	
+	public Usuario getAnunciante() {
+		return anunciante;
+	}
+
+	public void setAnunciante(Usuario anunciante) {
+		this.anunciante = anunciante;
+	}
+
 	public int getPersonas_actuales() {
 		return personas_actuales;
 	}

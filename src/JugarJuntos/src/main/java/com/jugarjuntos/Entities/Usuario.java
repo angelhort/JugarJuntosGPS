@@ -24,6 +24,9 @@ public class Usuario {
 
 	private String discord;
 	
+	@OneToMany(mappedBy = "anunciante")
+	private Anuncio anuncio;
+	
 	@OneToMany(mappedBy = "usuario")
 	private List<Participacion> participacion;
 	
@@ -60,6 +63,26 @@ public class Usuario {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+
+	public Anuncio getAnuncio() {
+		return anuncio;
+	}
+
+
+	public void setAnuncio(Anuncio anuncio) {
+		this.anuncio = anuncio;
+	}
+
+
+	public List<Participacion> getParticipacion() {
+		return participacion;
+	}
+
+
+	public void setParticipacion(List<Participacion> participacion) {
+		this.participacion = participacion;
 	}
 
 
