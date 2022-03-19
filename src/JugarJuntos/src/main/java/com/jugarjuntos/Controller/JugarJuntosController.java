@@ -1,0 +1,20 @@
+package com.jugarjuntos.Controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class JugarJuntosController {
+
+	/**
+	 * Web index
+	 * 
+	 * @Param 	model 	model attribute holder
+	 * @return 	index view
+	 */
+	@GetMapping("/")
+	public String index(Model model) {
+		return "index";
+	}
+}
