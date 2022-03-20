@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jugarjuntos.ServiciosAplicacion.SAAnuncio;
 import com.jugarjuntos.Transfers.TAnuncio;
@@ -42,15 +43,20 @@ public class JugarJuntosController {
 	}
 	
 	@PostMapping("/procesarAlta")
-	public String crearAnuncio(Model model, @RequestParam String juego, @RequestParam String max_personas) {
+	public String crearAnuncio(Model model, RedirectAttributes redirAttrs,@RequestParam String juego, @RequestParam String max_personas) {
 		TAnuncio tAnuncio = new TAnuncio();
 		tAnuncio.setJuego(juego);
 		tAnuncio.setMax_personas(Integer.parseInt(max_personas));
 		tAnuncio.setEstado("Pendiente");
 		tAnuncio.setPersonas_actuales(0);
-		saAnuncio.altaAnuncio(tAnuncio);
+		long res = saAnuncio.altaAnuncio(tAnuncio);
 		
-		return "index";
+		if (res > 0)
+			redirAttrs.addFlashAttribute("success", "Anuncio dado de alta correctamente.");
+		else
+			redirAttrs.addFlashAttribute("error", "Error a la hora de crear el anuncio");
+			
+		return "redirect:/";
 	}
 	
 	// BUSCAR ANUNCIOS POR NOMBRE DEL JUEGO
