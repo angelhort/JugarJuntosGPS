@@ -29,6 +29,7 @@ public class SAAnuncioImp implements SAAnuncio{
 	public long altaAnuncio(TAnuncio tAnuncio) {
 		long id = -1;
 //		EntityManager em = EntityManagerSingleton.getInstance().getEntityManager();
+		if(tAnuncio.getMax_personas() >0) {
 		 Anuncio anuncio = new Anuncio();
 		 anuncio.setJuego(tAnuncio.getJuego());
 		 anuncio.setPersonas_actuales(tAnuncio.getPersonas_actuales());
@@ -37,6 +38,8 @@ public class SAAnuncioImp implements SAAnuncio{
 		 em.persist(anuncio);
 		 id = anuncio.getId();
 //		 em.close();
+		}
+		
 		return id;
 		
 	}
