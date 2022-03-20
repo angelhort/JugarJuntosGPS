@@ -55,10 +55,16 @@ public class JugarJuntosController {
 	}
 	
 	// BUSCAR ANUNCIOS POR NOMBRE DEL JUEGO
-	@GetMapping("/getAnuncios")
+	@GetMapping("/getAnunciosPorNombre")
 	public String getAnunciosPorNombre(Model model, @RequestParam String juego) {
 		model.addAllAttributes(saAnuncio.getAnunciosByNombreJuego(juego));
 		return "listarAnuncios";
+	}
+	
+	@GetMapping("/getAnuncios")
+	public String getAnuncios(Model model) {
+		model.addAllAttributes(saAnuncio.getAllAnuncios());
+		return "index";
 	}
 	
 	@GetMapping("/test")

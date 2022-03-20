@@ -10,4 +10,5 @@ import com.jugarjuntos.Entities.Anuncio;
 @Repository
 public interface AnuncioRepository extends CrudRepository<Anuncio, Long>{
 	public List<Anuncio> findAllByJuego(String juego);
+	public List<Anuncio> findAll();
 }
