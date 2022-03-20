@@ -44,4 +44,9 @@ public class SAAnuncioImp implements SAAnuncio{
 		
 	}
 
+	@Override
+	public List<Anuncio> getAllAnuncios() {
+		return anuncioRepo.findAll();
+	}
+
 }
