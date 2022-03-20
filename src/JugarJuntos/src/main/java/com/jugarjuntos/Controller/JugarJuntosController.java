@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jugarjuntos.Entities.Anuncio;
 import com.jugarjuntos.Entities.Usuario;
+import com.jugarjuntos.Repositories.AnuncioRepository;
 import com.jugarjuntos.Repositories.UserRepository;
 import com.jugarjuntos.ServiciosAplicacion.SAAnuncio;
 

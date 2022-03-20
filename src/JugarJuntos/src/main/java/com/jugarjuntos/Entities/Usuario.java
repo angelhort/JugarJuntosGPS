@@ -1,5 +1,6 @@
 package com.jugarjuntos.Entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @NamedQueries({
 	@NamedQuery(name = "com.jugarjuntos.Entities.Usuario.findByparticipacion", query = "select obj from Usuario obj where :participacion MEMBER OF obj.participacion ")})
-public class Usuario {
+public class Usuario implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +26,7 @@ public class Usuario {
 	private String discord;
 	
 	@OneToMany(mappedBy = "anunciante")
-	private Anuncio anuncio;
+	private List<Anuncio> anuncios;
 	
 	@OneToMany(mappedBy = "usuario")
 	private List<Participacion> participacion;
@@ -37,6 +38,7 @@ public class Usuario {
 	public Usuario() {
 		super();
 		this.participacion=new ArrayList<Participacion>();
+		this.anuncios=new ArrayList<Anuncio>();
 	}
 	
 
@@ -66,13 +68,13 @@ public class Usuario {
 	}
 	
 
-	public Anuncio getAnuncio() {
-		return anuncio;
+	public List<Anuncio> getAnuncios() {
+		return anuncios;
 	}
 
 
-	public void setAnuncio(Anuncio anuncio) {
-		this.anuncio = anuncio;
+	public void setAnuncios(List<Anuncio> anuncio) {
+		this.anuncios = anuncio;
 	}
 
 
