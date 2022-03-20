@@ -74,5 +74,13 @@ public class Participacion implements Serializable{
 	public void setAnuncio(Anuncio anuncio) {
 		this.anuncio = anuncio;
 	}
+
+	public String getEstado_partida() {
+		return estado_partida;
+	}
+
+	public void setEstado_partida(String estado_partida) {
+		this.estado_partida = estado_partida;
+	}
 	
 }
