@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+
+<div th:replace="fragments/head"></div>
+
+<body>
+
+	<div th:replace="fragments/navbar"></div>
+
+	<main>
+		<div class="container" align="center">
+			<h1 class="newAdd">Crear cuenta</h1>
+
+			<div class="formBackground d-flex justify-content-center align-items-center">
+				<form action="procesarAltaUsuario" method="POST" th:object= "${usuario}">
+				
+					<div class="form-group">
+						<input type="text" class="formInput form-control" th:field="*{nombre}" required minlength="2" placeholder="Nombre">
+					</div>
+					
+					<div class="form-group">
+						<input type="email" id="juego" class="formInput form-control" th:field="*{correo}" required placeholder="Correo">
+					</div>
+
+					<div class="form-group">
+						<input type="password" class="formInput form-control" th:field="*{password}" required minlength="6" placeholder="Contraseña">
+					</div>
+					
+					<div class="form-group">
+						<input type="text" class="formInput form-control" th:field="*{discord}" required placeholder="Discord">
+					</div>
+					
+					<div class="form-group">
+						<button type="submit" class="btn submitForm">Registrarme</button>
+					</div>
+					
+				</form>
+			</div>
+		</div>
+	</main>
+	
+</body>
+
+</html>

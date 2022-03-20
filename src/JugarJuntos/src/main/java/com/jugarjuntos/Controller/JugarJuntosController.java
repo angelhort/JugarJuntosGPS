@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
 import com.jugarjuntos.ServiciosAplicacion.SAAnuncio;
+import com.jugarjuntos.ServiciosAplicacion.SAUsuario;
 import com.jugarjuntos.Transfers.TAnuncio;
+import com.jugarjuntos.Transfers.TUsuario;
 
 @Controller
 public class JugarJuntosController {
@@ -19,6 +22,9 @@ public class JugarJuntosController {
 	
 	@Autowired
 	SAAnuncio saAnuncio;
+	
+	@Autowired 
+	SAUsuario saUsuario;
 
 	/**
 	 * Web index
@@ -71,6 +77,19 @@ public class JugarJuntosController {
 	public String getAnuncios(Model model) {
 		model.addAttribute("anuncios", saAnuncio.getAllAnuncios());
 		return "index";
+	}
+	
+	@GetMapping("/registro")
+	public String crearFormRegistro(Model model) {
+		model.addAttribute("usuario", new TUsuario());
+		
+		return "registro";
+	}
+	
+	@PostMapping("/procesarAltaUsuario")
+	public String crearUsuario(TUsuario usuario) {
+		saUsuario.altaUsuario(usuario);
+		return "redirect:/";
 	}
 	
 
