@@ -83,4 +83,41 @@ body {
 
 .welcomePhrase {
 	font-weight: 700;
+	margin-bottom: 75px;
+}
+
+.searchBar {
+	font-size: 20px;
+	border: 0px;
+}
+
+.searchBarInput {
+	background-color: #E7E7E7;
+	height: 50px;
+}
+
+.searchButton {
+	background-color: #E2C044;
+	color: white;
+	font-weight: 500;
+	width: 140px;
+	height: 50px;
+}
+
+.searchButton:hover {
+	background-color: #C39E16;
+	color: white;
+}
+
+.suggestButton {
+	background-color: #E7E7E7;
+	color: #939393;
+	font-weight: 500;
+	width: 210px;
+	height: 50px;
+}
+
+.suggestButton:hover {
+	background-color: #C3C2C2;
+	color: #939393;
 }

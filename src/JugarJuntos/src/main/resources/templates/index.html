@@ -9,8 +9,40 @@
 	<main class="landingPage">
 		<div class="fullWidthHeader">
 			<h1 class="welcomePhrase" align="center">¿A qué te apetece jugar hoy?</h1>
+
+			<div class="row">
+				<div class="col-6">
+					<form action="/getAnunciosPorNombre" class="row g-3 align-items-center">
+						<div class="col-8">
+							<div class="input-group">
+								<input type="text" class="form-control rounded-pill searchBar searchBarInput"
+									name="juego" placeholder="Ajedrez">
+							</div>
+						</div>
+
+						<div class="col-2">
+							<button type="submit" class="btn rounded-pill searchBar searchButton">Buscar</button>
+						</div>
+					</form>
+				</div>
+
+				<div class="col-2">
+					<a
+						class="btn rounded-pill searchBar suggestButton d-flex align-items-center justify-content-center">CS:GO</a>
+				</div>
+
+				<div class="col-2">
+					<a
+						class="btn rounded-pill searchBar suggestButton d-flex align-items-center justify-content-center">Dota</a>
+				</div>
+
+				<div class="col-2">
+					<a
+						class="btn rounded-pill searchBar suggestButton d-flex align-items-center justify-content-center">Parchís</a>
+				</div>
+			</div>
 		</div>
-		
+
 		<div class="row">
 			<div class="alert alert-success col-6" role="alert" th:text="${success}" th:if="${success}"></div>
 			<div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
@@ -18,151 +50,29 @@
 
 		<div class="container">
 			<div class="row justify-content-center">
-				<div class="col-3 d-flex justify-content-center">
+				<div class="col-3 d-flex justify-content-center" th:each="anuncio: ${anunciosBusqueda}">
 					<div class="addCard card">
 						<div class="card-body">
-							<h5 class="card-title">Card title</h5>
-							<p class="card-text">Some quick example text to build on the card title and make up the bulk
-								of
-								the card's content.</p>
+							<h5 class="card-title" th:text="${anuncio.juego}"></h5>
+							<p class="card-text">DESCRIPCION</p>
 							<a href="#" class="detailsButton btn">Ver detalles</a>
 						</div>
 					</div>
 				</div>
-				<div class="col-3 d-flex justify-content-center">
+
+				<div class="col-3 d-flex justify-content-center" th:each="anuncio: ${anuncios}">
 					<div class="addCard card">
 						<div class="card-body">
-							<h5 class="card-title">Card title</h5>
-							<p class="card-text">Some quick example text to build on the card title and make up the bulk
-								of
-								the card's content.</p>
+							<h5 class="card-title" th:text="${anuncio.juego}"></h5>
+							<p class="card-text">DESCRIPCION</p>
 							<a href="#" class="detailsButton btn">Ver detalles</a>
-
-						</div>
-					</div>
-				</div>
-				<div class="col-3 d-flex justify-content-center">
-					<div class="addCard card">
-						<div class="card-body">
-							<h5 class="card-title">Card title</h5>
-							<p class="card-text">Some quick example text to build on the card title and make up the bulk
-								of
-								the card's content.</p>
-							<a href="#" class="detailsButton btn">Ver detalles</a>
-
-						</div>
-					</div>
-				</div>
-				<div class="col-3 d-flex justify-content-center">
-					<div class="addCard card">
-						<div class="card-body">
-							<h5 class="card-title">Card title</h5>
-							<p class="card-text">Some quick example text to build on the card title and make up the bulk
-								of
-								the card's content.</p>
-							<a href="#" class="detailsButton btn">Ver detalles</a>
-
-						</div>
-					</div>
-				</div>
-				<div class="col-3 d-flex justify-content-center">
-					<div class="addCard card">
-						<div class="card-body">
-							<h5 class="card-title">Card title</h5>
-							<p class="card-text">Some quick example text to build on the card title and make up the bulk
-								of
-								the card's content.</p>
-							<a href="#" class="detailsButton btn">Ver detalles</a>
-
-						</div>
-					</div>
-				</div>
-				<div class="col-3 d-flex justify-content-center">
-					<div class="addCard card">
-						<div class="card-body">
-							<h5 class="card-title">Card title</h5>
-							<p class="card-text">Some quick example text to build on the card title and make up the bulk
-								of
-								the card's content.</p>
-							<a href="#" class="detailsButton btn">Ver detalles</a>
-
-						</div>
-					</div>
-				</div>
-				<div class="col-3 d-flex justify-content-center">
-					<div class="addCard card">
-						<div class="card-body">
-							<h5 class="card-title">Card title</h5>
-							<p class="card-text">Some quick example text to build on the card title and make up the bulk
-								of
-								the card's content.</p>
-							<a href="#" class="detailsButton btn">Ver detalles</a>
-
-						</div>
-					</div>
-				</div>
-				<div class="col-3 d-flex justify-content-center">
-					<div class="addCard card">
-						<div class="card-body">
-							<h5 class="card-title">Card title</h5>
-							<p class="card-text">Some quick example text to build on the card title and make up the bulk
-								of
-								the card's content.</p>
-							<a href="#" class="detailsButton btn">Ver detalles</a>
-
-						</div>
-					</div>
-				</div>
-				<div class="col-3 d-flex justify-content-center">
-					<div class="addCard card">
-						<div class="card-body">
-							<h5 class="card-title">Card title</h5>
-							<p class="card-text">Some quick example text to build on the card title and make up the bulk
-								of
-								the card's content.</p>
-							<a href="#" class="detailsButton btn">Ver detalles</a>
-
-						</div>
-					</div>
-				</div>
-				<div class="col-3 d-flex justify-content-center">
-					<div class="addCard card">
-						<div class="card-body">
-							<h5 class="card-title">Card title</h5>
-							<p class="card-text">Some quick example text to build on the card title and make up the bulk
-								of
-								the card's content.</p>
-							<a href="#" class="detailsButton btn">Ver detalles</a>
-
-						</div>
-					</div>
-				</div>
-				<div class="col-3 d-flex justify-content-center">
-					<div class="addCard card">
-						<div class="card-body">
-							<h5 class="card-title">Card title</h5>
-							<p class="card-text">Some quick example text to build on the card title and make up the bulk
-								of
-								the card's content.</p>
-							<a href="#" class="detailsButton btn">Ver detalles</a>
-
-						</div>
-					</div>
-				</div>
-				<div class="col-3 d-flex justify-content-center">
-					<div class="addCard card">
-						<div class="card-body">
-							<h5 class="card-title">Card title</h5>
-							<p class="card-text">Some quick example text to build on the card title and make up the bulk
-								of
-								the card's content.</p>
-							<a href="#" class="detailsButton btn">Ver detalles</a>
-
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
+
 	</main>
 </body>
 
