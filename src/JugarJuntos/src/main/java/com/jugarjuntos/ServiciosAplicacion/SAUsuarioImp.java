@@ -1,5 +1,8 @@
 package com.jugarjuntos.ServiciosAplicacion;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
@@ -19,6 +22,16 @@ public class SAUsuarioImp implements SAUsuario{
 	@Transactional
 	public long altaUsuario(TUsuario tUsuario) {
 		long id = -1;
+		Pattern pattern = Pattern
+                .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+ 
+      
+ 
+        Matcher mather = pattern.matcher(tUsuario.getCorreo());
+ 
+        if (mather.find() == true) {
+        
 		Usuario nuevoUsuario = new Usuario();
 		nuevoUsuario.setNombre(tUsuario.getNombre());
 		nuevoUsuario.setCorreo(tUsuario.getCorreo());
@@ -27,7 +40,9 @@ public class SAUsuarioImp implements SAUsuario{
 		nuevoUsuario.setDiscord(tUsuario.getDiscord());
 		em.persist(nuevoUsuario);
 		id = nuevoUsuario.getId();
+        }
 		return id; 
+       
 	}
 
 }

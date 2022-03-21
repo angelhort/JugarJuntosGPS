@@ -9,15 +9,18 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.jugarjuntos.JugarJuntosApplication;
 import com.jugarjuntos.ServiciosAplicacion.SAAnuncio;
 import com.jugarjuntos.Transfers.TAnuncio;
 import com.jugarjuntos.Transfers.TParticipacion;
 
 import java.util.ArrayList;
 
-@SpringBootTest
+@SpringBootTest(classes = JugarJuntosApplication.class)
+@DataJpaTest
 @TestMethodOrder(MethodOrderer.MethodName.class) // Se probarán las operaciones en orden alfabetico
 public class AnuncioTests {
 
