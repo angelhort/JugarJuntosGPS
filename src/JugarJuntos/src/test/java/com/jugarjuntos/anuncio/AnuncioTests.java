@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.jugarjuntos.ServiciosAplicacion.SAAnuncio;
-import java.util.List;
+import com.jugarjuntos.Transfers.TAnuncio;
+import com.jugarjuntos.Transfers.TParticipacion;
+
+import java.util.ArrayList;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.MethodName.class) // Se probarán las operaciones en orden alfabetico
@@ -20,7 +23,7 @@ public class AnuncioTests {
 
 	@Autowired
 	SAAnuncio sAAnuncio;
-	TAnuncio tAnuncio = new TAnuncio("Elden Ring", 1, 3, "en_lobby", 1, new List<TParticipacion>());
+	TAnuncio tAnuncio = new TAnuncio("Elden Ring", 1, 3, "en_lobby", 1, new ArrayList<TParticipacion>());
 
 	// Operacion que prueba si funciona la operacion de crear anuncio
 	@Test
