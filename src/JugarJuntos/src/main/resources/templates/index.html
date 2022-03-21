@@ -10,13 +10,6 @@
 		<div class="fullWidthHeader">
 			<h1 class="welcomePhrase" align="center">¿A qué te apetece jugar hoy?</h1>
 
-		</div>
-		
-		<div class="row justify-content-center">
-			<div class="alert alert-success col-6" role="alert" th:text="${success}" th:if="${success}"></div>
-			<div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
-		</div>
-
 			<div class="row">
 				<div class="col-6">
 					<form action="/getAnunciosPorNombre" class="row g-3 align-items-center">
@@ -34,25 +27,22 @@
 				</div>
 
 				<div class="col-2">
-					<a
-						class="btn rounded-pill searchBar suggestButton d-flex align-items-center justify-content-center">CS:GO</a>
+					<a href="/getAnunciosPorNombre?juego=CS:GO" class="btn rounded-pill searchBar suggestButton d-flex align-items-center justify-content-center">CS:GO</a>
 				</div>
 
 				<div class="col-2">
-					<a
-						class="btn rounded-pill searchBar suggestButton d-flex align-items-center justify-content-center">Dota</a>
+					<a href="/getAnunciosPorNombre?juego=Dota" class="btn rounded-pill searchBar suggestButton d-flex align-items-center justify-content-center">Dota</a>
 				</div>
 
 				<div class="col-2">
-					<a
-						class="btn rounded-pill searchBar suggestButton d-flex align-items-center justify-content-center">Parchís</a>
+					<a href="/getAnunciosPorNombre?juego=Parchis" class="btn rounded-pill searchBar suggestButton d-flex align-items-center justify-content-center">Parchís</a>
 				</div>
 			</div>
 		</div>
-
-		<div class="row">
+		
+		<div class="row justify-content-center">
 			<div class="alert alert-success col-6" role="alert" th:text="${success}" th:if="${success}"></div>
-			<div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+			<div class="alert alert-danger col-6" role="alert" th:text="${error}" th:if="${error}"></div>
 		</div>
 
 		<div class="container">
