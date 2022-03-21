@@ -8,6 +8,12 @@ body {
 	margin: 70px;
 }
 
+.registerTitle {
+	font-size: 48px;
+	font-weight: 700;
+}
+
+
 .formBackground {
 	width: 450px;
 	height: 350px;
@@ -15,6 +21,18 @@ body {
 	border-radius: 10px;
 	padding-top:20px;
 	padding-bottom:20px;
+}
+
+.formregisterBackground {
+	width: 450px;
+	height: 500px;
+	background: #F7F7F7;
+	border-radius: 10px;
+}
+
+.registerBackground{
+	height: 100vh;
+	background: #2E5266;
 }
 
 .form-group {
@@ -32,6 +50,21 @@ body {
 }
 
 .submitForm:hover {
+	background-color: #C39E16;
+	color: white;
+}
+
+.submitFormRegister {
+	background-color: #E2C044;
+	color: white;
+	width: 200px;
+	height: 50px;
+	font-size: 24px;
+	border-radius: 10px;
+	font-weight: 500;
+}
+
+.submitFormRegister:hover {
 	background-color: #C39E16;
 	color: white;
 }
