@@ -206,13 +206,13 @@ body {
 	border-radius: 10px;
 }
 .detailsUserAnuncio {
-	width: 400px;
-	height: 40px;
+	width: 50vh;
 	background: #939393;
 	color: white;
 	border-radius: 10px;
 	text-align:center;
-	margin: auto;
+	padding-top: 10px;
+    padding-bottom: 10px;
 }
 .contDescAnuncio{
 	background-color: #F7F7F7; 
