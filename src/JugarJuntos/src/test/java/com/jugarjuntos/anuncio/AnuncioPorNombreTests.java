@@ -1,19 +1,17 @@
 package com.jugarjuntos.anuncio;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.jugarjuntos.JugarJuntosApplication;
 import com.jugarjuntos.ServiciosAplicacion.SAAnuncio;
 
 @SpringBootTest(classes = JugarJuntosApplication.class)
-@DataJpaTest
 @TestMethodOrder(MethodOrderer.MethodName.class) // Ejecutar pruebas por orden alfabético
 public class AnuncioPorNombreTests {
 
