@@ -109,7 +109,7 @@ public class JugarJuntosController {
 	@GetMapping("/detalles")
 	public String detalles(Model model, @RequestParam int id) {
 		model.addAttribute("anuncio", saAnuncio.getAnuncioByID(id));
-		return "detallesAnuncio";
+		return "detallesAnuncio.html";
 	}
 	
 	

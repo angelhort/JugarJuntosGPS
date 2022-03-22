@@ -5,6 +5,80 @@
 
 <body>
 	<div th:replace="fragments/navbar"></div>
+	<main class="landingPage vh-100">
+		<div class="fullWidthHeaderSmall">
+			<div class="row align-items-center">
+				<div class="col-2">
+					<a href="/"  class="btn rounded-pill searchBar searchButton"><i class="fa-solid fa-left-long fa-2x"></i></a>
+				</div>
+				<div class="col-8">
+					<h1 class="welcomePhraseSmall" align="center" th:text="${anuncio.juego}"></h1>
+				</div>
+				<div class="col-2">
+					<button type="submit" class="btn rounded-pill searchBar searchButton">Unirse</button>
+				</div>
+			</div>
+		</div>
+		<div class="row justify-content-center">
+			<div class="alert alert-success col-6" role="alert" th:text="${success}" th:if="${success}"></div>
+			<div class="alert alert-danger col-6" role="alert" th:text="${error}" th:if="${error}"></div>
+		</div>
+		<div class="container contDescAnuncio">
+
+			<div class="row gy-4">
+
+				<div class=" col-12">
+					<div class="row gy-3">
+						<div class=" col-12">
+							<div class="row align-items-center">
+								<div class="col-10">
+									<h5 class="welcomePhraseSmall" align="left">Propietario</h5>
+								</div>
+								<div class="col-2">
+									<button class="btn rounded-pill numPlayersAnuncio"
+										th:text="${anuncio.personas_actuales}+'/'+${anuncio.max_personas}"></button>
+								</div>
+							</div>
+						</div>
+						<div class=" col-12 d-flex justify-content-center">
+							<div class="row justify-content-center">
+								<div class="col-6">
+									<label class="detailsUserAnuncio" th:text="${anuncio?.anunciante?.nombre}"></label>
+								</div>
+								<div class="col-6">
+									<label class="detailsUserAnuncio" th:text="${anuncio?.anunciante?.discord}"></label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class=" col-12">
+					<div class="row gy-3">
+						<div class=" col-12">
+							<div>
+								<h5 class="welcomePhraseSmall" align="left">Participantes</h5>
+							</div>
+						</div>
+						<div class=" col-12">
+							<div class="d-flex justify-content-center" th:each="participante: ${anuncio.participacion}">
+								<div class="row justify-content-center">
+									<div class="col-6">
+										<label class="detailsUserAnuncio"
+											th:text="${participante.usuario.nombre}"></label>
+									</div>
+									<div class="col-6">
+										<label class="detailsUserAnuncio"
+											th:text="${participante.usuario.discord}"></label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
 </body>
 
 </html>
