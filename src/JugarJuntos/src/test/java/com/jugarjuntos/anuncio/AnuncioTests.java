@@ -3,13 +3,11 @@ package com.jugarjuntos.anuncio;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.jugarjuntos.JugarJuntosApplication;
@@ -20,7 +18,6 @@ import com.jugarjuntos.Transfers.TParticipacion;
 import java.util.ArrayList;
 
 @SpringBootTest(classes = JugarJuntosApplication.class)
-@DataJpaTest
 @TestMethodOrder(MethodOrderer.MethodName.class) // Se probarán las operaciones en orden alfabetico
 public class AnuncioTests {
 
@@ -41,22 +38,10 @@ public class AnuncioTests {
 		assertEquals(-1, sAAnuncio.altaAnuncio(tAnuncio));
 	}
 
-	// Operacion que prueba si se busca los anuncios por juego
-	@Test
-	void dbuscarTodosNombreJuegoTest() {
-		assertNotNull(sAAnuncio.getAnunciosByNombreJuego("Elden Ring"));
-	}
-
 	// Operacion que prueba si se buscan todos los anuncios
 	@Test
 	void ebuscarTodosTest() {
 		assertNotNull(sAAnuncio.getAllAnuncios());
-	}
-
-	// Operación de busca un anuncio que no existe
-	@Test
-	void fbuscarUnoWrongTest() {
-		assertNull(sAAnuncio.getAnunciosByNombreJuego("Paco juega a la petanca 2: ultimate version"));
 	}
 
 	// Operación que busca un anuncio por el id del usuario
@@ -71,7 +56,6 @@ public class AnuncioTests {
 	void hdeleteOneFineTest() {
 		assertNotEquals(-1, sAAnuncio.bajaAnuncio(tAnuncio));
 	}
-
 	// Operación de borrar con error dado que la fila de la tabla Anuncio no existe
 	@Test
 	void ideleteOneWrongTest() {
