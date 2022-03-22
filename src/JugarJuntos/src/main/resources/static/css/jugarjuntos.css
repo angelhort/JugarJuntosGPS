@@ -173,3 +173,55 @@ body {
 .text300 {
 	font-weight: 300;
 }
+
+
+.fullWidthHeaderSmall {
+	height: 120px;
+	background-color: #F7F7F7;
+	margin-bottom: 20px;
+	padding:30px;
+}
+
+.welcomePhraseSmall {
+	font-weight: 700;
+}
+
+.infoDetailsAnuncio {
+	width: 450px;
+	height: 500px;
+	background: #F7F7F7;
+	border-radius: 10px;
+}
+.numPlayersAnuncio{
+	background-color: #E7E7E7;
+	color: #939393;
+	font-weight: 500;
+	width: 140px;
+	height: 50px;
+}
+.detailsAnuncioBackground {
+	width: 1200px;
+	height: 900px;
+	background: #F7F7F7;
+	border-radius: 10px;
+}
+.detailsUserAnuncio {
+	width: 400px;
+	height: 40px;
+	background: #939393;
+	color: white;
+	border-radius: 10px;
+	text-align:center;
+	margin: auto;
+}
+.contDescAnuncio{
+	background-color: #F7F7F7; 
+    border-radius: 10px;
+    width: 1200px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+	padding-top:50px;
+	padding-bottom:50px;
+    padding-left: 100px;
+    padding-right: 100px;
+}

@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import com.jugarjuntos.ServiciosAplicacion.SAAnuncio;
+import com.jugarjuntos.ServiciosAplicacion.SAParticipacion;
 import com.jugarjuntos.ServiciosAplicacion.SAUsuario;
 import com.jugarjuntos.Transfers.TAnuncio;
 import com.jugarjuntos.Transfers.TUsuario;
@@ -25,7 +26,10 @@ public class JugarJuntosController {
 	
 	@Autowired 
 	SAUsuario saUsuario;
-
+	
+	@Autowired 
+	SAParticipacion saParticipacion;
+	
 	/**
 	 * Web index
 	 * 
@@ -96,13 +100,24 @@ public class JugarJuntosController {
 		saUsuario.altaUsuario(usuario);
 		return "redirect:/";
 	}
+	@GetMapping("/verSolicitudesDeAcceso")
+	public String verSolicitudes(Model model, @RequestParam long id){
+		model.addAttribute("solicitudes", saParticipacion.solicitudesPendientes(id));
+		return "solicitudes";
+	}
 	
 	@GetMapping("/detalles")
 	public String detalles(Model model, @RequestParam int id) {
 		model.addAttribute("anuncio", saAnuncio.getAnuncioByID(id));
-		return "detallesAnuncio";
+		return "detallesAnuncio.html";
 	}
 	
 	
+	@PostMapping("/checklogin")
+	public String validarlogin(TUsuario usuario) {
+		if(saUsuario.loginUsuario(usuario)) return "redirect:/";
+		return "registro";
+		
+	}
 
 }

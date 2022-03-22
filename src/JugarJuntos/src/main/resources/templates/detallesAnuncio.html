@@ -5,6 +5,111 @@
 
 <body>
 	<div th:replace="fragments/navbar"></div>
+	<main class="landingPage h-100">
+		<div class="fullWidthHeaderSmall">
+			<div class="row align-items-center">
+
+				<div class="col-2">
+					<button type="submit" class="btn rounded-pill searchBar searchButton">Volver</button>
+				</div>
+				<div class="col-8">
+					<h1 class="welcomePhraseSmall" align="center" th:text="${anuncio.juego}"></h1>
+				</div>
+				<div class="col-2">
+					<button type="submit" class="btn rounded-pill searchBar searchButton">Unirse</button>
+				</div>
+			</div>
+		</div>
+		<div class="row justify-content-center">
+			<div class="alert alert-success col-6" role="alert" th:text="${success}" th:if="${success}"></div>
+			<div class="alert alert-danger col-6" role="alert" th:text="${error}" th:if="${error}"></div>
+		</div>
+		<div class="container contDescAnuncio">
+
+			<div class="row gy-4">
+
+				<div class=" col-12">
+					<div class="row gy-3">
+						<div class=" col-12">
+							<div class="row align-items-center">
+								<div class="col-10">
+									<h5 class="welcomePhraseSmall" align="left">Propietario</h5>
+								</div>
+								<div class="col-2">
+									<button class="btn rounded-pill numPlayersAnuncio"
+										th:text="${anuncio.personas_actuales}+'/'+${anuncio.max_personas}"></button>
+								</div>
+							</div>
+						</div>
+						<div class=" col-12">
+							<div class="row justify-content-center">
+								<div class="col-6">
+									<label class="detailsUserAnuncio">aaaaaaaaa</label>
+									<!--  th:text="${anuncio.anunciante.usuario}" -->
+								</div>
+								<div class="col-6">
+									<label class="detailsUserAnuncio">bbbbbbb</label>
+									<!--  th:text="${anuncio.anunciante.discord}" -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class=" col-12">
+					<div>
+						<h5 class="welcomePhraseSmall" align="left">Participantes</h5>
+					</div>
+					<div class="col-3 d-flex justify-content-center" th:each="participante: ${anuncio.participacion}">
+						<div class="row justify-content-center">
+							<div class="col-6">
+								<h5 th:text="${participante.usuario.nombre}"></h5>
+							</div>
+							<div class="col-6">
+								<h5 th:text="${participante.usuario.discord}"></h5>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--
+			<div class="detailsAnuncioBackground row ">
+
+				<div class="row align-items-center">
+					<div class="col-10">
+						<h5 class="welcomePhraseSmall" align="left">Propietario</h5>
+					</div>
+					<div class="col-2">
+						<button class="btn rounded-pill numPlayersAnuncio"
+							th:text="${anuncio.personas_actuales}+'/'+${anuncio.max_personas}"></button>
+					</div>
+				</div>
+
+				<div class="row justify-content-center">
+					<div class="col-6">
+						<label class="detailsUserAnuncio" th:text="${anuncio.anunciante.usuario}"> aaaaaaaaa</label> 
+					</div>
+					<div class="col-6">
+						<label class="detailsUserAnuncio" th:text="${anuncio.anunciante.discord}" >bbbbbbbbb</label>  
+					</div>
+				</div>
+				<div>
+					<h5 class="welcomePhraseSmall" align="left">Participantes</h5>
+				</div>
+				<div class="col-3 d-flex justify-content-center" th:each="participante: ${anuncio.participacion}">
+					<div class="row justify-content-center">
+						<div class="col-6">
+							<h5  th:text="${participante.usuario.nombre}"></h5>
+						</div>
+						<div class="col-6">
+							<h5  th:text="${participante.usuario.discord}"></h5>
+						</div>
+					</div>
+				</div>
+			</div>
+			-->
+		</div>
+	</main>
+
 </body>
 
 </html>

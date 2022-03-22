@@ -10,7 +10,7 @@ import com.jugarjuntos.Entities.Anuncio;
 
 @Repository
 public interface AnuncioRepository extends CrudRepository<Anuncio, Long>{
-	@Query(value = "SELECT * FROM anuncio WHERE juego LIKE ?1%", nativeQuery = true)
+	@Query(value = "SELECT * FROM anuncio WHERE juego LIKE %?1%", nativeQuery = true)
 	public List<Anuncio> findAllByJuego(String juego);
 	public List<Anuncio> findAll();
 	public Anuncio findById(long id);

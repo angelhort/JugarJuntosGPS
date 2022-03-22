@@ -6,6 +6,8 @@ import com.jugarjuntos.Transfers.TUsuario;
 
 public interface SAUsuario {
 
-	long altaUsuario(TUsuario tUsuario);
+	public long altaUsuario(TUsuario tUsuario);
+	
+	public Boolean loginUsuario(TUsuario tUsuario);
 	
 }
