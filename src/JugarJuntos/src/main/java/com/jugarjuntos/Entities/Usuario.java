@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.jugarjuntos.Transfers.TUsuario;
+
 @Entity
 @NamedQueries({
 	@NamedQuery(name = "com.jugarjuntos.Entities.Usuario.findByparticipacion", query = "select obj from Usuario obj where :participacion MEMBER OF obj.participacion ")})
@@ -127,7 +129,11 @@ public class Usuario implements Serializable{
 		this.estado = estado;
 	}
 	
-	
+	public TUsuario entityToTransfer() {
+		TUsuario aux= new TUsuario(id, nombre, correo, password, discord, estado);
+		
+		return aux;
+	}
 	
 	
 	

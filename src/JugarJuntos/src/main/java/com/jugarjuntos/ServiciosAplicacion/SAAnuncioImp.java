@@ -50,9 +50,9 @@ public class SAAnuncioImp implements SAAnuncio{
 	@Override
 	public List<Anuncio> getAnunciosByNombreJuego(String juego) {
 		
-		TypedQuery<Anuncio> query = em.createNamedQuery("AnuncioBuscarPorJuego",Anuncio.class);
-		query.setParameter("juego", "%" + juego + "%");
-		List<Anuncio> a = query.getResultList();
+		//TypedQuery<Anuncio> query = em.createNamedQuery("AnuncioBuscarPorJuego",Anuncio.class);
+		//query.setParameter("juego", "%" + juego + "%");
+		//List<Anuncio> a = query.getResultList();
 		
 		return anuncioRepo.findAllByJuego(juego);
 		
@@ -83,6 +83,11 @@ public class SAAnuncioImp implements SAAnuncio{
 	@Override
 	public List<Anuncio> getAllAnuncios() {
 		return anuncioRepo.findAll();
+	}
+
+	@Override
+	public Anuncio getAnuncioByID(long id) {
+		return anuncioRepo.findById(id);
 	}
 
 
