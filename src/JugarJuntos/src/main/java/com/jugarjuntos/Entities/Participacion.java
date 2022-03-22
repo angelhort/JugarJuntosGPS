@@ -11,6 +11,8 @@ import javax.persistence.NamedQuery;
 
 import org.springframework.lang.NonNull;
 
+import com.jugarjuntos.Transfers.TParticipacion;
+
 @Entity
 @NamedQueries({
 	@NamedQuery(name = "com.jugarjuntos.Entities.Participacion.findByid", query = "select obj from Participacion obj where :id = obj.id "),
@@ -82,5 +84,13 @@ public class Participacion implements Serializable{
 	public void setEstado_partida(String estado_partida) {
 		this.estado_partida = estado_partida;
 	}
+	public TParticipacion entityToTransfer() {
+		TParticipacion t = new TParticipacion();
+		t.setId_anuncio(this.anuncio.getId());
+		t.setId_usuario(this.usuario.getId());
+		t.setEstado(this.estado_partida);
+		return t;
+	}
+	
 	
 }

@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.jugarjuntos.Transfers.TAnuncio;
+import com.jugarjuntos.Transfers.TParticipacion;
+
 @Entity
 @NamedQueries({
 	@NamedQuery(name = "com.jugarjuntos.Entities.Anuncio.findByparticipacion", query = "select obj from Anuncio obj where :participacion MEMBER OF obj.participacion "),
@@ -102,6 +105,26 @@ public class Anuncio implements Serializable{
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+	
+	public TAnuncio entityToTransfer() {
+		TAnuncio t = new TAnuncio();
+		t.setId(this.id);
+		t.setPersonas_actuales(this.personas_actuales);
+		t.setMax_personas(this.max_personas);
+		t.setEstado(this.estado);
+		t.setId_Usuario(this.anunciante.getId());
+		t.setJuego(this.juego);
+		List<TParticipacion> parti  = new ArrayList<>();
+		for(Participacion p: this.getParticipacion()) {
+			parti.add(p.entityToTransfer());
+		}
+		t.setParticipacion(parti);
+		
+		return t;
+		
+		
+		
 	}
 
 }

@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.jugarjuntos.Transfers.TAnuncio;
+import com.jugarjuntos.Transfers.TParticipacion;
 import com.jugarjuntos.Transfers.TUsuario;
 
 @Entity
@@ -131,8 +133,19 @@ public class Usuario implements Serializable{
 	
 	public TUsuario entityToTransfer() {
 		TUsuario aux= new TUsuario(id, nombre, correo, password, discord, estado);
+		List<TParticipacion> parti  = new ArrayList<>();
+		for(Participacion p: this.getParticipacion()) {
+			parti.add(p.entityToTransfer());
+		}
+		aux.setParticipacion(parti);
+		List<TAnuncio> anuncios  = new ArrayList<>();
+		for(Anuncio a: this.getAnuncios()) {
+			anuncios.add(a.entityToTransfer());
+		}
+		aux.setAnuncios(anuncios);
 		
 		return aux;
+
 	}
 	
 	

@@ -17,7 +17,7 @@ public class TAnuncio {
 	private String estado;
 	
 
-	private int id_usuario;
+	private long id_usuario;
 	
 	private List<TParticipacion> participacion;
 
@@ -77,11 +77,11 @@ public class TAnuncio {
 		this.estado = estado;
 	}
 
-	public int getId_Usuario() {
+	public long getId_Usuario() {
 		return id_usuario;
 	}
 
-	public void setId_Usuario(int id_usuario) {
+	public void setId_Usuario(long id_usuario) {
 		this.id_usuario = id_usuario;
 	}
 
