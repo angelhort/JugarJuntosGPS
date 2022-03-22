@@ -8,7 +8,8 @@ import javax.persistence.*;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name = "com.jugarjuntos.Entities.Anuncio.findByparticipacion", query = "select obj from Anuncio obj where :participacion MEMBER OF obj.participacion ")})
+	@NamedQuery(name = "com.jugarjuntos.Entities.Anuncio.findByparticipacion", query = "select obj from Anuncio obj where :participacion MEMBER OF obj.participacion "),
+	@NamedQuery(name = "AnuncioBuscarPorJuego", query = "select obj from Anuncio obj where obj.juego LIKE :juego")})
 public class Anuncio implements Serializable{
 
 	private static final long serialVersionUID = 1L;

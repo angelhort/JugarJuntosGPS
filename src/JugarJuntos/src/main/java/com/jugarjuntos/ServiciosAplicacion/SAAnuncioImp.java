@@ -3,6 +3,7 @@ package com.jugarjuntos.ServiciosAplicacion;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,8 @@ public class SAAnuncioImp implements SAAnuncio{
 		 em.persist(anuncio);
 		 id = anuncio.getId();
 //		 em.close();
+		 
+		 
 		}
 		
 		return id;
@@ -46,11 +49,18 @@ public class SAAnuncioImp implements SAAnuncio{
 	
 	@Override
 	public List<Anuncio> getAnunciosByNombreJuego(String juego) {
+		
+		TypedQuery<Anuncio> query = em.createNamedQuery("AnuncioBuscarPorJuego",Anuncio.class);
+		query.setParameter("juego", "%" + juego + "%");
+		List<Anuncio> a = query.getResultList();
+		
 		return anuncioRepo.findAllByJuego(juego);
+		
+		
+		
 	}
 	
 	public Anuncio findAnuncioByUser(long id_user) {
-		EntityManager em = EntityManagerSingleton.getInstance().getEntityManager();
 		Usuario u_aux  = em.find(Usuario.class, id_user);
 		
 		List<Participacion> participaciones = u_aux.getParticipacion();
@@ -58,7 +68,7 @@ public class SAAnuncioImp implements SAAnuncio{
 		for (Participacion p: participaciones) {
 			if(p.getEstado_partida() == "en_lobby") {
 				 Anuncio a = em.find(Anuncio.class, p.getId().getAnuncio_id());
-				 em.close();
+//				 em.close();
 				 return a;
 			}
 				
