@@ -15,7 +15,11 @@
 					<h1 class="welcomePhraseSmall" align="center" th:text="${anuncio.juego}"></h1>
 				</div>
 				<div class="col-2">
-					<button type="submit" class="btn rounded-pill searchBar searchButton">Unirse</button>
+				<!-- Button trigger modal -->
+  				<a title="EnviarAnuncio" class="open-Solicitud btn rounded-pill searchBar searchButton" data-toggle="modal" data-target="#enviarSolicitudModal">
+    			Unirse
+  </a>
+  
 				</div>
 			</div>
 		</div>
@@ -77,8 +81,25 @@
 				</div>
 			</div>
 		</div>
+		
 	</main>
-
+	<!-- Modal -->
+  <div class="modal fade" id="enviarSolicitudModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">"Título del anuncio"</h5>
+        </div>
+        <div class="modal-body">
+          ¿Estas seguro de que quieres enviar esta solicitud a "nombre del anunciante"?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>
