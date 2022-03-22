@@ -5,12 +5,11 @@
 
 <body>
 	<div th:replace="fragments/navbar"></div>
-	<main class="landingPage h-100">
+	<main class="landingPage vh-100">
 		<div class="fullWidthHeaderSmall">
 			<div class="row align-items-center">
-
 				<div class="col-2">
-					<button type="submit" class="btn rounded-pill searchBar searchButton">Volver</button>
+					<a href="/"  class="btn rounded-pill searchBar searchButton"><i class="fa-solid fa-left-long fa-2x"></i></a>
 				</div>
 				<div class="col-8">
 					<h1 class="welcomePhraseSmall" align="center" th:text="${anuncio.juego}"></h1>
@@ -41,72 +40,42 @@
 								</div>
 							</div>
 						</div>
-						<div class=" col-12">
+						<div class=" col-12 d-flex justify-content-center">
 							<div class="row justify-content-center">
 								<div class="col-6">
-									<label class="detailsUserAnuncio">aaaaaaaaa</label>
-									<!--  th:text="${anuncio.anunciante.usuario}" -->
+									<label class="detailsUserAnuncio" th:text="${anuncio?.anunciante?.nombre}"></label>
 								</div>
 								<div class="col-6">
-									<label class="detailsUserAnuncio">bbbbbbb</label>
-									<!--  th:text="${anuncio.anunciante.discord}" -->
+									<label class="detailsUserAnuncio" th:text="${anuncio?.anunciante?.discord}"></label>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class=" col-12">
-					<div>
-						<h5 class="welcomePhraseSmall" align="left">Participantes</h5>
-					</div>
-					<div class="col-3 d-flex justify-content-center" th:each="participante: ${anuncio.participacion}">
-						<div class="row justify-content-center">
-							<div class="col-6">
-								<h5 th:text="${participante.usuario.nombre}"></h5>
+					<div class="row gy-3">
+						<div class=" col-12">
+							<div>
+								<h5 class="welcomePhraseSmall" align="left">Participantes</h5>
 							</div>
-							<div class="col-6">
-								<h5 th:text="${participante.usuario.discord}"></h5>
+						</div>
+						<div class=" col-12">
+							<div class="d-flex justify-content-center" th:each="participante: ${anuncio.participacion}">
+								<div class="row justify-content-center">
+									<div class="col-6">
+										<label class="detailsUserAnuncio"
+											th:text="${participante.usuario.nombre}"></label>
+									</div>
+									<div class="col-6">
+										<label class="detailsUserAnuncio"
+											th:text="${participante.usuario.discord}"></label>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!--
-			<div class="detailsAnuncioBackground row ">
-
-				<div class="row align-items-center">
-					<div class="col-10">
-						<h5 class="welcomePhraseSmall" align="left">Propietario</h5>
-					</div>
-					<div class="col-2">
-						<button class="btn rounded-pill numPlayersAnuncio"
-							th:text="${anuncio.personas_actuales}+'/'+${anuncio.max_personas}"></button>
-					</div>
-				</div>
-
-				<div class="row justify-content-center">
-					<div class="col-6">
-						<label class="detailsUserAnuncio" th:text="${anuncio.anunciante.usuario}"> aaaaaaaaa</label> 
-					</div>
-					<div class="col-6">
-						<label class="detailsUserAnuncio" th:text="${anuncio.anunciante.discord}" >bbbbbbbbb</label>  
-					</div>
-				</div>
-				<div>
-					<h5 class="welcomePhraseSmall" align="left">Participantes</h5>
-				</div>
-				<div class="col-3 d-flex justify-content-center" th:each="participante: ${anuncio.participacion}">
-					<div class="row justify-content-center">
-						<div class="col-6">
-							<h5  th:text="${participante.usuario.nombre}"></h5>
-						</div>
-						<div class="col-6">
-							<h5  th:text="${participante.usuario.discord}"></h5>
-						</div>
-					</div>
-				</div>
-			</div>
-			-->
 		</div>
 	</main>
 
