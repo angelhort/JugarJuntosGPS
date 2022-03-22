@@ -50,6 +50,16 @@ public class TUsuario {
 		super();
 	}
 
+	public TUsuario(long id, String nombre, String correo, String password, String discord, String estado) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.correo = correo;
+		this.password = password;
+		this.discord = discord;
+		this.estado = estado;
+	}
+
 	public long getId() {
 		return id;
 	}

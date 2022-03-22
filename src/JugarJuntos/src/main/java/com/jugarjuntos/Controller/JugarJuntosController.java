@@ -113,5 +113,11 @@ public class JugarJuntosController {
 	}
 	
 	
+	@PostMapping("/checklogin")
+	public String validarlogin(TUsuario usuario) {
+		if(saUsuario.loginUsuario(usuario)) return "redirect:/";
+		return "registro";
+		
+	}
 
 }
