@@ -83,6 +83,11 @@ public class JugarJuntosController {
 		return "index";
 	}
 	
+	@GetMapping("/login")
+	public String login(Model model) {
+		return "login";
+	}
+	
 	@GetMapping("/registro")
 	public String crearFormRegistro(Model model) {
 		model.addAttribute("usuario", new TUsuario());
@@ -100,6 +105,13 @@ public class JugarJuntosController {
 		model.addAttribute("solicitudes", saParticipacion.solicitudesPendientes(id));
 		return "solicitudes";
 	}
+	
+	@GetMapping("/detalles")
+	public String detalles(Model model, @RequestParam int id) {
+		model.addAttribute("anuncio", saAnuncio.getAnuncioByID(id));
+		return "detallesAnuncio";
+	}
+	
 	
 
 }

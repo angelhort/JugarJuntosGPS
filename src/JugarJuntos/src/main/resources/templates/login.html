@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+
+<div th:replace="fragments/head"></div>
+
+<body style="background-color: #2E5266;">
+
+	<div class="container" align="center" style="width: 450px;">
+		<div class="row loginFormBackground">
+			<h1 class="text600">¡Bienvenido!</h1>
+			<p class="text300">Introduce tu usuario y contraseña</p>
+
+			<div class="d-flex justify-content-center align-items-center">
+				<form action="procesarAlta" method="POST">
+
+					<div class="form-group">
+						<input type="text" class="loginFormInput form-control" name="user" placeholder="Usuario o correo">
+					</div>
+
+					<div class="form-group">
+						<input type="password" class="loginFormInput form-control col-8" name="password" placeholder="Contraseña">
+					</div>
+
+					<div class="form-group justify-content-center">
+						<button type="submit" class="btn submitForm">Iniciar</button>
+					</div>
+
+				</form>
+
+			</div>
+			
+			<div class="row">
+				<p>¿Aún no tienes cuenta? <a href="/registro">¡Regístrate!</a></p>
+			</div>
+		</div>
+	</div>
+	</div>
+
+</body>
+
+</html>

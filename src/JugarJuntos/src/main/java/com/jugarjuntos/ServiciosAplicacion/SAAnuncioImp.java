@@ -85,5 +85,10 @@ public class SAAnuncioImp implements SAAnuncio{
 		return anuncioRepo.findAll();
 	}
 
+	@Override
+	public Anuncio getAnuncioByID(long id) {
+		return anuncioRepo.findById(id);
+	}
+
 
 }

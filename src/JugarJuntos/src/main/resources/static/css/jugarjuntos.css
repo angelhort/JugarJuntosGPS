@@ -154,3 +154,22 @@ body {
 	background-color: #C3C2C2;
 	color: #939393;
 }
+
+.loginFormBackground {
+	margin-top: 25vh;
+	background-color: #F7F7F7;
+	padding: 20px;
+	border-radius: 15px;
+}
+
+.loginFormInput {
+	background-color: #DEDCDC;	
+}
+
+.text600 {
+	font-weight: 600;
+}
+
+.text300 {
+	font-weight: 300;
+}
