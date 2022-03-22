@@ -61,6 +61,6 @@ public class RegistroTests {
     //Operacion que prueba si da error la creación de usuario con un discord incorrecto(en este caso discord vacio)
     @Test
 	void ccrearDiscordVacioTest() {
-		assertNotEquals(-1, sAUsuario.altaUsuario(tUsuarioDiscordIncorrecto));
+		assertEquals(-1, sAUsuario.altaUsuario(tUsuarioDiscordIncorrecto));
 	}
 }
