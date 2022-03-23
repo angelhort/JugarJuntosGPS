@@ -14,4 +14,5 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
 	public void cambiarEstadoAceptado(long id);
 	@Query(value = "UPDATE usuario SET estado = 'rechazado' WHERE id = ?1", nativeQuery = true)
 	public void cambiarEstadoRechazado(long id);
+
 }

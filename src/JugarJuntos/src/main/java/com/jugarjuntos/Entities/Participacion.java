@@ -35,7 +35,7 @@ public class Participacion implements Serializable{
 	//Pendiente -> Meter atributo para saber si está en lobby o solo te la has añadido (cuando se pueda añadir futuras partidas)
 	
 	@NonNull
-	private String estado_partida = "finalizado"; //Valores: en_lobby, finalizado, expulsado
+	private String estado_partida = "finalizado"; //Valores: esperando, en_lobby, finalizado
 	
 	public Participacion(Usuario usuario, Anuncio anuncio, String estado) {
 		super();

@@ -40,10 +40,6 @@ public class SAParticipacionImp implements SAParticipacion{
 			//Cambiamos el estado del usuario en la sala a aceptado
 			usuarioRepository.cambiarEstadoAceptado(participacion.getId_usuario());
 			
-			//Cambiamos el estado del usuario en la sala a aceptado
-			participacionRepository.insertarUsuarioEnSala(
-					participacion.getId_anuncio(), participacion.getId_usuario());
-			
 			return true;
 		}
 			
@@ -60,6 +56,17 @@ public class SAParticipacionImp implements SAParticipacion{
 					return true;
 					
 				}
+		else throw new BusinessException("No existe esta solicitud de acceso a la sala.");
+	}
+
+	@Override
+	public boolean enviarSolicitud(TParticipacion participacion) throws BusinessException {
+		if(anuncioRepository.findById(participacion.getId_anuncio()) != null && 
+		usuarioRepository.findUsuarioById(participacion.getId_usuario()) != null) {
+			participacionRepository.añadirSolicitud(participacion.getId_usuario(), participacion.getId_anuncio());
+			return true;
+		}
+	
 		else throw new BusinessException("No existe esta solicitud de acceso a la sala.");
 	}
 

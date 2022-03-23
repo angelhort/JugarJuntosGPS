@@ -18,6 +18,6 @@ public interface ParticipacionRepository extends CrudRepository<Participacion , 
 	 public Participacion findParticipacionById(long anuncioId, long usuarioId);
 	
 	//SI DESDE EL FRONTEND QUEREIS QUE EL ESTADO NO SE LLAME EN_LOBBY CAMBIADLO
-	@Query(value = "INSERT INTO participacion VALUES (?1, ?2, 'en_lobby')", nativeQuery = true)
-	public void insertarUsuarioEnSala(long anuncioId, long usuarioId);
+	@Query(value = "INSERT INTO participacion VALUES (?1, ?2, 'esperando', 'pendiente')", nativeQuery = true)
+	public void añadirSolicitud(long anuncioId, long usuarioId);
 }
