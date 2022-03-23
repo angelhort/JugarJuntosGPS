@@ -110,10 +110,10 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">"Título del anuncio"</h5>
+					<h5 class="modal-title" id="exampleModalLabel" th:text="${anuncio.juego}"></h5>
 				</div>
-				<div class="modal-body">
-					¿Estas seguro de que quieres enviar esta solicitud a "nombre del anunciante"?
+				<div class="modal-body" th:text="'¿Estás seguro de que quieres enviar esta solicitud a '+${anuncio.juego}+'?'">
+					
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
