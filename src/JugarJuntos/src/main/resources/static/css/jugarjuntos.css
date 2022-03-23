@@ -214,6 +214,15 @@ body {
 	padding-top: 10px;
     padding-bottom: 10px;
 }
+.detailsUserAnuncioP {
+	width: 50vh;
+	background: #E2C044;
+	color: white;
+	border-radius: 10px;
+	text-align:center;
+	padding-top: 10px;
+    padding-bottom: 10px;
+}
 .contDescAnuncio{
 	background-color: #F7F7F7; 
     border-radius: 10px;

@@ -7,17 +7,30 @@
 	<div th:replace="fragments/navbar"></div>
 	<main class="landingPage vh-100">
 		<div class="fullWidthHeaderSmall">
-			<div class="row align-items-center">
+			<div class="row align-middle">
 				<div class="col-2">
 					<a href="/" class="btn rounded-pill searchBar searchButton"><i
 							class="fa-solid fa-left-long fa-2x"></i></a>
 				</div>
 				<div class="col-8">
-					<h1 class="welcomePhraseSmall" align="center" th:text="${anuncio.juego}"></h1>
+					<div class"row gy-2">
+						<div class="col-12">
+							<h1 class="welcomePhraseSmall" align="center" th:text="${anuncio.juego}"></h1>
+						</div>
+						<div class="col-12" th:switch="${anuncio.estado}">
+							<h5 class="welcomePhraseSmall" align="center" th:case="'Pendiente'" style="color: green">
+								PENDIENTE</h5>
+							<h5 class="welcomePhraseSmall" align="center" th:case="'en_lobby'" style="color: orange">EN
+								LOBBY</h5>
+							<h5 class="welcomePhraseSmall" align="center" th:case="'Finalizado'" style="color: red">
+								FINALIZADO</h5>
+
+						</div>
+					</div>
 				</div>
 				<div class="col-2">
 					<!-- Button trigger modal -->
-					<a title="EnviarAnuncio" class="open-Solicitud btn rounded-pill searchBar searchButton"
+					<a title="EnviarAnuncio" class=" open-Solicitud btn rounded-pill searchBar searchButton"
 						data-toggle="modal" data-target="#enviarSolicitudModal">
 						Unirse
 					</a>
@@ -49,10 +62,11 @@
 						<div class=" col-12 d-flex justify-content-center">
 							<div class="row justify-content-center">
 								<div class="col-6">
-									<label class="detailsUserAnuncio" th:text="${anuncio?.anunciante?.nombre}"></label>
+									<label class="detailsUserAnuncioP" th:text="${anuncio?.anunciante?.nombre}"></label>
 								</div>
 								<div class="col-6">
-									<label class="detailsUserAnuncio" th:text="${anuncio?.anunciante?.discord}"></label>
+									<label class="detailsUserAnuncioP"
+										th:text="${anuncio?.anunciante?.discord}"></label>
 								</div>
 							</div>
 						</div>
@@ -66,16 +80,22 @@
 							</div>
 						</div>
 						<div class=" col-12">
-							<div class="d-flex justify-content-center" th:each="participante: ${anuncio.participacion}">
-								<div class="row justify-content-center">
-									<div class="col-6">
-										<label class="detailsUserAnuncio"
-											th:text="${participante.usuario.nombre}"></label>
+							<div class="row gy-3">
+								<div class="col-12 d-flex justify-content-center"
+									th:each="participante: ${anuncio.participacion}" th:object="${participante}"
+									th:if="${participante.estado_solicitud} == 'aceptado'">
+
+									<div class="row justify-content-center">
+										<div class="col-6">
+											<label class="detailsUserAnuncio"
+												th:text="${participante.usuario.nombre}"></label>
+										</div>
+										<div class="col-6">
+											<label class="detailsUserAnuncio"
+												th:text="${participante.usuario.discord}"></label>
+										</div>
 									</div>
-									<div class="col-6">
-										<label class="detailsUserAnuncio"
-											th:text="${participante.usuario.discord}"></label>
-									</div>
+
 								</div>
 							</div>
 						</div>

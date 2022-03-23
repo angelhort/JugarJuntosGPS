@@ -33,6 +33,8 @@ public class Participacion implements Serializable{
 	@MapsId("anuncio_id") private Anuncio anuncio;
 	
 	//Pendiente -> Meter atributo para saber si está en lobby o solo te la has añadido (cuando se pueda añadir futuras partidas)
+	@NonNull
+	private String estado_solicitud = "pendiente";
 	
 	@NonNull
 	private String estado_partida = "finalizado"; //Valores: esperando, en_lobby, finalizado
@@ -44,6 +46,7 @@ public class Participacion implements Serializable{
 		this.usuario=usuario;
 		this.anuncio=anuncio;
 		if(check_status(estado)) this.estado_partida=estado;
+		estado_solicitud="pendiente";
 	}
 
 	private boolean check_status(String estado) {
@@ -86,6 +89,15 @@ public class Participacion implements Serializable{
 	public void setEstado_partida(String estado_partida) {
 		this.estado_partida = estado_partida;
 	}
+	
+	public String getEstado_solicitud() {
+		return estado_solicitud;
+	}
+
+	public void setEstado_solicitud(String estado_solicitud) {
+		this.estado_solicitud = estado_solicitud;
+	}
+
 	public TParticipacion entityToTransfer() {
 		TParticipacion t = new TParticipacion();
 		t.setId_anuncio(this.anuncio.getId());
