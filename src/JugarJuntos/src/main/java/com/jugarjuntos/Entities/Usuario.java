@@ -15,6 +15,8 @@ import com.jugarjuntos.Transfers.TUsuario;
 	@NamedQuery(name = "com.jugarjuntos.Entities.Usuario.findByparticipacion", query = "select obj from Usuario obj where :participacion MEMBER OF obj.participacion ")})
 public class Usuario implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;

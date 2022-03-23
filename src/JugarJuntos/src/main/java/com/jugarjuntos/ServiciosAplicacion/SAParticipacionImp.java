@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.jugarjuntos.Entities.Participacion;
 import com.jugarjuntos.Repositories.ParticipacionRepository;
+import com.jugarjuntos.Transfers.TParticipacion;
 @Service
 public class SAParticipacionImp implements SAParticipacion{
 	@Autowired
@@ -18,5 +19,11 @@ public class SAParticipacionImp implements SAParticipacion{
 		return participacionRepository.findAllByIdAnuncio_id(id);
 	}
 
+	@Override
+	public boolean aceptarSolicitud(TParticipacion participacion) {
+		
+		return false;
+	}
 
+	
 }

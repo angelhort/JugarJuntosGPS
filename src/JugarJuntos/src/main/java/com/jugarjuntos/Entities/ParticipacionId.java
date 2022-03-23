@@ -7,6 +7,8 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class ParticipacionId implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	private long usuario_id;
 	
 	private long anuncio_id;

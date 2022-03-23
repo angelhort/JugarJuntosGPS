@@ -20,7 +20,9 @@ import com.jugarjuntos.Transfers.TParticipacion;
 	@NamedQuery(name = "com.jugarjuntos.Entities.Participacion.findByanuncio", query = "select obj from Participacion obj where :anuncio = obj.anuncio ") })
 public class Participacion implements Serializable{
 	//Clase intermedia que une al usuario con todos los anuncios en los que participó o está participando
-	
+
+	private static final long serialVersionUID = 1L;
+
 	@EmbeddedId
 	private ParticipacionId id;
 	

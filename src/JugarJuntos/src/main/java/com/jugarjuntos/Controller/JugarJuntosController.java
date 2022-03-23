@@ -15,6 +15,7 @@ import com.jugarjuntos.ServiciosAplicacion.SAAnuncio;
 import com.jugarjuntos.ServiciosAplicacion.SAParticipacion;
 import com.jugarjuntos.ServiciosAplicacion.SAUsuario;
 import com.jugarjuntos.Transfers.TAnuncio;
+import com.jugarjuntos.Transfers.TParticipacion;
 import com.jugarjuntos.Transfers.TUsuario;
 
 @Controller
@@ -118,6 +119,12 @@ public class JugarJuntosController {
 		if(saUsuario.loginUsuario(usuario)) return "redirect:/";
 		return "registro";
 		
+	}
+	
+	@PostMapping("/aceptarSolicitud")
+	public String aceptarSolicitud(TParticipacion participacion) {
+		saParticipacion.aceptarSolicitud(participacion);
+		return "index";
 	}
 
 }
