@@ -17,10 +17,7 @@ public interface ParticipacionRepository extends CrudRepository<Participacion , 
 	@Query(value = "SELECT * FROM participacion WHERE anuncio_id = ?1 AND usuario_id = ?2", nativeQuery = true)
 	 public Participacion findParticipacionById(long anuncioId, long usuarioId);
 	
-	//SI DESDE EL FRONTEND QUEREIS QUE EL ESTADO NO SE LLAME ACEPTADO CAMBIADLO
-	@Query(value = "UPDATE participacion SET estado_partida = 'aceptado' WHERE anuncio_id = ?1 AND usuario_id = ?2", nativeQuery = true)
-	public void changeEstadoSolicitudAprobada(long anuncioId, long usuarioId);
-	
-	@Query(value = "UPDATE participacion SET estado_partida = 'denegado' WHERE anuncio_id = ?1 AND usuario_id = ?2", nativeQuery = true)
-	public void changeEstadoSolicitudDenegada(long id_anuncio, long id_usuario);
+	//SI DESDE EL FRONTEND QUEREIS QUE EL ESTADO NO SE LLAME EN_LOBBY CAMBIADLO
+	@Query(value = "INSERT INTO participacion VALUES (?1, ?2, 'en_lobby')", nativeQuery = true)
+	public void insertarUsuarioEnSala(long anuncioId, long usuarioId);
 }
