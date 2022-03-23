@@ -57,8 +57,11 @@ public class SAParticipacionImp implements SAParticipacion{
 
 	@Override
 	public boolean enviarSolicitud(TParticipacion participacion) throws BusinessException {
-		if(anuncioRepository.findById(participacion.getId_anuncio()) != null && 
-		usuarioRepository.findUsuarioById(participacion.getId_usuario()) != null) {
+		if(anuncioRepository.findById(participacion.getId_anuncio()) != null &&       // Se comprueba que tanto el anuncio como el usuario existan, que el anuncio no haya 
+		usuarioRepository.findUsuarioById(participacion.getId_usuario()) != null &&   // finalizado y que las personas actuales no superen al maximo de personas
+		anuncioRepository.findById(participacion.getId_anuncio()).getEstado() == "pendiente" &&
+		anuncioRepository.findById(participacion.getId_anuncio()).getPersonas_actuales() < anuncioRepository.findById(participacion.getId_anuncio()).getMax_personas()) {
+			
 			participacionRepository.aniadirSolicitud(participacion.getId_usuario(), participacion.getId_anuncio());
 			return true;
 		}
