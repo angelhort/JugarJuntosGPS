@@ -52,10 +52,9 @@ public class SAParticipacionImp implements SAParticipacion{
 
 	@Override
 	public boolean rechazarSolicitud(TParticipacion participacion) throws BusinessException {
-		if(participacionRepository.findParticipacionById(
-				participacion.getId_anuncio(),
-				participacion.getId_usuario()) != null ){
-					//participacionRepository.changeEstadoSolicitudDenegada(
+		if(anuncioRepository.findById(participacion.getId_anuncio()) != null && 
+				usuarioRepository.findUsuarioById(participacion.getId_usuario()) != null) {
+			usuarioRepository.cambiarEstadoRechazado(participacion.getId_usuario());
 							//participacion.getId_anuncio(), participacion.getId_usuario());
 					
 					return true;
