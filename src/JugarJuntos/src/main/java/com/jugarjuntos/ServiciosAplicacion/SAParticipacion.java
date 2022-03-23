@@ -10,4 +10,5 @@ public interface SAParticipacion {
 	List<Participacion> solicitudesPendientes(long id);
 	
 	boolean aceptarSolicitud(TParticipacion participacion) throws BusinessException;
+	boolean rechazarSolicitud(TParticipacion participacion) throws BusinessException;
 }

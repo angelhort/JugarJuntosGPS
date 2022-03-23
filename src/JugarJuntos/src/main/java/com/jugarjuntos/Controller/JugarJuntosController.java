@@ -122,7 +122,7 @@ public class JugarJuntosController {
 	}
 	
 	@PostMapping("/aceptarSolicitud")
-	public String aceptarSolicitud(Model model, TParticipacion participacion) {
+	public String aceptarSolicitud(Model model, @RequestParam TParticipacion participacion) {
 		try {
 			saParticipacion.aceptarSolicitud(participacion);
 		} catch (BusinessException e) {
@@ -130,6 +130,17 @@ public class JugarJuntosController {
 			return "index";
 		}
 		//TODO cambiar la pagina devuelta a la que querais recibir en el frontend
+		return "index";
+	}
+	
+	@PostMapping("/rechazarSolicitud")
+	public String rechazarSolicitud(Model model,@RequestParam TParticipacion participacion) {
+		try {
+			saParticipacion.rechazarSolicitud(participacion);
+		} catch (BusinessException e) {
+			model.addAttribute("excepcion", e.toString());
+			return "index";
+		}
 		return "index";
 	}
 

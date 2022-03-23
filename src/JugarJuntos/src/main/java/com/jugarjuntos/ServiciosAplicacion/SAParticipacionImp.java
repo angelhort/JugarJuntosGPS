@@ -43,5 +43,19 @@ public class SAParticipacionImp implements SAParticipacion{
 		else throw new BusinessException("No existe esta solicitud de acceso a la sala.");
 	}
 
+	@Override
+	public boolean rechazarSolicitud(TParticipacion participacion) throws BusinessException {
+		if(participacionRepository.findParticipacionById(
+				participacion.getId_anuncio(),
+				participacion.getId_usuario()) != null ){
+					participacionRepository.changeEstadoSolicitudDenegada(
+							participacion.getId_anuncio(), participacion.getId_usuario());
+					
+					return true;
+					
+				}
+		else throw new BusinessException("No existe esta solicitud de acceso a la sala.");
+	}
+
 	
 }
