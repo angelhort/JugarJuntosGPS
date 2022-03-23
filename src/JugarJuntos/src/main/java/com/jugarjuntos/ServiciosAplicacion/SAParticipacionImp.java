@@ -24,21 +24,19 @@ public class SAParticipacionImp implements SAParticipacion{
 	
 	@Override
 	public List<Participacion> solicitudesPendientes(long id) {
-		System.out.println("ENTRA");
 		return participacionRepository.findAllByIdAnuncio_id(id);
 	}
 
 	@Override
 	public boolean aceptarSolicitud(TParticipacion participacion) throws BusinessException {
 		//Comprobamos que existe esta solicitud en la sala
-		if(anuncioRepository.findById(participacion.getId_anuncio()) != null && 
-				usuarioRepository.findUsuarioById(participacion.getId_usuario()) != null) {
+		if(participacionRepository.findParticipacionById(participacion.getId_anuncio(), participacion.getId_usuario()) != null) {
 			
 			// Incrementamos las personas en la sala en 1
 			anuncioRepository.incrementPersonasActuales(participacion.getId_anuncio());
 			
 			//Cambiamos el estado del usuario en la sala a aceptado
-			usuarioRepository.cambiarEstadoAceptado(participacion.getId_usuario());
+			participacionRepository.cambiarEstadoAceptado(participacion.getId_anuncio(), participacion.getId_usuario());
 			
 			return true;
 		}
@@ -48,10 +46,9 @@ public class SAParticipacionImp implements SAParticipacion{
 
 	@Override
 	public boolean rechazarSolicitud(TParticipacion participacion) throws BusinessException {
-		if(participacionRepository.findByBothIds(participacion.getId_anuncio(), participacion.getId_usuario()) != null) {
+		if(participacionRepository.findParticipacionById(participacion.getId_anuncio(), participacion.getId_usuario()) != null) {
 			participacionRepository.eliminarUsuarioParticipacion(participacion.getId_usuario(),participacion.getId_anuncio());
-							//participacion.getId_anuncio(), participacion.getId_usuario());
-					
+
 					return true;
 					
 				}
@@ -62,7 +59,7 @@ public class SAParticipacionImp implements SAParticipacion{
 	public boolean enviarSolicitud(TParticipacion participacion) throws BusinessException {
 		if(anuncioRepository.findById(participacion.getId_anuncio()) != null && 
 		usuarioRepository.findUsuarioById(participacion.getId_usuario()) != null) {
-			participacionRepository.añadirSolicitud(participacion.getId_usuario(), participacion.getId_anuncio());
+			participacionRepository.aniadirSolicitud(participacion.getId_usuario(), participacion.getId_anuncio());
 			return true;
 		}
 	

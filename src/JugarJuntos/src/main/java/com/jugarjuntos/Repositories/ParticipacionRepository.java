@@ -14,16 +14,16 @@ public interface ParticipacionRepository extends CrudRepository<Participacion , 
 	@Query(value = "SELECT * FROM participacion WHERE anuncio_id = ?1", nativeQuery = true)
 	 public List<Participacion> findAllByIdAnuncio_id(long id);
 	
-	@Query(value = "SELECT * FROM participacion where anuncio_id = ?1 AND usuario_id = ?2", nativeQuery = true)
-	public Participacion findByBothIds(long anuncioId, long usuarioId);
-	
 	@Query(value = "SELECT * FROM participacion WHERE anuncio_id = ?1 AND usuario_id = ?2", nativeQuery = true)
 	 public Participacion findParticipacionById(long anuncioId, long usuarioId);
 	
 	//SI DESDE EL FRONTEND QUEREIS QUE EL ESTADO NO SE LLAME EN_LOBBY CAMBIADLO
 	@Query(value = "INSERT INTO participacion VALUES (?1, ?2, 'esperando', 'pendiente')", nativeQuery = true)
-	public void añadirSolicitud(long anuncioId, long usuarioId);
+	public void aniadirSolicitud(long anuncioId, long usuarioId);
 	
 	@Query(value = "DELETE from participacion WHERE usuario_id = ?1 AND anuncio_id = ?2", nativeQuery = true)
 	public void eliminarUsuarioParticipacion(long usuarioId , long anuncioId);
+	
+	@Query(value = "UPDATE participacion SET estado_solicitud = 'aceptado' WHERE anuncio_id = ?1 AND usuario_id = ?2", nativeQuery = true)
+	public void cambiarEstadoAceptado(long anuncio_id , long usuario_id);
 }
