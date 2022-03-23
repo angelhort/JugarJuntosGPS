@@ -6,12 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jugarjuntos.Entities.Participacion;
+import com.jugarjuntos.Exceptions.BusinessException;
+import com.jugarjuntos.Repositories.AnuncioRepository;
 import com.jugarjuntos.Repositories.ParticipacionRepository;
 import com.jugarjuntos.Transfers.TParticipacion;
 @Service
 public class SAParticipacionImp implements SAParticipacion{
 	@Autowired
 	ParticipacionRepository participacionRepository;
+	
+	@Autowired
+	AnuncioRepository anuncioRepository;
 	
 	@Override
 	public List<Participacion> solicitudesPendientes(long id) {
@@ -20,9 +25,22 @@ public class SAParticipacionImp implements SAParticipacion{
 	}
 
 	@Override
-	public boolean aceptarSolicitud(TParticipacion participacion) {
-		
-		return false;
+	public boolean aceptarSolicitud(TParticipacion participacion) throws BusinessException {
+		//Comprobamos que existe esta solicitud en la sala
+		if(participacionRepository.findParticipacionById(
+				participacion.getId_anuncio(), participacion.getId_usuario()) != null) {
+			
+			// Incrementamos las personas en la sala en 1
+			anuncioRepository.incrementPersonasActuales(participacion.getId_anuncio());
+			
+			//Cambiamos el estado del usuario en la sala a aceptado
+			participacionRepository.changeEstadoSolicitudAprobada(
+					participacion.getId_anuncio(), participacion.getId_usuario());
+			
+			return true;
+		}
+			
+		else throw new BusinessException("No existe esta solicitud de acceso a la sala.");
 	}
 
 	

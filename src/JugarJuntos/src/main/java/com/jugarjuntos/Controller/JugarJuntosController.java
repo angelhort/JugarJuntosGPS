@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+import com.jugarjuntos.Exceptions.BusinessException;
 import com.jugarjuntos.ServiciosAplicacion.SAAnuncio;
 import com.jugarjuntos.ServiciosAplicacion.SAParticipacion;
 import com.jugarjuntos.ServiciosAplicacion.SAUsuario;
@@ -122,8 +122,14 @@ public class JugarJuntosController {
 	}
 	
 	@PostMapping("/aceptarSolicitud")
-	public String aceptarSolicitud(TParticipacion participacion) {
-		saParticipacion.aceptarSolicitud(participacion);
+	public String aceptarSolicitud(Model model, TParticipacion participacion) {
+		try {
+			saParticipacion.aceptarSolicitud(participacion);
+		} catch (BusinessException e) {
+			model.addAttribute("excepcion", e.toString());
+			return "index";
+		}
+		//TODO cambiar la pagina devuelta a la que querais recibir en el frontend
 		return "index";
 	}
 
