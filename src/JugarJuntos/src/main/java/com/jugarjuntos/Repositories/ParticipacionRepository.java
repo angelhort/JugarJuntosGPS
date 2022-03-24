@@ -16,6 +16,9 @@ public interface ParticipacionRepository extends CrudRepository<Participacion , 
 	
 	@Query(value = "SELECT * FROM participacion WHERE anuncio_id = ?1 AND usuario_id = ?2", nativeQuery = true)
 	 public Participacion findParticipacionById(long anuncioId, long usuarioId);
+
+	@Query(value = "SELECT * FROM participacion WHERE usuario_id = ?1", nativeQuery = true)
+	public Participacion findParticipacionByIdUsuario(long usuarioId);
 	
 	//SI DESDE EL FRONTEND QUEREIS QUE EL ESTADO NO SE LLAME EN_LOBBY CAMBIADLO
 	@Query(value = "INSERT INTO participacion VALUES (?1, ?2, 'esperando', 'pendiente')", nativeQuery = true)
