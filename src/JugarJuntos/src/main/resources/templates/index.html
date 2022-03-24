@@ -51,7 +51,9 @@
 					<div class="addCard card">
 						<div class="card-body">
 							<h5 class="card-title" th:text="${anuncio.juego}"></h5>
+						<!---
 							<p class="card-text">DESCRIPCION</p>
+						-->
 							<a th:href="@{/detalles?id={id}(id=${anuncio.id})}" class="detailsButton btn">Ver detalles</a>
 						</div>
 					</div>
@@ -61,7 +63,9 @@
 					<div class="addCard card">
 						<div class="card-body">
 							<h5 class="card-title" th:text="${anuncio.juego}"></h5>
+							<!---
 							<p class="card-text">DESCRIPCION</p>
+							-->
 							<a th:href="@{/detalles?id={id}(id=${anuncio.id})}" class="detailsButton btn">Ver detalles</a>
 						</div>
 					</div>
