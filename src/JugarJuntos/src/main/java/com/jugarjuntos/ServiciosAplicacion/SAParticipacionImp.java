@@ -24,7 +24,7 @@ public class SAParticipacionImp implements SAParticipacion{
 	
 	@Override
 	public List<Participacion> solicitudesPendientes(long id) {
-		return participacionRepository.findAllByIdAnuncio_id(id);
+		return participacionRepository.findAllByIdAnuncio_idPendientes(id);
 	}
 
 	@Override
