@@ -11,7 +11,7 @@ import com.jugarjuntos.Entities.ParticipacionId;
 
 @Repository
 public interface ParticipacionRepository extends CrudRepository<Participacion , ParticipacionId> {
-	@Query(value = "SELECT * FROM participacion WHERE anuncio_id = ?1 AND estado_solicitud = pendiente", nativeQuery = true)
+	@Query(value = "SELECT * FROM participacion WHERE anuncio_id = ?1 AND estado_solicitud = 'pendiente'", nativeQuery = true)
 	 public List<Participacion> findAllByIdAnuncio_idPendientes(long id);
 	
 	@Query(value = "SELECT * FROM participacion WHERE anuncio_id = ?1 AND usuario_id = ?2", nativeQuery = true)
