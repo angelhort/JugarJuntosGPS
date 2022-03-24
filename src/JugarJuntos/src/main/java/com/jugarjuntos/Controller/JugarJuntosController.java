@@ -86,6 +86,8 @@ public class JugarJuntosController {
 	
 	@GetMapping("/login")
 	public String login(Model model) {
+		model.addAttribute("usuario", new TUsuario());
+
 		return "login";
 	}
 	

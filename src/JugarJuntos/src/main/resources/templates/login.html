@@ -11,14 +11,14 @@
 			<p class="text300">Introduce tu usuario y contraseña</p>
 
 			<div class="d-flex justify-content-center align-items-center">
-				<form action="procesarAlta" method="POST">
+				<form action="/checklogin" method="POST" th:object="${usuario}">
 
 					<div class="form-group">
-						<input type="text" class="loginFormInput form-control" name="user" placeholder="Usuario o correo">
+						<input type="text" class="loginFormInput form-control" th:field="*{nombre}" placeholder="Usuario o correo">
 					</div>
 
 					<div class="form-group">
-						<input type="password" class="loginFormInput form-control col-8" name="password" placeholder="Contraseña">
+						<input type="password" class="loginFormInput form-control col-8" th:field="*{password}" placeholder="Contraseña">
 					</div>
 
 					<div class="form-group justify-content-center">
