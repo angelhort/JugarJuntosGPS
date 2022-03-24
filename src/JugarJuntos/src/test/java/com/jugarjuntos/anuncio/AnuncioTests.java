@@ -50,6 +50,12 @@ public class AnuncioTests {
 		// findAnuncioByUser(long id_user)
 		assertNotNull(sAAnuncio.findAnuncioByUser(1));
 	}
+	
+	// Operacion que busca un anuncio por id y lo devuelve
+	@Test
+	void hgetDetallesAnuncioTest() {
+		assertNotNull(sAAnuncio.getAnuncioByID(2));
+	}
 /*  No implementado todavía borrar
 	// Operación de borrar correctamente una fila existente de la tabla Anuncio
 	@Test
