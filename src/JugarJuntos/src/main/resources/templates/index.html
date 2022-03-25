@@ -44,8 +44,10 @@
 		</div>
 
 		<div class="row justify-content-center">
-			<div class="alert alert-success col-6" id="alertMessage" role="alert" th:text="${success}" th:if="${success}"></div>
-			<div class="alert alert-danger col-6" id="alertMessage" role="alert" th:text="${error}" th:if="${error}"></div>
+			<div class="alert alert-success col-6" id="alertMessage" role="alert" th:text="${success}"
+				th:if="${success}"></div>
+			<div class="alert alert-danger col-6" id="alertMessage" role="alert" th:text="${error}" th:if="${error}">
+			</div>
 		</div>
 
 		<div class="container">
@@ -70,13 +72,21 @@
 							<!---
 							<p class="card-text">DESCRIPCION</p>
 							-->
-							<a th:href="@{/detalles?id={id}(id=${anuncio.id})}" class="detailsButton btn">Ver
-								detalles</a>
+							<a th:href="@{/detalles?id={id}(id=${anuncio.id})}"
+								class="detailsButton btn btn-sm">Ver detalles</a>
+							<i class="fa-solid fa-user fa-lg" style="margin-left: 35%; color: #C4C4C4;">
+								<p style="margin-left: 115%; color: #C4C4C4; font-size: 20px;"
+									th:text="${anuncio.max_personas}"></p>
+							</i>
+
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+			
+			<div th:if="${#lists.isEmpty(anuncios) and #lists.isEmpty(anunciosBusqueda)}">
+			 	<h1 align="center">No se encontró nada para esa búsqueda</h1>
+			</div>
 	</main>
 
 	<script>
