@@ -117,9 +117,14 @@ public class JugarJuntosController {
 	
 	
 	@PostMapping("/checklogin")
-	public String validarlogin(TUsuario usuario) {
-		if(saUsuario.loginUsuario(usuario)) return "redirect:/";
-		return "registro";
+	public String validarlogin(RedirectAttributes redirAttrs, Model model ,TUsuario usuario) {
+		TUsuario tUsuario = saUsuario.loginUsuario(usuario);
+		if(saUsuario.loginUsuario(usuario)!= null) {
+			model.addAttribute("usuario",tUsuario);
+			return "redirect:/";
+		} 
+		redirAttrs.addFlashAttribute("error", "El usuario que introdujiste no existe \n o la contraseña no es la correcta");
+		return "redirect:/login";
 		
 	}
 	
