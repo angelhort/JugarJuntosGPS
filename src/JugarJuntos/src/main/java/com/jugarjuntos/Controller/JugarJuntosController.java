@@ -54,7 +54,8 @@ public class JugarJuntosController {
 	 * @return 	new add view
 	 */
 	@GetMapping("/formAnuncio")
-	public String crearForm(Model model) {
+	public String crearForm(Model model, HttpSession session) {
+		System.out.println((long) session.getAttribute("COOKIE_SESION_ID"));
 		return "crearAnuncio.html";
 	}
 	
@@ -103,8 +104,11 @@ public class JugarJuntosController {
 	}
 	
 	@PostMapping("/procesarAltaUsuario")
-	public String crearUsuario(TUsuario usuario) {
-		saUsuario.altaUsuario(usuario);
+	public String crearUsuario(TUsuario usuario, HttpServletRequest request) {
+		long res = saUsuario.altaUsuario(usuario);
+		if(res != -1) {
+			request.getSession().setAttribute("COOKIE_SESION_ID", res);
+		}
 		return "redirect:/";
 	}
 	@GetMapping("/verSolicitudesDeAcceso")
@@ -126,7 +130,7 @@ public class JugarJuntosController {
 		if(tUsuario!= null) {
 			model.addAttribute("usuario",tUsuario);
 			if(request.getSession().getAttribute("COOKIE_SESION_ID") == null) {
-				request.getSession().setAttribute("COOKIE_SESION_ID", usuario.getId());
+				request.getSession().setAttribute("COOKIE_SESION_ID", tUsuario.getId());
 				System.out.println((long) request.getSession().getAttribute("COOKIE_SESION_ID"));
 				System.out.println((long) tUsuario.getId());
 			}
