@@ -162,5 +162,13 @@ public class JugarJuntosController {
 		}
 		return "index";
 	}
+	
+	@GetMapping("/lobbyAnuncio")
+	public String irALobby(Model model) {
+		
+		return "lobbyAnuncio";
+	}
+	
+	
 
 }

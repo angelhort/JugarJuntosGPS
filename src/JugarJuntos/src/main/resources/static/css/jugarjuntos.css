@@ -8,6 +8,33 @@ body {
 	margin: 70px;
 }
 
+.lobbyTitles {
+	font-size: 36px;
+	font-weight: 700;
+}
+
+.lobbyRectangle{
+	width: 449px;
+	height: 19px;
+	background: #2E5266;
+	border-radius: 10px;
+}
+
+.lobbyBackground{
+	width: 540px;
+	height: 807px;
+	background: #EFEFEF;
+	border-radius: 10px;
+	padding-top:20px;
+	padding-bottom:20px;
+}
+
+.lobbyLabel{
+	background: #FFFFFF;
+	border-radius: 10px;
+	
+}
+
 .registerTitle {
 	font-size: 48px;
 	font-weight: 700;
