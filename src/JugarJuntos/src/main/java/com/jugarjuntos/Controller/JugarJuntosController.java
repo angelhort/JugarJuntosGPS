@@ -140,6 +140,17 @@ public class JugarJuntosController {
 		return "redirect:/login";
 	}
 	
+	@PostMapping("/enviarSolicitud")
+	public String enviarSolicitud(Model model, @RequestParam TParticipacion participacion) {
+		try {
+			saParticipacion.enviarSolicitud(participacion);
+		} catch (BusinessException e) {
+			model.addAttribute("exception", e.toString());
+			return "detallesAnuncio";
+		}
+		return "detallesAnuncio";
+	}
+	
 	@PostMapping("/aceptarSolicitud")
 	public String aceptarSolicitud(Model model, @RequestParam TParticipacion participacion) {
 		try {

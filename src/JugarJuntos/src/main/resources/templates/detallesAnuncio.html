@@ -117,7 +117,11 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-					<button type="button" class="btn btn-primary">Aceptar</button>
+					<form action="enviarSolicitud" method="POST">
+						<input id="idUsuario" name="idUsuario" type="hidden" value="FALTA ID DE USUARIO">
+						<input id="idAnuncio" name="idAnuncio" type="hidden" th:value="${anuncio.id}">						
+						<button type="submit" class="btn btn-warning">Aceptar</button>
+					</form>
 				</div>
 			</div>
 		</div>
