@@ -2,6 +2,9 @@ package com.jugarjuntos.Controller;
 
 
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,8 +41,9 @@ public class JugarJuntosController {
 	 * @return 	index view
 	 */
 	@GetMapping("/")
-	public String index(Model model) {
+	public String index(Model model, HttpSession session) {
 		model.addAttribute("anuncios", saAnuncio.getAllAnuncios());
+		
 		return "index";
 	}
 	
@@ -50,7 +54,8 @@ public class JugarJuntosController {
 	 * @return 	new add view
 	 */
 	@GetMapping("/formAnuncio")
-	public String crearForm(Model model) {
+	public String crearForm(Model model, HttpSession session) {
+		System.out.println((long) session.getAttribute("COOKIE_SESION_ID"));
 		return "crearAnuncio.html";
 	}
 	
@@ -99,8 +104,11 @@ public class JugarJuntosController {
 	}
 	
 	@PostMapping("/procesarAltaUsuario")
-	public String crearUsuario(TUsuario usuario) {
-		saUsuario.altaUsuario(usuario);
+	public String crearUsuario(TUsuario usuario, HttpServletRequest request) {
+		long res = saUsuario.altaUsuario(usuario);
+		if(res != -1) {
+			request.getSession().setAttribute("COOKIE_SESION_ID", res);
+		}
 		return "redirect:/";
 	}
 	@GetMapping("/verSolicitudesDeAcceso")
@@ -117,10 +125,19 @@ public class JugarJuntosController {
 	
 	
 	@PostMapping("/checklogin")
-	public String validarlogin(TUsuario usuario) {
-		if(saUsuario.loginUsuario(usuario)) return "redirect:/";
-		return "registro";
-		
+	public String validarlogin(RedirectAttributes redirAttrs, Model model ,TUsuario usuario, HttpServletRequest request) {
+		TUsuario tUsuario = saUsuario.loginUsuario(usuario);
+		if(tUsuario!= null) {
+			model.addAttribute("usuario",tUsuario);
+			if(request.getSession().getAttribute("COOKIE_SESION_ID") == null) {
+				request.getSession().setAttribute("COOKIE_SESION_ID", tUsuario.getId());
+				System.out.println((long) request.getSession().getAttribute("COOKIE_SESION_ID"));
+				System.out.println((long) tUsuario.getId());
+			}
+			return "redirect:/";
+		} 
+		redirAttrs.addFlashAttribute("error", "El usuario que introdujiste no existe \n o la contraseña no es la correcta");
+		return "redirect:/login";
 	}
 	
 	@PostMapping("/aceptarSolicitud")
@@ -145,5 +162,13 @@ public class JugarJuntosController {
 		}
 		return "index";
 	}
+	
+	@GetMapping("/lobbyAnuncio")
+	public String irALobby(Model model) {
+		
+		return "lobbyAnuncio";
+	}
+	
+	
 
 }

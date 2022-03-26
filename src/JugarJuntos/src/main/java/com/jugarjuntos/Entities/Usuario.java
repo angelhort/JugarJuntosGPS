@@ -12,7 +12,8 @@ import com.jugarjuntos.Transfers.TUsuario;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name = "com.jugarjuntos.Entities.Usuario.findByparticipacion", query = "select obj from Usuario obj where :participacion MEMBER OF obj.participacion ")})
+	@NamedQuery(name = "com.jugarjuntos.Entities.Usuario.findByparticipacion", query = "select obj from Usuario obj where :participacion MEMBER OF obj.participacion "),
+	@NamedQuery(name = "com.jugarjuntos.Entities.Usuario.UsuarioJuego", query = "select obj from Usuario obj where obj.correo = :correo ")})
 public class Usuario implements Serializable{
 
 	private static final long serialVersionUID = 1L;

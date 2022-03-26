@@ -5,20 +5,28 @@
 
 <body style="background-color: #2E5266;">
 
+
 	<div class="container" align="center" style="width: 450px;">
 		<div class="row loginFormBackground">
+
 			<h1 class="text600">¡Bienvenido!</h1>
 			<p class="text300">Introduce tu usuario y contraseña</p>
+			<div class="row justify-content-center">
+				<div class="alert alert-success col-12" role="alert" th:text="${success}" th:if="${success}"></div>
+				<div class="alert alert-danger col-12" role="alert" th:text="${error}" th:if="${error}"></div>
+			</div>
 
 			<div class="d-flex justify-content-center align-items-center">
-				<form action="/checklogin" method="POST" th:object="${usuario}">
+				<form action="checklogin" method="POST" th:object="${usuario}">
 
 					<div class="form-group">
-						<input type="text" class="loginFormInput form-control" th:field="*{nombre}" placeholder="Usuario o correo">
+						<input type="email" class="loginFormInput form-control" th:field="*{correo}"
+							placeholder="Usuario o correo">
 					</div>
 
 					<div class="form-group">
-						<input type="password" class="loginFormInput form-control col-8" th:field="*{password}" placeholder="Contraseña">
+						<input type="password" class="loginFormInput form-control col-8" th:field="*{password}"
+							placeholder="Contraseña">
 					</div>
 
 					<div class="form-group justify-content-center">
@@ -28,7 +36,7 @@
 				</form>
 
 			</div>
-			
+
 			<div class="row">
 				<p>¿Aún no tienes cuenta? <a href="/registro" class="text-decoration-none">¡Regístrate!</a></p>
 				<a href="/" class="text-decoration-none"> Volver a la aplicación</a>

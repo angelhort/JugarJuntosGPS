@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.jugarjuntos.Entities.Usuario;
+import com.jugarjuntos.Repositories.UsuarioRepository;
 import com.jugarjuntos.Transfers.TUsuario;
 
 
@@ -19,6 +21,9 @@ public class SAUsuarioImp implements SAUsuario{
 	
 	@Autowired
 	private EntityManager em;
+	
+	@Autowired
+	private UsuarioRepository repo;
 
 	@Override
 	@Transactional
@@ -47,8 +52,7 @@ public class SAUsuarioImp implements SAUsuario{
        
 	}
 	
-	public Boolean loginUsuario(TUsuario tUsuario) {
-		
+	public TUsuario loginUsuario(TUsuario tUsuario) {
 		if(tUsuario.getCorreo() != null) {
 			Pattern pattern = Pattern
 	                .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -58,12 +62,18 @@ public class SAUsuarioImp implements SAUsuario{
 	 
 	        Matcher mather = pattern.matcher(tUsuario.getCorreo());
 	        
-	        if (mather.find() == false) return false;
+	        if (mather.find() == false) return null;
 		}
 		
-		TUsuario bbdd_user = em.find(Usuario.class, tUsuario).entityToTransfer();
+	  Usuario bbdd_user = repo.findUsuarioByCorreo(tUsuario.getCorreo());
+	  if(bbdd_user != null) {
+	  TUsuario t = bbdd_user.entityToTransfer();
+	  if(check_password(tUsuario.getPassword(), bbdd_user.getPassword()))
 		
-		return (check_password(tUsuario.getPassword(), bbdd_user.getPassword()));
+		return t;
+	  }
+	  
+	  return null;
 		
 	}
 	

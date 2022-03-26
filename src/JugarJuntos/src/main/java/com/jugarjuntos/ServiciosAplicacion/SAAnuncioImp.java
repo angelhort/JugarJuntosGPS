@@ -36,7 +36,7 @@ public class SAAnuncioImp implements SAAnuncio{
 		 anuncio.setPersonas_actuales(tAnuncio.getPersonas_actuales());
 		 anuncio.setMax_personas(tAnuncio.getMax_personas());
 		 anuncio.setEstado(tAnuncio.getEstado());
-		 em.persist(anuncio);
+		 anuncioRepo.save(anuncio);
 		 id = anuncio.getId();
 //		 em.close();
 		 
