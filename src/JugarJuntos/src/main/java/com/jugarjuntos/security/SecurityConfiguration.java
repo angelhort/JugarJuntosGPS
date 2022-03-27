@@ -13,7 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 
 import com.jugarjuntos.Entities.UsuarioDetalles.CustomUserDetailsService;
 
@@ -60,7 +59,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/css/jugarjuntos.css", "/", "/fragments", "/login", "/registro")
+                .antMatchers("/css/jugarjuntos.css", "/", "/fragments", "/login", "/registro", "/detalles", "/getAnunciosPorNombre")
                 .permitAll()
                 .antMatchers("/registro")
                 .permitAll()
