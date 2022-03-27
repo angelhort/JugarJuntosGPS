@@ -122,13 +122,14 @@
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel" th:text="${anuncio.juego}"></h5>
 				</div>
+				
 				<div class="modal-body"
 					th:text="'¿Estás seguro de que quieres enviar esta solicitud a '+${anuncio.juego}+'?'">
-
 				</div>
+				
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-					<form action="enviarSolicitud" method="POST">
+					<form th:action="@{/enviarSolicitud}" method="POST">
 						<input id="id_usuario" name="id_usuario" type="hidden" th:value="19"><!-- HAY QUE PONER usuario.id CUANDO ESTE DISPONIBLE -->
 						<input id="id_anuncio" name="id_anuncio" type="hidden" th:value="${anuncio.id}">	
 						<input id="estado" name="estado" type="hidden" th:value="${anuncio.estado}">					
