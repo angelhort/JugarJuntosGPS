@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en">
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <div th:replace="fragments/head"></div>
 
@@ -18,7 +19,7 @@
 					<h1 class="registerTitle">Crear cuenta</h1>
 
 					<div class="row d-flex justify-content-center align-items-center">
-						<form action="procesarAltaUsuario" method="POST" th:object="${usuario}">
+						<form th:action= "@{/registro}"method="POST" th:object="${usuario}">
 
 							<div class="form-group">
 								<input type="text" class="loginFormInput form-control" th:field="*{nombre}" required
