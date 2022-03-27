@@ -54,12 +54,11 @@ public class JugarJuntosController {
 	 * @return 	new add view
 	 */
 	@GetMapping("/formAnuncio")
-	public String crearForm(Model model, HttpSession session) {
-		System.out.println((long) session.getAttribute("COOKIE_SESION_ID"));
+	public String crearForm(Model model) {
 		return "crearAnuncio.html";
 	}
 	
-	@PostMapping("/procesarAlta")
+	@PostMapping("/formAnuncio")
 	public String crearAnuncio(Model model, RedirectAttributes redirAttrs,@RequestParam String juego, @RequestParam String max_personas) {
 		TAnuncio tAnuncio = new TAnuncio();
 		tAnuncio.setJuego(juego);
@@ -103,7 +102,7 @@ public class JugarJuntosController {
 		return "registro";
 	}
 	
-	@PostMapping("/procesarAltaUsuario")
+	@PostMapping("/registro")
 	public String crearUsuario(TUsuario usuario, HttpServletRequest request) {
 		long res = saUsuario.altaUsuario(usuario);
 		if(res != -1) {
