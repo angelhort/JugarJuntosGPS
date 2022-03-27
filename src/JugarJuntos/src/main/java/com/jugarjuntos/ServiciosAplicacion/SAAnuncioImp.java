@@ -61,9 +61,14 @@ public class SAAnuncioImp implements SAAnuncio{
 	}
 	
 	public Anuncio findAnuncioByUser(long id_user) {
-		Usuario u_aux  = em.find(Usuario.class, id_user);
-		
-		List<Participacion> participaciones = u_aux.getParticipacion();
+		Usuario usuario  = em.find(Usuario.class, id_user);
+		/*
+		return usuario.getParticipacion().stream()
+				.filter(p -> p.getEstado_partida().equals("en_lobby"))
+				.map(p -> em.find(Anuncio.class, p.getId().getAnuncio_id()))
+				.findFirst()
+				.orElse(null);*/
+		List<Participacion> participaciones = usuario.getParticipacion();
 		
 		for (Participacion p: participaciones) {
 			if(p.getEstado_partida() == "en_lobby") {

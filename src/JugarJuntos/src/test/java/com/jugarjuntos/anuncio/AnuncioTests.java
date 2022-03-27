@@ -1,6 +1,5 @@
 package com.jugarjuntos.anuncio;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -31,29 +30,15 @@ public class AnuncioTests {
 		assertNotEquals(-1, sAAnuncio.altaAnuncio(tAnuncio));
 	}
 
-	// Operacion que prueba si cuando hay un dato repetido
-	// en la clave primaria falla en la operación de creación anuncio
-	@Test
-	void ccreateOneWrongTest() {
-		assertEquals(-1, sAAnuncio.altaAnuncio(tAnuncio));
-	}
-
 	// Operacion que prueba si se buscan todos los anuncios
 	@Test
-	void ebuscarTodosTest() {
+	void cbuscarTodosTest() {
 		assertNotNull(sAAnuncio.getAllAnuncios());
-	}
-
-	// Operación que busca un anuncio por el id del usuario
-	@Test
-	void gbuscarUnoFineTest() {
-		// findAnuncioByUser(long id_user)
-		assertNotNull(sAAnuncio.findAnuncioByUser(1));
 	}
 	
 	// Operacion que busca un anuncio por id y lo devuelve
 	@Test
-	void hgetDetallesAnuncioTest() {
+	void dgetDetallesAnuncioTest() {
 		assertNotNull(sAAnuncio.getAnuncioByID(2));
 	}
 /*  No implementado todavía borrar
