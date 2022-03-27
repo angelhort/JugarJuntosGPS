@@ -143,9 +143,8 @@ public class JugarJuntosController {
 	@PostMapping("/enviarSolicitud")
 	public String enviarSolicitud(RedirectAttributes redirAttrs, Model model,
 			@RequestParam long id_usuario, @RequestParam long id_anuncio, @RequestParam String estado) {
-		TParticipacion participacion= new TParticipacion(id_usuario, id_anuncio, estado);
 		try {
-			saParticipacion.enviarSolicitud(participacion);
+			saParticipacion.enviarSolicitud(new TParticipacion(id_usuario, id_anuncio, estado));
 		} catch (BusinessException e) {
 			model.addAttribute("exception", e.toString());
 			return "detallesAnuncio";
