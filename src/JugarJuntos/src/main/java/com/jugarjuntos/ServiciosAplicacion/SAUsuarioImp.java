@@ -36,9 +36,11 @@ public class SAUsuarioImp implements SAUsuario{
       
  
         Matcher mather = pattern.matcher(tUsuario.getCorreo());
- 
-        if (mather.find() == true) {
+
+        if (mather.find() == true && 
+        	repo.findDuplicatedUser(tUsuario.getCorreo(), tUsuario.getNombre(), tUsuario.getDiscord()) == null) {
 			Usuario nuevoUsuario = new Usuario();
+			
 			if(tUsuario.getNombre() != null && tUsuario.getNombre().trim() != "" && tUsuario.getDiscord() != null && tUsuario.getDiscord().trim() != ""){
 				nuevoUsuario.setNombre(tUsuario.getNombre());
 				nuevoUsuario.setCorreo(tUsuario.getCorreo());
@@ -49,8 +51,8 @@ public class SAUsuarioImp implements SAUsuario{
 				id = nuevoUsuario.getId();
 			}
         }
+        
 		return id; 
-       
 	}
 	
 	public TUsuario loginUsuario(TUsuario tUsuario) {
@@ -76,6 +78,10 @@ public class SAUsuarioImp implements SAUsuario{
 	  
 	  return null;
 		
+	}
+	
+	public void borrarPorCorreo(String correo) {
+		repo.deleteByCorreo(correo);
 	}
 	
 	private String encode_password(String plain_text_password) {

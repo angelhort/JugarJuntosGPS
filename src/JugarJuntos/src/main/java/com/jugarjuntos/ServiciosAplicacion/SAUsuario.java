@@ -10,4 +10,6 @@ public interface SAUsuario {
 	
 	public TUsuario loginUsuario(TUsuario tUsuario);
 	
+	public void borrarPorCorreo(String correo);
+	
 }
