@@ -3,6 +3,8 @@ package com.jugarjuntos.Controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.jugarjuntos.Entities.UsuarioDetalles.CustomUserDetails;
 import com.jugarjuntos.Exceptions.BusinessException;
 import com.jugarjuntos.ServiciosAplicacion.SAAnuncio;
 import com.jugarjuntos.ServiciosAplicacion.SAParticipacion;
@@ -25,7 +28,7 @@ public class JugarJuntosController {
 	SAParticipacion saParticipacion;
 
 	@GetMapping("/")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model) {
 		model.addAttribute("anuncios", saAnuncio.getAllAnuncios());
 		
 		return "index";
@@ -38,16 +41,22 @@ public class JugarJuntosController {
 	}
 	
 	@PostMapping("/enviarSolicitud")
-	public String enviarSolicitud(RedirectAttributes redirAttrs, Model model,
-			@RequestParam long id_usuario, @RequestParam long id_anuncio, @RequestParam String estado) {
-		TParticipacion participacion= new TParticipacion(id_usuario, id_anuncio, estado);
+	public String enviarSolicitud(Model model, RedirectAttributes redirAttrs, @RequestParam long id_anuncio) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		TParticipacion participacion = new TParticipacion(((CustomUserDetails)principal).getId(), id_anuncio, null);
+	
+		/*
 		try {
 			saParticipacion.enviarSolicitud(participacion);
 		} catch (BusinessException e) {
-			model.addAttribute("exception", e.toString());
-			return "detallesAnuncio";
+			redirAttrs.addAttribute("juego", id_anuncio);
+			return "redirect:/detalles";
 		}
-		return "detallesAnuncio";
+		*/
+		
+		redirAttrs.addAttribute("id", id_anuncio);
+		return "redirect:/detalles";
 	}
 	
 	@PostMapping("/aceptarSolicitud")

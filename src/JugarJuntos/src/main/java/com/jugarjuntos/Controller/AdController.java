@@ -23,7 +23,7 @@ public class AdController {
 	}
 	
 	@PostMapping("/formAnuncio")
-	public String crearAnuncio(Model model, RedirectAttributes redirAttrs,@RequestParam String juego, @RequestParam String max_personas) {
+	public String crearAnuncio(Model model, RedirectAttributes redirAttrs, @RequestParam String juego, @RequestParam String max_personas) {
 		TAnuncio tAnuncio = new TAnuncio();
 		tAnuncio.setJuego(juego);
 		tAnuncio.setMax_personas(Integer.parseInt(max_personas));
