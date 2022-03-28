@@ -2,9 +2,11 @@ package com.jugarjuntos.Repositories;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jugarjuntos.Entities.Participacion;
 import com.jugarjuntos.Entities.ParticipacionId;
@@ -21,8 +23,10 @@ public interface ParticipacionRepository extends CrudRepository<Participacion , 
 	public Participacion findParticipacionByIdUsuario(long usuarioId);
 	
 	//SI DESDE EL FRONTEND QUEREIS QUE EL ESTADO NO SE LLAME EN_LOBBY CAMBIADLO
-	@Query(value = "INSERT INTO participacion VALUES (?1, ?2, 'esperando', 'pendiente')", nativeQuery = true)
-	public void aniadirSolicitud(long anuncioId, long usuarioId);
+	@Modifying
+	@Query(value = "INSERT INTO participacion VALUES (?1, ?2, ?3, ?4)", nativeQuery = true)
+	@Transactional
+	public void aniadirSolicitud(long anuncioId, long usuarioId,String s, String p);
 	
 	@Query(value = "DELETE from participacion WHERE usuario_id = ?1 AND anuncio_id = ?2", nativeQuery = true)
 	public void eliminarUsuarioParticipacion(long usuarioId , long anuncioId);

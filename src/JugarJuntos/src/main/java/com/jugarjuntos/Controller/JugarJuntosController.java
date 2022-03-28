@@ -46,14 +46,12 @@ public class JugarJuntosController {
 		
 		TParticipacion participacion = new TParticipacion(((CustomUserDetails)principal).getId(), id_anuncio, null);
 	
-		/*
 		try {
 			saParticipacion.enviarSolicitud(participacion);
 		} catch (BusinessException e) {
 			redirAttrs.addAttribute("juego", id_anuncio);
 			return "redirect:/detalles";
 		}
-		*/
 		
 		redirAttrs.addAttribute("id", id_anuncio);
 		return "redirect:/detalles";
