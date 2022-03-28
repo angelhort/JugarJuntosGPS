@@ -59,6 +59,13 @@ public class TUsuario {
 		this.discord = discord;
 		this.estado = estado;
 	}
+	
+	public TUsuario(String nombre, String correo, String password, String discord) {
+		this.nombre = nombre;
+		this.correo = correo;
+		this.password = password;
+		this.discord = discord;
+	}
 
 	public long getId() {
 		return id;
