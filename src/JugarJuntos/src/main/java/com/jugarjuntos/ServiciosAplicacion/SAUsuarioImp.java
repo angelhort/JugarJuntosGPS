@@ -38,15 +38,16 @@ public class SAUsuarioImp implements SAUsuario{
         Matcher mather = pattern.matcher(tUsuario.getCorreo());
  
         if (mather.find() == true) {
-        
-		Usuario nuevoUsuario = new Usuario();
-		nuevoUsuario.setNombre(tUsuario.getNombre());
-		nuevoUsuario.setCorreo(tUsuario.getCorreo());
-		nuevoUsuario.setPassword(encode_password(tUsuario.getPassword()));
-		nuevoUsuario.setEstado("Libre");
-		nuevoUsuario.setDiscord(tUsuario.getDiscord());
-		em.persist(nuevoUsuario);
-		id = nuevoUsuario.getId();
+			Usuario nuevoUsuario = new Usuario();
+			if(tUsuario.getNombre() != null && tUsuario.getNombre().trim() != "" && tUsuario.getDiscord() != null && tUsuario.getDiscord().trim() != ""){
+				nuevoUsuario.setNombre(tUsuario.getNombre());
+				nuevoUsuario.setCorreo(tUsuario.getCorreo());
+				nuevoUsuario.setPassword(encode_password(tUsuario.getPassword()));
+				nuevoUsuario.setEstado("Libre");
+				nuevoUsuario.setDiscord(tUsuario.getDiscord());
+				em.persist(nuevoUsuario);
+				id = nuevoUsuario.getId();
+			}
         }
 		return id; 
        
