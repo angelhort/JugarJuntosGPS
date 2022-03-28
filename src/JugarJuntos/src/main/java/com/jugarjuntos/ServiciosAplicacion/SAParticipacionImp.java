@@ -63,7 +63,7 @@ public class SAParticipacionImp implements SAParticipacion{
 		anuncioRepository.findById(participacion.getId_anuncio()).getPersonas_actuales() < anuncioRepository.findById(participacion.getId_anuncio()).getMax_personas() &&
 		participacionRepository.findAllByIdAnuncio_idPendientes(participacion.getId_usuario()) != null) {
 			
-			participacionRepository.aniadirSolicitud(participacion.getId_usuario(), participacion.getId_anuncio(),"esperando","pendiente");
+			participacionRepository.aniadirSolicitud("esperando","pendiente",participacion.getId_usuario(), participacion.getId_anuncio());
 			return true;
 		}
 	
