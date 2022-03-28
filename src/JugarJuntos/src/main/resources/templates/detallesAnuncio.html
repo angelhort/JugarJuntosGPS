@@ -146,7 +146,7 @@
 				</div>
 				
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
 					<form th:action="@{/enviarSolicitud}" method="POST">
 						<input id="id_anuncio" name="id_anuncio" type="hidden" th:value="${anuncio.id}">	
 						<button type="submit" class="btn btn-warning">Aceptar</button>
