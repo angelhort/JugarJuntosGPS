@@ -22,11 +22,10 @@ public interface ParticipacionRepository extends CrudRepository<Participacion , 
 	@Query(value = "SELECT * FROM participacion WHERE usuario_id = ?1", nativeQuery = true)
 	public Participacion findParticipacionByIdUsuario(long usuarioId);
 	
-	//SI DESDE EL FRONTEND QUEREIS QUE EL ESTADO NO SE LLAME EN_LOBBY CAMBIADLO
 	@Modifying
 	@Query(value = "INSERT INTO participacion VALUES (?1, ?2, ?3, ?4)", nativeQuery = true)
 	@Transactional
-	public void aniadirSolicitud(long anuncioId, long usuarioId,String s, String p);
+	public void aniadirSolicitud(long anuncioId, long usuarioId, String s, String p);
 	
 	@Query(value = "DELETE from participacion WHERE usuario_id = ?1 AND anuncio_id = ?2", nativeQuery = true)
 	public void eliminarUsuarioParticipacion(long usuarioId , long anuncioId);
