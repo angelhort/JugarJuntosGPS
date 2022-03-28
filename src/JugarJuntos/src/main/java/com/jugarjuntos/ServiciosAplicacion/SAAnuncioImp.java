@@ -7,12 +7,15 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.jugarjuntos.Entities.Anuncio;
 import com.jugarjuntos.Entities.Participacion;
 import com.jugarjuntos.Entities.Usuario;
+import com.jugarjuntos.Entities.UsuarioDetalles.CustomUserDetails;
 import com.jugarjuntos.Repositories.AnuncioRepository;
+import com.jugarjuntos.Repositories.UsuarioRepository;
 import com.jugarjuntos.Transfers.TAnuncio;
 import com.jugarjuntos.entitymanager.EntityManagerSingleton;
 
@@ -23,6 +26,8 @@ public class SAAnuncioImp implements SAAnuncio{
 	AnuncioRepository anuncioRepo;
 	
 	@Autowired EntityManager em;
+	@Autowired
+	UsuarioRepository usuarioRepository;
 	
 	
 	@Override
@@ -32,6 +37,15 @@ public class SAAnuncioImp implements SAAnuncio{
 //		EntityManager em = EntityManagerSingleton.getInstance().getEntityManager();
 		if(tAnuncio.getMax_personas() >0) {
 		 Anuncio anuncio = new Anuncio();
+		 Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		 Long idUsuario = -1L;
+			try {
+				idUsuario = ((CustomUserDetails) principal).getId();
+				anuncio.setAnunciante(usuarioRepository.findUsuarioById(idUsuario));
+			}catch(Exception e) {
+				
+			}
+			
 		 anuncio.setJuego(tAnuncio.getJuego());
 		 anuncio.setPersonas_actuales(tAnuncio.getPersonas_actuales());
 		 anuncio.setMax_personas(tAnuncio.getMax_personas());
