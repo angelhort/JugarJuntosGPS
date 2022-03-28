@@ -32,10 +32,7 @@ public class Registro {
 	
 	@BeforeEach
 	public void setup() throws Exception {
-		//this.mockMvc = MockMvcBuilders.webAppContextSetup(this.webApplicationContext).build();
-
-		// Create test add TODO
-		saUsuario.altaUsuario(usuario);
+		
 	}
 	@Test
 	public void checkRegistroUsuario() {
