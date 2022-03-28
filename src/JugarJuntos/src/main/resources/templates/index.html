@@ -1,6 +1,5 @@
 <!doctype html>
-<html  xmlns:th="http://www.thymeleaf.org"
-       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <div th:replace="fragments/head"></div>
 
@@ -53,40 +52,32 @@
 
 		<div class="container">
 			<div class="row justify-content-center">
-				<div class="col-3 d-flex justify-content-center" th:each="anuncio: ${anunciosBusqueda}">
-					<div class="addCard card">
-						<div class="card-body">
-							<h5 class="card-title" th:text="${anuncio.juego}"></h5>
-							<!---
-							<p class="card-text">DESCRIPCION</p>
-						-->
-							<a th:href="@{/detalles?id={id}(id=${anuncio.id})}" class="detailsButton btn">Ver
-								detalles</a>
-						</div>
-					</div>
-				</div>
-
 				<div class="col-3 d-flex justify-content-center" th:each="anuncio: ${anuncios}">
 					<div class="addCard card">
 						<div class="card-body">
 							<h5 class="card-title" th:text="${anuncio.juego}"></h5>
 							<!---
-							<p class="card-text">DESCRIPCION</p>
+							<p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting
+								industry.</p>
 							-->
-							<a th:href="@{/detalles?id={id}(id=${anuncio.id})}"
-								class="detailsButton btn btn-sm">Ver detalles</a>
-							<i class="fa-solid fa-user fa-lg" style="margin-left: 35%; color: #C4C4C4;">
-								<p style="margin-left: 115%; color: #C4C4C4; font-size: 20px;"
-									th:text="${anuncio.max_personas}"></p>
-							</i>
+							<ul class="mb-0 list-inline mt-3">
+								<li class="list-inline-item">
+									<i class="fa-solid fa-circle-user fa-xl" style="color: #C4C4C4;"></i>
+								</li>
+								<li class="list-inline-item">
+									<p th:text="${anuncio.personas_actuales}+'/'+${anuncio.max_personas}" style="color: #939393;"></p>
+								</li>
+							</ul>
 
+							<a th:href="@{/detalles?id={id}(id=${anuncio.id})}" class="rounded-pill detailsButton btn">Ver
+								detalles</a>
 						</div>
 					</div>
 				</div>
 			</div>
-			
+
 			<div th:if="${#lists.isEmpty(anuncios) and #lists.isEmpty(anunciosBusqueda)}">
-			 	<h1 align="center">No se encontró nada para esa búsqueda</h1>
+				<h1 align="center">No se encontró nada para esa búsqueda</h1>
 			</div>
 	</main>
 

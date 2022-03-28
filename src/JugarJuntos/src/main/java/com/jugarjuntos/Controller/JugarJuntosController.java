@@ -1,7 +1,5 @@
 package com.jugarjuntos.Controller;
 
-
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.jugarjuntos.Exceptions.BusinessException;
 import com.jugarjuntos.ServiciosAplicacion.SAAnuncio;
 import com.jugarjuntos.ServiciosAplicacion.SAParticipacion;
-import com.jugarjuntos.Transfers.TAnuncio;
 import com.jugarjuntos.Transfers.TParticipacion;
 
 @Controller
@@ -26,13 +23,7 @@ public class JugarJuntosController {
 	
 	@Autowired 
 	SAParticipacion saParticipacion;
-	
-	/**
-	 * Web index
-	 * 
-	 * @Param 	model 	model attribute holder
-	 * @return 	index view
-	 */
+
 	@GetMapping("/")
 	public String index(Model model, HttpSession session) {
 		model.addAttribute("anuncios", saAnuncio.getAllAnuncios());
@@ -40,57 +31,10 @@ public class JugarJuntosController {
 		return "index";
 	}
 	
-	/**
-	 * New add view
-	 * 
-	 * @Param 	model 	model attribute holder
-	 * @return 	new add view
-	 */
-	@GetMapping("/formAnuncio")
-	public String crearForm(Model model) {
-		return "crearAnuncio.html";
-	}
-	
-	@PostMapping("/formAnuncio")
-	public String crearAnuncio(Model model, RedirectAttributes redirAttrs,@RequestParam String juego, @RequestParam String max_personas) {
-		TAnuncio tAnuncio = new TAnuncio();
-		tAnuncio.setJuego(juego);
-		tAnuncio.setMax_personas(Integer.parseInt(max_personas));
-		tAnuncio.setEstado("Pendiente");
-		tAnuncio.setPersonas_actuales(0);
-		long res = saAnuncio.altaAnuncio(tAnuncio);
-		
-		if (res > 0)
-			redirAttrs.addFlashAttribute("success", "Anuncio dado de alta correctamente.");
-		else
-			redirAttrs.addFlashAttribute("error", "Error a la hora de crear el anuncio");
-			
-		return "redirect:/";
-	}
-	
-	// BUSCAR ANUNCIOS POR NOMBRE DEL JUEGO
-	@GetMapping("/getAnunciosPorNombre")
-	public String getAnunciosPorNombre(Model model, @RequestParam String juego) {
-		model.addAttribute("anunciosBusqueda", saAnuncio.getAnunciosByNombreJuego(juego));
-		return "index";
-	}
-
-	@GetMapping("/getAnuncios")
-	public String getAnuncios(Model model) {
-		model.addAttribute("anuncios", saAnuncio.getAllAnuncios());
-		return "index";
-	}
-	
 	@GetMapping("/verSolicitudesDeAcceso")
 	public String verSolicitudes(Model model, @RequestParam long id){
 		model.addAttribute("solicitudes", saParticipacion.solicitudesPendientes(id));
 		return "solicitudes";
-	}
-	
-	@GetMapping("/detalles")
-	public String detalles(Model model, @RequestParam int id) {
-		model.addAttribute("anuncio", saAnuncio.getAnuncioByID(id));
-		return "detallesAnuncio.html";
 	}
 	
 	@PostMapping("/enviarSolicitud")
@@ -127,13 +71,4 @@ public class JugarJuntosController {
 		}
 		return "index";
 	}
-	
-	@GetMapping("/lobbyAnuncio")
-	public String irALobby(Model model) {
-		
-		return "lobbyAnuncio";
-	}
-	
-	
-
 }
