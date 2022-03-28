@@ -51,7 +51,7 @@
 				</button>
 				<button title="verSolicitudes anuncio" class=" open-Solicitud btn rounded-pill searchBar searchButton"
 					data-toggle="modal" data-target="#verSolicitudesModal"
-					th:if="${anuncio.anunciante.id} == ${idUsuario}">
+					th:if=" ${anuncio.anunciante != null} and ${anuncio.anunciante.id} == ${idUsuario}">
 					Solicitudes
 				</button>
 			</div>
@@ -68,7 +68,7 @@
 						</div>
 						<div class=" col-12 d-flex justify-content-center">
 							<div class=" col-12 d-flex justify-content-center">
-							<div class="row justify-content-center" th:if="${anuncio.anunciante.id} == ${idUsuario} 
+							<div class="row justify-content-center" th:if=" ${anuncio.anunciante != null} and ${anuncio.anunciante.id} == ${idUsuario} 
 							OR ${#lists.contains(listaParticipantes, idUsuario)}">
 								<div class="col-6">
 									<label class="detailsUserAnuncioP" th:text="${anuncio?.anunciante?.nombre}"></label>
@@ -78,7 +78,7 @@
 										th:text="${anuncio?.anunciante?.discord}"></label>
 								</div>
 							</div>
-							<div class="row justify-content-center" th:unless="${anuncio.anunciante.id} == ${idUsuario} 
+							<div class="row justify-content-center" th:unless=" ${anuncio.anunciante != null} and ${anuncio.anunciante.id} == ${idUsuario} 
 							OR ${#lists.contains(listaParticipantes,idUsuario)}">
 								<div class="col-12">
 									<label class="detailsUserAnuncioP" th:text="${anuncio?.anunciante?.nombre}"></label>
@@ -102,7 +102,7 @@
 									th:each="participante: ${anuncio.participacion}" th:object="${participante}"
 									th:if="${participante.estado_solicitud} == 'aceptado'">
 
-									<div class="row justify-content-center" th:if="${anuncio.anunciante.id} == ${idUsuario} 
+									<div class="row justify-content-center" th:if=" ${anuncio.anunciante != null} and ${anuncio.anunciante.id} == ${idUsuario} 
 							OR ${#lists.contains(listaParticipantes, idUsuario)}">
 										<div class="col-6">
 											<label class="detailsUserAnuncio"
@@ -113,7 +113,7 @@
 												th:text="${participante.usuario.discord}"></label>
 										</div>
 									</div>
-									<div class="row justify-content-center" th:unless="${anuncio.anunciante.id} == ${idUsuario} 
+									<div class="row justify-content-center" th:unless=" ${anuncio.anunciante != null} and ${anuncio.anunciante.id} == ${idUsuario} 
 							OR ${#lists.contains(listaParticipantes, idUsuario)}">
 										<div class="col-12">
 											<label class="detailsUserAnuncio"
