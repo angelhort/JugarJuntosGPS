@@ -37,7 +37,7 @@ public class SAAnuncioImp implements SAAnuncio{
 //		EntityManager em = EntityManagerSingleton.getInstance().getEntityManager();
 		if(tAnuncio.getMax_personas() >0) {
 		 Anuncio anuncio = new Anuncio();
-		 if(tAnuncio.getId() != -1L) {
+		 if(tAnuncio.getId_Usuario() == -1L) {
 			 Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			 Long idUsuario = -1L;
 				try {
@@ -48,7 +48,7 @@ public class SAAnuncioImp implements SAAnuncio{
 				}
 		 }
 		 else {
-			 anuncio.setAnunciante(usuarioRepository.findUsuarioById(tAnuncio.getId()));
+			 anuncio.setAnunciante(usuarioRepository.findUsuarioById(tAnuncio.getId_Usuario()));
 		 }
 		 
 			

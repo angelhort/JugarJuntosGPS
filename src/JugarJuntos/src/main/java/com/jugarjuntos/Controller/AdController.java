@@ -36,7 +36,7 @@ public class AdController {
 		tAnuncio.setMax_personas(Integer.parseInt(max_personas));
 		tAnuncio.setEstado("Pendiente");
 		tAnuncio.setPersonas_actuales(0);
-		tAnuncio.setId(-1L);
+		tAnuncio.setId_Usuario(-1L);
 		long res = saAnuncio.altaAnuncio(tAnuncio);
 		
 		if (res > 0)
