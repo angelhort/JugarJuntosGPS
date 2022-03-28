@@ -22,6 +22,14 @@ public class CustomUserDetails implements UserDetails {
 		
 		return null;
 	}
+	
+	public long getId() {
+		return usuario.getId();
+	}
+	
+	public String getName() {
+		return usuario.getNombre();
+	}
 
 	@Override
 	public String getPassword() {
