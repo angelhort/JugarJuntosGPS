@@ -43,17 +43,28 @@ public class JugarJuntosController {
 	@PostMapping("/enviarSolicitud")
 	public String enviarSolicitud(Model model, RedirectAttributes redirAttrs, @RequestParam long id_anuncio) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
-		TParticipacion participacion = new TParticipacion(((CustomUserDetails)principal).getId(), id_anuncio, null);
-	
+		Long idUsuario = -1L;
 		try {
-			saParticipacion.enviarSolicitud(participacion);
-		} catch (BusinessException e) {
-			redirAttrs.addAttribute("juego", id_anuncio);
-			return "redirect:/detalles";
+			idUsuario = ((CustomUserDetails) principal).getId();
+			TParticipacion participacion = new TParticipacion(idUsuario, id_anuncio, null);
+			
+			try {
+				saParticipacion.enviarSolicitud(participacion);
+			} catch (BusinessException e) {
+				redirAttrs.addAttribute("juego", id_anuncio);
+				return "redirect:/detalles";
+			}
+			
+			
+		}catch(Exception e) {
+			
 		}
-		
 		redirAttrs.addAttribute("id", id_anuncio);
+		if (idUsuario != -1L)
+			redirAttrs.addFlashAttribute("success", "Se ha enviado la solicitud correctamente.");
+		else
+			redirAttrs.addFlashAttribute("error", "Error al unirte al anuncio.");
+		
 		return "redirect:/detalles";
 	}
 	
