@@ -1,0 +1,169 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div th:replace="fragments/head"></div>
+
+<body>
+	<div th:replace="fragments/navbar"></div>
+	<main class="landingPage vh-100">
+		<div class="fullWidthHeaderSmall">
+			<div class="row align-middle">
+				<div class="col-2">
+					<a href="/" class="btn rounded-pill searchBar searchButton"><i
+							class="fa-solid fa-left-long fa-2x"></i></a>
+				</div>
+				<div class="col-8">
+					<div class"row gy-2">
+						<div class="col-12">
+							<h1 class="welcomePhraseSmall" align="center" th:text="${anuncio.juego}"></h1>
+						</div>
+						<div class="col-12" th:switch="${anuncio.estado}">
+							<h5 class="welcomePhraseSmall" align="center" th:case="'Pendiente'" style="color: green">
+								PENDIENTE</h5>
+							<h5 class="welcomePhraseSmall" align="center" th:case="'en_lobby'" style="color: orange">EN
+								LOBBY</h5>
+							<h5 class="welcomePhraseSmall" align="center" th:case="'Finalizado'" style="color: red">
+								FINALIZADO</h5>
+
+						</div>
+					</div>
+				</div>
+				<div class="col-2">
+					<!-- Button trigger modal -->
+					<button title="EnviarAnuncio" class=" open-Solicitud btn rounded-pill searchBar searchButton"
+						data-bs-toggle="modal" data-bs-target="#enviarSolicitudModal">
+						Unirse
+					</button>
+
+				</div>
+			</div>
+		</div>
+		
+		<div class="row justify-content-center">
+			<div class="alert alert-success col-6" id="alertMessage" role="alert" th:text="${success}" th:if="${success}"></div>
+			<div class="alert alert-danger col-6" id="alertMessage" role="alert" th:text="${error}" th:if="${error}"></div>
+		</div>
+		
+		<div class="container contDescAnuncio">
+
+			<div class="col-12" style="text-align: right;">
+				<button class="btn rounded-pill numPlayersAnuncio"
+					th:text="${anuncio.personas_actuales}+'/'+${anuncio.max_personas}">
+				</button>
+				<button title="verSolicitudes anuncio" class=" open-Solicitud btn rounded-pill searchBar searchButton"
+					data-toggle="modal" data-target="#verSolicitudesModal"
+					th:if=" ${anuncio.anunciante != null} and ${anuncio.anunciante.id} == ${idUsuario}">
+					Solicitudes
+				</button>
+			</div>
+
+			<div class="row gy-4">
+				<div class=" col-12">
+					<div class="row gy-3">
+						<div class=" col-12">
+							<div class="row align-items-center">
+								<div class="col-3">
+									<h5 class="welcomePhraseSmall" align="left">Propietario</h5>
+								</div>
+							</div>
+						</div>
+						<div class=" col-12 d-flex justify-content-center">
+							<div class=" col-12 d-flex justify-content-center">
+								<div class="row justify-content-center" th:if=" ${anuncio.anunciante != null} and ${anuncio.anunciante.id} == ${idUsuario} 
+							OR ${#lists.contains(listaParticipantes, idUsuario)}">
+									<div class="col-6">
+										<label class="detailsUserAnuncioP"
+											th:text="${anuncio?.anunciante?.nombre}"></label>
+									</div>
+									<div class="col-6">
+										<label class="detailsUserAnuncioP"
+											th:text="${anuncio?.anunciante?.discord}"></label>
+									</div>
+								</div>
+								<div class="row justify-content-center" th:unless=" ${anuncio.anunciante != null} and ${anuncio.anunciante.id} == ${idUsuario} 
+							OR ${#lists.contains(listaParticipantes,idUsuario)}">
+									<div class="col-12">
+										<label class="detailsUserAnuncioP"
+											th:text="${anuncio?.anunciante?.nombre}"></label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class=" col-12">
+					<div class="row gy-3">
+						<div class=" col-12">
+							<div>
+								<h5 class="welcomePhraseSmall" align="left">Participantes</h5>
+							</div>
+						</div>
+						<div class=" col-12">
+							<div class="row gy-3">
+								<div class="col-12 d-flex justify-content-center"
+									th:each="participante: ${anuncio.participacion}" th:object="${participante}"
+									th:if="${participante.estado_solicitud} == 'aceptado'">
+
+									<div class="row justify-content-center" th:if=" ${anuncio.anunciante != null} and ${anuncio.anunciante.id} == ${idUsuario} 
+							OR ${#lists.contains(listaParticipantes, idUsuario)}">
+										<div class="col-6">
+											<label class="detailsUserAnuncio"
+												th:text="${participante.usuario.nombre}"></label>
+										</div>
+										<div class="col-6">
+											<label class="detailsUserAnuncio"
+												th:text="${participante.usuario.discord}"></label>
+										</div>
+									</div>
+									<div class="row justify-content-center" th:unless=" ${anuncio.anunciante != null} and ${anuncio.anunciante.id} == ${idUsuario} 
+							OR ${#lists.contains(listaParticipantes, idUsuario)}">
+										<div class="col-12">
+											<label class="detailsUserAnuncio"
+												th:text="${participante.usuario.nombre}"></label>
+										</div>
+
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</main>
+
+	<!-- Modal -->
+	<div class="modal fade" id="enviarSolicitudModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel" th:text="${anuncio.juego}"></h5>
+				</div>
+
+				<div class="modal-body"
+					th:text="'¿Estás seguro de que quieres enviar esta solicitud a '+${anuncio.juego}+'?'">
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+					<form th:action="@{/enviarSolicitud}" method="POST">
+						<input id="id_anuncio" name="id_anuncio" type="hidden" th:value="${anuncio.id}">
+						<button type="submit" class="btn btn-warning">Aceptar</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		setTimeout(function () {
+			$('#alertMessage').fadeOut('slow');
+		}, 1500); //Time in milliseconds
+	</script>
+</body>
+
+</html>

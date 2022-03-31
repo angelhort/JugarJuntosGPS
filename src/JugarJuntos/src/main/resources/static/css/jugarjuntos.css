@@ -1,0 +1,264 @@
+body {
+	font-family: 'Inter', sans-serif;
+}
+
+.newAdd {
+	font-size: 48px;
+	font-weight: 700;
+	margin: 70px;
+}
+
+.lobbyTitles {
+	font-size: 36px;
+	font-weight: 700;
+}
+
+.lobbyRectangle{
+	width: 449px;
+	height: 19px;
+	background: #2E5266;
+	border-radius: 10px;
+}
+
+.lobbyBackground{
+	width: 540px;
+	height: 807px;
+	background: #EFEFEF;
+	border-radius: 10px;
+	padding-top:20px;
+	padding-bottom:20px;
+}
+
+.lobbyLabel{
+	background: #FFFFFF;
+	border-radius: 10px;
+	
+}
+
+.registerTitle {
+	font-size: 48px;
+	font-weight: 700;
+}
+
+
+.formBackground {
+	width: 450px;
+	height: 350px;
+	background: #EFEFEF;
+	border-radius: 10px;
+	padding-top:20px;
+	padding-bottom:20px;
+}
+
+.formregisterBackground {
+	width: 450px;
+	height: 500px;
+	background: #F7F7F7;
+	border-radius: 10px;
+}
+
+.registerBackground{
+	height: 100vh;
+	background: #2E5266;
+}
+
+.form-group {
+	margin: 20px;
+}
+
+.submitForm {
+	background-color: #E2C044;
+	color: white;
+	width: 150px;
+	height: 50px;
+	font-size: 24px;
+	border-radius: 10px;
+	font-weight: 500;
+}
+
+.submitForm:hover {
+	background-color: #C39E16;
+	color: white;
+}
+
+.submitFormRegister {
+	background-color: #E2C044;
+	color: white;
+	width: 200px;
+	height: 50px;
+	font-size: 24px;
+	border-radius: 10px;
+	font-weight: 500;
+}
+
+.submitFormRegister:hover {
+	background-color: #C39E16;
+	color: white;
+}
+
+.formLabel {
+	font-size: 24px;
+}
+
+.formInput {
+	border: 0;
+}
+
+.fullWidthHeader {
+	height: 250px;
+	background-color: #F7F7F7;
+	margin-bottom: 20px;
+	padding:30px;
+}
+
+.addCard {
+	width: 18rem;
+	border-radius:10px;
+	margin:20px;
+	border: 0px;
+}
+
+.card-title {
+	font-weight: 600;
+}
+
+.card-text {
+	color: #68717A;
+}
+
+.detailsButton {
+	background-color: #E2C044;
+	color: white;
+	font-weight: 500;
+}
+
+.detailsButton:hover {
+	background-color: #C39E16;
+	color: white;
+}
+
+.landingPage {
+	background-color: #EFEFEF;
+}
+
+.welcomePhrase {
+	font-weight: 700;
+	margin-bottom: 75px;
+}
+
+.searchBar {
+	font-size: 20px;
+	border: 0px;
+}
+
+.searchBarInput {
+	background-color: #E7E7E7;
+	height: 50px;
+}
+
+.searchButton {
+	background-color: #E2C044;
+	color: white;
+	font-weight: 500;
+	width: 140px;
+	height: 50px;
+}
+
+.searchButton:hover {
+	background-color: #C39E16;
+	color: white;
+}
+
+.suggestButton {
+	background-color: #E7E7E7;
+	color: #939393;
+	font-weight: 500;
+	width: 210px;
+	height: 50px;
+}
+
+.suggestButton:hover {
+	background-color: #C3C2C2;
+	color: #939393;
+}
+
+.loginFormBackground {
+	margin-top: 25vh;
+	background-color: #F7F7F7;
+	padding: 20px;
+	border-radius: 15px;
+}
+
+.loginFormInput {
+	background-color: #DEDCDC;
+	border: 0px;	
+}
+
+.text600 {
+	font-weight: 600;
+}
+
+.text300 {
+	font-weight: 300;
+}
+
+
+.fullWidthHeaderSmall {
+	height: 120px;
+	background-color: #F7F7F7;
+	margin-bottom: 20px;
+	padding:30px;
+}
+
+.welcomePhraseSmall {
+	font-weight: 700;
+}
+
+.infoDetailsAnuncio {
+	width: 450px;
+	height: 500px;
+	background: #F7F7F7;
+	border-radius: 10px;
+}
+.numPlayersAnuncio{
+	background-color: #E7E7E7;
+	color: #939393;
+	font-weight: 500;
+	width: 140px;
+	height: 50px;
+}
+.detailsAnuncioBackground {
+	width: 1200px;
+	height: 900px;
+	background: #F7F7F7;
+	border-radius: 10px;
+}
+.detailsUserAnuncio {
+	width: 50vh;
+	background: #939393;
+	color: white;
+	border-radius: 10px;
+	text-align:center;
+	padding-top: 10px;
+    padding-bottom: 10px;
+}
+.detailsUserAnuncioP {
+	width: 50vh;
+	background: #E2C044;
+	color: white;
+	border-radius: 10px;
+	text-align:center;
+	padding-top: 10px;
+    padding-bottom: 10px;
+}
+.contDescAnuncio{
+	background-color: #F7F7F7; 
+    border-radius: 10px;
+    width: 1200px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+	padding-top:50px;
+	padding-bottom:50px;
+    padding-left: 100px;
+    padding-right: 100px;
+}

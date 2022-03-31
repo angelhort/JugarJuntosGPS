@@ -1,0 +1,91 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div th:replace="fragments/head"></div>
+
+<body>
+	<div th:replace="fragments/navbar"></div>
+
+	<main class="landingPage">
+		<div class="fullWidthHeader">
+			<h1 class="welcomePhrase" align="center">¿A qué te apetece jugar hoy?</h1>
+
+			<div class="row">
+				<div class="col-6">
+					<form action="/getAnunciosPorNombre" class="row g-3 align-items-center">
+						<div class="col-8">
+							<div class="input-group">
+								<input type="text" class="form-control rounded-pill searchBar searchBarInput"
+									name="juego" placeholder="Ajedrez">
+							</div>
+						</div>
+
+						<div class="col-2">
+							<button type="submit" class="btn rounded-pill searchBar searchButton">Buscar</button>
+						</div>
+					</form>
+				</div>
+
+				<div class="col-2">
+					<a href="/getAnunciosPorNombre?juego=CS:GO"
+						class="btn rounded-pill searchBar suggestButton d-flex align-items-center justify-content-center">CS:GO</a>
+				</div>
+
+				<div class="col-2">
+					<a href="/getAnunciosPorNombre?juego=Dota"
+						class="btn rounded-pill searchBar suggestButton d-flex align-items-center justify-content-center">Dota</a>
+				</div>
+
+				<div class="col-2">
+					<a href="/getAnunciosPorNombre?juego=Parchis"
+						class="btn rounded-pill searchBar suggestButton d-flex align-items-center justify-content-center">Parchís</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="row justify-content-center">
+			<div class="alert alert-success col-6" id="alertMessage" role="alert" th:text="${success}"
+				th:if="${success}"></div>
+			<div class="alert alert-danger col-6" id="alertMessage" role="alert" th:text="${error}" th:if="${error}">
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-3 d-flex justify-content-center" th:each="anuncio: ${anuncios}">
+					<div class="addCard card">
+						<div class="card-body">
+							<h5 class="card-title" th:text="${anuncio.juego}"></h5>
+							<!---
+							<p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting
+								industry.</p>
+							-->
+							<ul class="mb-0 list-inline mt-3">
+								<li class="list-inline-item">
+									<i class="fa-solid fa-circle-user fa-xl" style="color: #C4C4C4;"></i>
+								</li>
+								<li class="list-inline-item">
+									<p th:text="${anuncio.personas_actuales}+'/'+${anuncio.max_personas}" style="color: #939393;"></p>
+								</li>
+							</ul>
+
+							<a th:href="@{/detalles?id={id}(id=${anuncio.id})}" class="rounded-pill detailsButton btn">Ver
+								detalles</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div th:if="${#lists.isEmpty(anuncios) and #lists.isEmpty(anunciosBusqueda)}">
+				<h1 align="center">No se encontró nada para esa búsqueda</h1>
+			</div>
+	</main>
+
+	<script>
+		setTimeout(function () {
+			$('#alertMessage').fadeOut('slow');
+		}, 1500); //Time in milliseconds
+	</script>
+</body>
+
+</html>
