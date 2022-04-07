@@ -51,7 +51,8 @@ public class JugarJuntosController {
 			try {
 				saParticipacion.enviarSolicitud(participacion);
 			} catch (BusinessException e) {
-				redirAttrs.addAttribute("juego", id_anuncio);
+				redirAttrs.addFlashAttribute("error", "Error al unirte al anuncio.");
+				redirAttrs.addAttribute("id", id_anuncio);
 				return "redirect:/detalles";
 			}
 			

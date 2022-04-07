@@ -34,7 +34,7 @@ public class UserController {
 	@PostMapping("/registro")
 	public String crearUsuario(TUsuario usuario, HttpServletRequest request) {
 		long res = saUsuario.altaUsuario(usuario);
-		if(res != -1) {
+		if (res != -1) {
 			request.getSession().setAttribute("COOKIE_SESION_ID", res);
 		}
 		return "redirect:/";

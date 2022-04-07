@@ -41,8 +41,10 @@ public class AdController {
 		
 		if (res > 0)
 			redirAttrs.addFlashAttribute("success", "Anuncio dado de alta correctamente.");
-		else
+		else {
 			redirAttrs.addFlashAttribute("error", "Error a la hora de crear el anuncio");
+			return "redirect:/formAnuncio";
+		}
 			
 		return "redirect:/";
 	}
