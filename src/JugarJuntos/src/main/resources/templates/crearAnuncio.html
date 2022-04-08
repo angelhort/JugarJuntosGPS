@@ -1,6 +1,5 @@
 <!doctype html>
-<html  xmlns:th="http://www.thymeleaf.org"
-       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <div th:replace="fragments/head"></div>
 
@@ -12,28 +11,46 @@
 		<div class="container" align="center">
 			<h1 class="newAdd">Crear nuevo anuncio</h1>
 
+			<div class="row justify-content-center">
+				<div class="alert alert-success col-6" id="alertMessage" role="alert" th:text="${success}"
+					th:if="${success}"></div>
+				<div class="alert alert-danger col-6" id="alertMessage" role="alert" th:text="${error}"
+					th:if="${error}">
+				</div>
+			</div>
+
 			<div class="formBackground d-flex justify-content-center align-items-center">
 				<form th:action="@{formAnuncio}" method="POST">
-				
+
 					<div class="form-group">
 						<label class="formLabel d-flex justify-content-start" for="juego">Nombre del juego</label>
-						<input type="text" id="juego" class="formInput form-control" name="juego" placeholder="Ajedrez" required>
+						<input type="text" id="juego" class="formInput form-control" name="juego" placeholder="Ajedrez"
+							required>
 					</div>
 
 					<div class="form-group">
-						<label class="formLabel d-flex justify-content-start" for="max_personas">Plazas disponibles</label>
-						<input type="number" class="formInput form-control" name="max_personas" placeholder="1" required>
+						<label class="formLabel d-flex justify-content-start" for="max_personas">Plazas
+							disponibles</label>
+						<input type="number" class="formInput form-control" name="max_personas" placeholder="1"
+							required>
 					</div>
-					
+
 					<div class="form-group">
 						<button type="submit" class="btn submitForm">Crear</button>
 					</div>
-					
+
 				</form>
 			</div>
 		</div>
 	</main>
-	
+
+	<script>
+		setTimeout(function () {
+			$('#alertMessage').fadeOut('slow');
+		}, 2000); //Time in milliseconds
+	</script>
+
+
 </body>
 
 </html>

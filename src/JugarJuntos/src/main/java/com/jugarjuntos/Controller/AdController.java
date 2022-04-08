@@ -36,13 +36,25 @@ public class AdController {
 		tAnuncio.setMax_personas(Integer.parseInt(max_personas));
 		tAnuncio.setEstado("Pendiente");
 		tAnuncio.setPersonas_actuales(0);
-		tAnuncio.setId_Usuario(-1L);
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		try {
+			tAnuncio.setId_Usuario(((CustomUserDetails) principal).getId());
+		}catch(Exception e) {
+			
+		}
+		
+		System.out.println(tAnuncio.getId());
 		long res = saAnuncio.altaAnuncio(tAnuncio);
 		
 		if (res > 0)
 			redirAttrs.addFlashAttribute("success", "Anuncio dado de alta correctamente.");
-		else {
+		else if(res == -1) {
 			redirAttrs.addFlashAttribute("error", "Error a la hora de crear el anuncio");
+			return "redirect:/formAnuncio";
+		}
+		else {
+			redirAttrs.addFlashAttribute("error", "Error a la hora de crear el anuncio (asegúrese de no tener un anuncio en curso y vuelva a intentarlo)");
 			return "redirect:/formAnuncio";
 		}
 			

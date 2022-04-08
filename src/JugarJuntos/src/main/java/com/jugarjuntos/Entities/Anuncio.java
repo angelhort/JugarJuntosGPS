@@ -39,6 +39,7 @@ public class Anuncio implements Serializable{
 	public Anuncio() {
 		super();
 		this.participacion=new ArrayList<Participacion>();
+		this.estado = "Pendiente";
 	}
 
 	public Anuncio(String juego, int personas_actuales, int max_personas, String estado) {
@@ -46,7 +47,8 @@ public class Anuncio implements Serializable{
 		this.juego = juego;
 		this.personas_actuales = personas_actuales;
 		this.max_personas = max_personas;
-		this.estado = estado;
+		if(estado.equals("Pendiente") || estado.equals("Finalizado")) this.estado = estado;
+		else this.estado="Pendiente";
 		this.participacion=new ArrayList<Participacion>();
 	}
 
@@ -104,7 +106,8 @@ public class Anuncio implements Serializable{
 	}
 
 	public void setEstado(String estado) {
-		this.estado = estado;
+		if(estado.equals("Pendiente") || estado.equals("Finalizado")) this.estado = estado;
+		else this.estado="Pendiente";
 	}
 	
 	public TAnuncio entityToTransfer() {

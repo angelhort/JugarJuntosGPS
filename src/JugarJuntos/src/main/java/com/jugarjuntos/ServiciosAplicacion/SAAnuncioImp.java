@@ -33,29 +33,34 @@ public class SAAnuncioImp implements SAAnuncio {
 	@Transactional
 	public long altaAnuncio(TAnuncio tAnuncio) {
 		long id = -1;
+		long id_usr = -1;
 
-		if (tAnuncio.getMax_personas() > 0 &&
-			tAnuncio.getJuego().length() <= 150 &&
-			tAnuncio.getMax_personas() <= 255) {
-			
+		if (tAnuncio.getMax_personas() > 0 && tAnuncio.getJuego().length() <= 150
+				&& tAnuncio.getMax_personas() <= 255) {
+
 			Anuncio anuncio = new Anuncio();
-			
-			if (tAnuncio.getId_Usuario() == -1L) {
-				Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-				Long idUsuario = -1L;
-				
-				idUsuario = ((CustomUserDetails) principal).getId();
-				anuncio.setAnunciante(usuarioRepository.findUsuarioById(idUsuario));
-			} else
-				anuncio.setAnunciante(usuarioRepository.findUsuarioById(tAnuncio.getId_Usuario()));
 
-			anuncio.setJuego(tAnuncio.getJuego());
-			anuncio.setPersonas_actuales(tAnuncio.getPersonas_actuales());
-			anuncio.setMax_personas(tAnuncio.getMax_personas());
-			anuncio.setEstado(tAnuncio.getEstado());
-			anuncioRepo.save(anuncio);
-			
-			id = anuncio.getId();
+			try {
+				id_usr = usuarioRepository.findUsuarioById(tAnuncio.getId_Usuario()).getId();
+
+				if (anuncioRepo.findAllByAnunciante(id_usr).size() > 0) {
+					throw new Exception();
+				} else {
+					anuncio.setAnunciante(usuarioRepository.findUsuarioById(tAnuncio.getId_Usuario()));
+
+					anuncio.setJuego(tAnuncio.getJuego());
+					anuncio.setPersonas_actuales(1); // Se incluye por defecto al anunciante
+					anuncio.setMax_personas(tAnuncio.getMax_personas());
+					anuncio.setEstado(tAnuncio.getEstado());
+					anuncioRepo.save(anuncio);
+
+					id = anuncio.getId();
+
+				}
+
+			} catch (Exception e) {
+				id = -2;
+			}
 		}
 
 		return id;
