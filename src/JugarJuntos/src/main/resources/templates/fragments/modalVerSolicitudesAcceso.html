@@ -1,0 +1,32 @@
+<div class="modal fade" id="verSolicitudesModal" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" th:text="${anuncio.juego}"></h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<table class="table align-middle caption-top">
+					<caption>Lista de solicitudes pendientes</caption>
+					<thead>
+						<tr>
+							<th scope="col">Nombre Usuario</th>
+							<th scope="col">Discord</th>
+							<th scope="col">Aceptar</th>
+							<th scope="col">Rechazar</th>
+						</tr>
+					</thead>
+					<tr th:each="participante: ${anuncio.participacion}" th:object="${participante}"
+					th:if="${participante.estado_solicitud} == 'pendiente'">
+						<td th:text="${participante.usuario.nombre}"></td>
+						<td th:text="${participante.usuario.discord}"></td>
+						<!-- Mirar si hay que cambiarlos a form cuando se haga esto-->
+						<td ><a href="/" style="color: green;"><i class="fa-solid fa-circle-check"></i></a></td>
+						<td ><a href="/" style="color: red;"><i class="fa-solid fa-circle-xmark"></i></a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+</div>
