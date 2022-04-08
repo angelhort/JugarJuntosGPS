@@ -51,14 +51,13 @@ public class SAParticipacionImp implements SAParticipacion{
 
 	@Override
 	public boolean rechazarSolicitud(TParticipacion participacion) throws BusinessException {
-List<Participacion> p = participacionRepository.findParticipacionById(participacion.getId_anuncio(), participacion.getId_usuario());
+		List<Participacion> p = participacionRepository.findParticipacionById(participacion.getId_anuncio(), participacion.getId_usuario());
 		
 		if(p != null) {
 			//participacionRepository.eliminarUsuarioParticipacion(participacion.getId_usuario(),participacion.getId_anuncio());
 			participacionRepository.delete(p.get(0));
-					return true;
-					
-				}
+			return true;	
+		}
 		else throw new BusinessException("No existe esta solicitud de acceso a la sala.");
 	}
 
