@@ -15,14 +15,20 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.jugarjuntos.Entities.Anuncio;
 import com.jugarjuntos.Entities.Participacion;
 import com.jugarjuntos.Entities.UsuarioDetalles.CustomUserDetails;
+import com.jugarjuntos.Exceptions.BusinessException;
 import com.jugarjuntos.ServiciosAplicacion.SAAnuncio;
+import com.jugarjuntos.ServiciosAplicacion.SAParticipacion;
 import com.jugarjuntos.Transfers.TAnuncio;
+import com.jugarjuntos.Transfers.TParticipacion;
 
 @Controller
 public class AdController {
 
 	@Autowired
 	SAAnuncio saAnuncio;
+	
+	@Autowired
+	SAParticipacion saParticipacion;
 
 	@GetMapping("/formAnuncio")
 	public String crearForm(Model model) {
@@ -99,4 +105,5 @@ public class AdController {
 		
 		return "lobbyAnuncio";
 	}
+	
 }

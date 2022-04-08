@@ -21,8 +21,17 @@
 						<td th:text="${participante.usuario.nombre}"></td>
 						<td th:text="${participante.usuario.discord}"></td>
 						<!-- Mirar si hay que cambiarlos a form cuando se haga esto-->
-						<td ><a href="/" style="color: green;"><i class="fa-solid fa-circle-check"></i></a></td>
-						<td ><a href="/" style="color: red;"><i class="fa-solid fa-circle-xmark"></i></a></td>
+						<td> <form th:action="@{/aceptarSolicitud}" method="POST">
+						<input id="idAnuncio" name="idAnuncio" type="hidden" th:value="${anuncio.id}">
+						<input id="idUsuario" name="idUsuario" type="hidden" th:value="${participante.usuario.id}">
+						<button type="submit" style="color: green;"><i class="fa-solid fa-circle-check"></i></button>
+					</form></td><!--
+						<td ><a href="/" style="color: green;"><i class="fa-solid fa-circle-check"></i></a></td>-->
+						<td> <form th:action="@{/rechazarSolicitud}" method="POST">
+						<input id="idAnuncio" name="idAnuncio" type="hidden" th:value="${anuncio.id}">
+						<input id="idUsuario" name="idUsuario" type="hidden" th:value="${participante.usuario.id}">
+						<button type="submit" style="color: red;"><i class="fa-solid fa-circle-xmark"></i></button>
+					</form></td>
 					</tr>
 				</table>
 			</div>

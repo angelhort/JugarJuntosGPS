@@ -1,6 +1,7 @@
 package com.jugarjuntos.ServiciosAplicacion;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,14 +31,18 @@ public class SAParticipacionImp implements SAParticipacion{
 	@Override
 	public boolean aceptarSolicitud(TParticipacion participacion) throws BusinessException {
 		//Comprobamos que existe esta solicitud en la sala
-		if(participacionRepository.findParticipacionById(participacion.getId_anuncio(), participacion.getId_usuario()) != null) {
+		List<Participacion> p = participacionRepository.findParticipacionById(participacion.getId_anuncio(), participacion.getId_usuario());
+		
+		if(p != null) {
 			
 			// Incrementamos las personas en la sala en 1
-			anuncioRepository.incrementPersonasActuales(participacion.getId_anuncio());
-			
+			//anuncioRepository.incrementPersonasActuales(participacion.getId_anuncio());
+			p.get(0).getAnuncio().setPersonas_actuales(p.get(0).getAnuncio().getPersonas_actuales() + 1);
 			//Cambiamos el estado del usuario en la sala a aceptado
-			participacionRepository.cambiarEstadoAceptado(participacion.getId_anuncio(), participacion.getId_usuario());
-			
+			//participacionRepository.cambiarEstadoAceptado(participacion.getId_anuncio(), participacion.getId_usuario());
+			p.get(0).setEstado_solicitud("aceptado");
+			anuncioRepository.save(p.get(0).getAnuncio());
+			participacionRepository.save(p.get(0));
 			return true;
 		}
 			
@@ -46,9 +51,11 @@ public class SAParticipacionImp implements SAParticipacion{
 
 	@Override
 	public boolean rechazarSolicitud(TParticipacion participacion) throws BusinessException {
-		if(participacionRepository.findParticipacionById(participacion.getId_anuncio(), participacion.getId_usuario()) != null) {
-			participacionRepository.eliminarUsuarioParticipacion(participacion.getId_usuario(),participacion.getId_anuncio());
-
+List<Participacion> p = participacionRepository.findParticipacionById(participacion.getId_anuncio(), participacion.getId_usuario());
+		
+		if(p != null) {
+			//participacionRepository.eliminarUsuarioParticipacion(participacion.getId_usuario(),participacion.getId_anuncio());
+			participacionRepository.delete(p.get(0));
 					return true;
 					
 				}

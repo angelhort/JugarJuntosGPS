@@ -17,7 +17,7 @@ public interface ParticipacionRepository extends CrudRepository<Participacion , 
 	 public List<Participacion> findAllByIdAnuncio_idPendientes(long id);
 	
 	@Query(value = "SELECT * FROM participacion WHERE anuncio_id = ?1 AND usuario_id = ?2", nativeQuery = true)
-	 public Participacion findParticipacionById(long anuncioId, long usuarioId);
+	 public List<Participacion> findParticipacionById(long anuncioId, long usuarioId);
 
 	@Query(value = "SELECT * FROM participacion WHERE usuario_id = ?1", nativeQuery = true)
 	public Participacion findParticipacionByIdUsuario(long usuarioId);
