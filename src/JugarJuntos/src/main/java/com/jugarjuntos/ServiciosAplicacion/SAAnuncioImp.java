@@ -113,16 +113,15 @@ public class SAAnuncioImp implements SAAnuncio {
 		return anuncioRepo.findById(id);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Anuncio> getAllAnunciosOrderByTime() {
-		return (List<Anuncio>) anuncioRepo.findAll().stream().sorted(new Comparator<Anuncio>() {
+		return anuncioRepo.findAll().stream().sorted(new Comparator<Anuncio>() {
 			@Override
 			public int compare(Anuncio o1, Anuncio o2) {
-				return o1.getFecha_creacion().compareTo(o2.getFecha_creacion());
+				return o2.getFecha_creacion().compareTo(o1.getFecha_creacion());
 			}
 			
-		});
+		}).toList();
 	}
 
 }
