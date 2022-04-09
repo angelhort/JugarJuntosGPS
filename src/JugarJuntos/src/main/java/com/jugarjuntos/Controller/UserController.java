@@ -1,21 +1,20 @@
 package com.jugarjuntos.Controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jugarjuntos.ServiciosAplicacion.SAUsuario;
 import com.jugarjuntos.Transfers.TUsuario;
 
 @Controller
 public class UserController {
-	
-	@Autowired 
-	SAUsuario saUsuario;	
+
+	@Autowired
+	SAUsuario saUsuario;
 
 	@GetMapping("/login")
 	public String login(Model model) {
@@ -23,20 +22,27 @@ public class UserController {
 
 		return "login";
 	}
-	
+
 	@GetMapping("/registro")
 	public String crearFormRegistro(Model model) {
 		model.addAttribute("usuario", new TUsuario());
-		
+
 		return "registro";
 	}
-	
+
 	@PostMapping("/registro")
-	public String crearUsuario(TUsuario usuario, HttpServletRequest request) {
+	public String crearUsuario(TUsuario usuario, RedirectAttributes redirAttrs) {
 		long res = saUsuario.altaUsuario(usuario);
-		if (res != -1) {
-			request.getSession().setAttribute("COOKIE_SESION_ID", res);
+		if (res > 0) {
+			redirAttrs.addFlashAttribute("success", "Te registraste correctamente. BIENVENIDO!");
+			
+			
+		} else if (res == -1) {
+			redirAttrs.addFlashAttribute("error", "Error en la creación del usuario. Compruebe los datos obligatorios");
+			return "redirect:/registro";
 		}
+
 		return "redirect:/";
 	}
+
 }

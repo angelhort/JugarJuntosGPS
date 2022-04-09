@@ -41,7 +41,7 @@ public class AdController {
 		tAnuncio.setJuego(juego);
 		tAnuncio.setMax_personas(Integer.parseInt(max_personas));
 		tAnuncio.setEstado("Pendiente");
-		tAnuncio.setPersonas_actuales(0);
+		tAnuncio.setPersonas_actuales(1);
 		
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		try {

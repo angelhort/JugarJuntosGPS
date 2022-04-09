@@ -18,6 +18,13 @@
 				<h1 class="registerTitle">Crear cuenta</h1>
 
 				<div class="row d-flex justify-content-center align-items-center">
+					<div class="row justify-content-center">
+						<div class="alert alert-success col" id="alertMessage" role="alert" th:text="${success}"
+							th:if="${success}"></div>
+						<div class="alert alert-danger col" id="alertMessage" role="alert" th:text="${error}"
+							th:if="${error}">
+						</div>
+					</div>
 					<form th:action="@{/registro}" method="POST" th:object="${usuario}">
 
 						<div class="form-group col-md-8">
@@ -47,9 +54,9 @@
 
 
 					</form>
-					
+
 					<p class="fw-light">Los campos obligatorios se indican con *</p>
-					
+
 					<p>¿Ya tienes una cuenta?<a href="/login" class="text-decoration-none"> ¡Inicia Sesión!</a></p>
 					<a href="/" class="text-decoration-none"> Volver a la aplicación</a>
 				</div>
@@ -57,6 +64,11 @@
 		</div>
 		</div>
 	</main>
+	<script>
+		setTimeout(function () {
+			$('#alertMessage').fadeOut('slow');
+		}, 5000); //Time in milliseconds
+	</script>
 
 </body>
 

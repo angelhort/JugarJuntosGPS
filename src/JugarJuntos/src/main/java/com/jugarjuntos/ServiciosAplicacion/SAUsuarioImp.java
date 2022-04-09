@@ -29,15 +29,17 @@ public class SAUsuarioImp implements SAUsuario{
 	@Transactional
 	public long altaUsuario(TUsuario tUsuario) {
 		long id = -1;
-		Pattern pattern = Pattern
+		Pattern patternCorreo = Pattern
                 .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                         + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+		
+		Pattern patternDiscord = Pattern.compile("[a-zA-Z]+#[0-9]+");
+		
+		Matcher matherDiscord = patternDiscord.matcher(tUsuario.getDiscord());
+  
+        Matcher matherCorreo = patternCorreo.matcher(tUsuario.getCorreo());
  
-      
- 
-        Matcher mather = pattern.matcher(tUsuario.getCorreo());
- 
-        if (mather.find() == true) {
+        if (matherCorreo.find() == true && matherDiscord.find() == true) {
 			Usuario nuevoUsuario = new Usuario();
 			if(tUsuario.getNombre() != null && tUsuario.getNombre().trim() != "" && tUsuario.getDiscord() != null && tUsuario.getDiscord().trim() != ""){
 				nuevoUsuario.setNombre(tUsuario.getNombre());
