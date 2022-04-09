@@ -45,6 +45,7 @@ public class JugarJuntosController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Long idUsuario = -1L;
 		try {
+
 			idUsuario = ((CustomUserDetails) principal).getId();
 			TParticipacion participacion = new TParticipacion(idUsuario, id_anuncio, null);
 			
@@ -58,7 +59,7 @@ public class JugarJuntosController {
 			
 			
 		}catch(Exception e) {
-			
+
 		}
 		redirAttrs.addAttribute("id", id_anuncio);
 		if (idUsuario != -1L)
