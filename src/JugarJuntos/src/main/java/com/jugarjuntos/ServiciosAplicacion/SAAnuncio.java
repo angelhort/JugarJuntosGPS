@@ -6,13 +6,15 @@ import com.jugarjuntos.Entities.Anuncio;
 import com.jugarjuntos.Transfers.TAnuncio;
 
 public interface SAAnuncio {
-	long altaAnuncio(TAnuncio anuncio);
+	public long altaAnuncio(TAnuncio anuncio);
 	
-	List<Anuncio> getAnunciosByNombreJuego(String juego);
+	public List<Anuncio> getAnunciosByNombreJuego(String juego);
 	
 	public Anuncio findAnuncioByUser(long id_user);
 	
-	List<Anuncio> getAllAnuncios();
+	public List<Anuncio> getAllAnuncios();
+	
+	public List<Anuncio> getAllAnunciosOrderByTime();
 	
 	public Anuncio getAnuncioByID(long id);
 }
