@@ -11,6 +11,17 @@ public class TParticipacion {
 	public TParticipacion() {
 		super();
 	}
+	
+	
+
+
+	public TParticipacion(long id_usuario, long id_anuncio) {
+		super();
+		this.id_usuario = id_usuario;
+		this.id_anuncio = id_anuncio;
+	}
+
+
 
 
 	public TParticipacion(long id_usuario, long id_anuncio, String estado) {

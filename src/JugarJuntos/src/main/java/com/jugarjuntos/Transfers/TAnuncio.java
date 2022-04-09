@@ -20,6 +20,8 @@ public class TAnuncio {
 	private long id_usuario;
 	
 	private List<TParticipacion> participacion;
+	
+	
 
 	public TAnuncio(String juego, int personas_actuales, int max_personas, String estado, int id_usuario,
 			List<TParticipacion> participacion) {

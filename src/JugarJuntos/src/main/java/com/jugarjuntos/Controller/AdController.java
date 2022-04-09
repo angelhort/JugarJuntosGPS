@@ -15,14 +15,20 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.jugarjuntos.Entities.Anuncio;
 import com.jugarjuntos.Entities.Participacion;
 import com.jugarjuntos.Entities.UsuarioDetalles.CustomUserDetails;
+import com.jugarjuntos.Exceptions.BusinessException;
 import com.jugarjuntos.ServiciosAplicacion.SAAnuncio;
+import com.jugarjuntos.ServiciosAplicacion.SAParticipacion;
 import com.jugarjuntos.Transfers.TAnuncio;
+import com.jugarjuntos.Transfers.TParticipacion;
 
 @Controller
 public class AdController {
 
 	@Autowired
 	SAAnuncio saAnuncio;
+	
+	@Autowired
+	SAParticipacion saParticipacion;
 
 	@GetMapping("/formAnuncio")
 	public String crearForm(Model model) {
@@ -36,13 +42,27 @@ public class AdController {
 		tAnuncio.setMax_personas(Integer.parseInt(max_personas));
 		tAnuncio.setEstado("Pendiente");
 		tAnuncio.setPersonas_actuales(0);
-		tAnuncio.setId_Usuario(-1L);
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		try {
+			tAnuncio.setId_Usuario(((CustomUserDetails) principal).getId());
+		}catch(Exception e) {
+			
+		}
+		
+		System.out.println(tAnuncio.getId());
 		long res = saAnuncio.altaAnuncio(tAnuncio);
 		
 		if (res > 0)
 			redirAttrs.addFlashAttribute("success", "Anuncio dado de alta correctamente.");
-		else
+		else if(res == -1) {
 			redirAttrs.addFlashAttribute("error", "Error a la hora de crear el anuncio");
+			return "redirect:/formAnuncio";
+		}
+		else {
+			redirAttrs.addFlashAttribute("error", "Error a la hora de crear el anuncio (asegúrese de no tener un anuncio en curso y vuelva a intentarlo)");
+			return "redirect:/formAnuncio";
+		}
 			
 		return "redirect:/";
 	}
@@ -85,4 +105,5 @@ public class AdController {
 		
 		return "lobbyAnuncio";
 	}
+	
 }
