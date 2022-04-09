@@ -40,7 +40,7 @@
 					<button th:if="${anuncio?.anunciante?.id} != ${idUsuario}"
 						class="btn btn-lg btn-primary rounded-pill border-0" data-bs-toggle="modal"
 						data-bs-target="#enviarSolicitudModal" style="background-color: #E2C044;">
-						<i class="fa fa-plus"></i>
+						<i class="fa fa-paper-plane" aria-hidden="true"></i>
 						<span class="my-auto">Enviar Solicitud</span>
 					</button>
 				</div>
@@ -77,7 +77,7 @@
 				<button th:if="${anuncio?.anunciante?.id} == ${idUsuario}"
 					class="btn btn-lg btn-primary rounded-pill border-0" style="background-color: #E2C044;">
 					<i class="fa-solid fa-play"></i>
-					<span class="my-auto">Terminar anuncio</span>
+					<span class="my-auto">Empezar partida</span>
 				</button>
 			</div>
 		</div>
