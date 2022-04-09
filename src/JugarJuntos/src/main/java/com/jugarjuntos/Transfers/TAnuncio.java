@@ -1,5 +1,6 @@
 package com.jugarjuntos.Transfers;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -16,6 +17,7 @@ public class TAnuncio {
 	//Pendiente o finalizado
 	private String estado;
 	
+	private Date fecha_creacion;
 
 	private long id_usuario;
 	
@@ -93,6 +95,14 @@ public class TAnuncio {
 
 	public void setParticipacion(List<TParticipacion> participacion) {
 		this.participacion = participacion;
+	}
+
+	public Date getFecha_creacion() {
+		return fecha_creacion;
+	}
+
+	public void setFecha_creacion(Date fecha_creacion) {
+		this.fecha_creacion = fecha_creacion;
 	}
 	
 	

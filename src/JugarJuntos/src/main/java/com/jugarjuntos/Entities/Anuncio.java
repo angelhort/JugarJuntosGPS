@@ -2,6 +2,7 @@ package com.jugarjuntos.Entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
@@ -26,6 +27,9 @@ public class Anuncio implements Serializable{
 	private int personas_actuales;
 	
 	private int max_personas;
+	
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fecha_creacion;
 
 	//Pendiente o finalizado
 	private String estado;
@@ -110,6 +114,14 @@ public class Anuncio implements Serializable{
 		else this.estado="Pendiente";
 	}
 	
+	public Date getFecha_creacion() {
+		return fecha_creacion;
+	}
+
+	public void setFecha_creacion(Date fecha_creacion) {
+		this.fecha_creacion = fecha_creacion;
+	}
+
 	public TAnuncio entityToTransfer() {
 		TAnuncio t = new TAnuncio();
 		t.setId(this.id);

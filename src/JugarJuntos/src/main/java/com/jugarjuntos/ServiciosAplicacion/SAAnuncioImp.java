@@ -47,7 +47,7 @@ public class SAAnuncioImp implements SAAnuncio {
 					throw new Exception();
 				} else {
 					anuncio.setAnunciante(usuarioRepository.findUsuarioById(tAnuncio.getId_Usuario()));
-
+					anuncio.setFecha_creacion(tAnuncio.getFecha_creacion());
 					anuncio.setJuego(tAnuncio.getJuego());
 					anuncio.setPersonas_actuales(1); // Se incluye por defecto al anunciante
 					anuncio.setMax_personas(tAnuncio.getMax_personas());
