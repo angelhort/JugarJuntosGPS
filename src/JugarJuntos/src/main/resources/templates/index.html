@@ -23,6 +23,7 @@
 						<div class="col-2">
 							<button type="submit" class="btn rounded-pill searchBar searchButton">Buscar</button>
 						</div>
+
 					</form>
 				</div>
 
@@ -65,11 +66,13 @@
 									<i class="fa-solid fa-circle-user fa-xl" style="color: #C4C4C4;"></i>
 								</li>
 								<li class="list-inline-item">
-									<p th:text="${anuncio.personas_actuales}+'/'+${anuncio.max_personas}" style="color: #939393;"></p>
+									<p th:text="${anuncio.personas_actuales}+'/'+${anuncio.max_personas}"
+										style="color: #939393;"></p>
 								</li>
 							</ul>
 
-							<a th:href="@{/detalles?id={id}(id=${anuncio.id})}" class="rounded-pill detailsButton btn">Ver
+							<a th:href="@{/detalles?id={id}(id=${anuncio.id})}"
+								class="rounded-pill detailsButton btn">Ver
 								detalles</a>
 						</div>
 					</div>
@@ -79,6 +82,8 @@
 			<div th:if="${#lists.isEmpty(anuncios) and #lists.isEmpty(anunciosBusqueda)}">
 				<h1 align="center">No se encontró nada para esa búsqueda</h1>
 			</div>
+
+
 	</main>
 
 	<script>
