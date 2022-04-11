@@ -1,6 +1,8 @@
 package com.jugarjuntos.ServiciosAplicacion;
 
+import java.time.ZoneId;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -48,7 +50,7 @@ public class SAAnuncioImp implements SAAnuncio {
 					throw new Exception();
 				} else {
 					anuncio.setAnunciante(usuarioRepository.findUsuarioById(tAnuncio.getId_Usuario()));
-					anuncio.setFecha_creacion(tAnuncio.getFecha_creacion());
+					anuncio.setFecha_creacion(Date.from(java.time.LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
 					anuncio.setJuego(tAnuncio.getJuego());
 					anuncio.setPersonas_actuales(1); // Se incluye por defecto al anunciante
 					anuncio.setMax_personas(tAnuncio.getMax_personas());

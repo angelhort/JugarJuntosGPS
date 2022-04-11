@@ -44,7 +44,6 @@ public class AdController {
 		tAnuncio.setMax_personas(Integer.parseInt(max_personas));
 		tAnuncio.setEstado("Pendiente");
 		tAnuncio.setPersonas_actuales(1);
-		tAnuncio.setFecha_creacion(Date.from(java.time.LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
 		
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		try {
