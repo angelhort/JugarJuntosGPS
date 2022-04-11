@@ -7,11 +7,13 @@
 	<div th:replace="fragments/navbar"></div>
 
 	<main class="landingPage">
+
 		<div class="fullWidthHeader">
+
 			<h1 class="welcomePhrase" align="center">¿A qué te apetece jugar hoy?</h1>
 
 			<div class="row">
-				<div class="col-6">
+				<div class="col-4">
 					<form action="/getAnunciosPorNombre" class="row g-3 align-items-center">
 						<div class="col-8">
 							<div class="input-group">
@@ -25,6 +27,43 @@
 						</div>
 
 					</form>
+				</div>
+
+				<div class="col-2">
+					<div class="collapse justify-content-end" id="exid">
+						<li class="nav-item dropdown">
+							<a class="dropdown-toggle" href="#" id="exid" role="button" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								<span th:text="Test"></span>
+							</a>
+							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="exid">
+								<li><a class="dropdown-item" href="/">Test1</a></li>
+							</ul>
+						</li>
+					</div>
+
+					<div class="btn-group">
+						<div class="btn dropdown-toggle orderButton rounded-pill d-flex align-items-center justify-content-center"
+							data-bs-toggle="dropdown">
+							Ordenar Búsqueda
+						</div>
+						<ul class="dropdown-menu dropdown-menu-end">
+							<li>
+								<a href="/getAnunciosOrderByTime" class="dropdown-item">Por orden de publicación (Mas
+									recientes primero)</a>
+							</li>
+							<li>
+								<a href="/" class="dropdown-item">Por orden de publicación (Mas
+									antiguos primero)</a>
+							</li>
+							<li>
+								<a href="#" class="dropdown-item">Por valoración del anunciante</a>
+							</li>
+							<li>
+								<a href="#" class="dropdown-item">Por nombre del juego</a>
+							</li>
+						</ul>
+					</div>
 				</div>
 
 				<div class="col-2">
@@ -85,12 +124,13 @@
 
 
 	</main>
-
 	<script>
+
 		setTimeout(function () {
 			$('#alertMessage').fadeOut('slow');
 		}, 1500); //Time in milliseconds
 	</script>
+
 </body>
 
 </html>

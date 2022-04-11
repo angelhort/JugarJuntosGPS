@@ -3,6 +3,7 @@ package com.jugarjuntos.integracion;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.jugarjuntos.JugarJuntosApplication;
 import com.jugarjuntos.Exceptions.BusinessException;
+import com.jugarjuntos.Repositories.AnuncioRepository;
+import com.jugarjuntos.Repositories.UsuarioRepository;
 import com.jugarjuntos.ServiciosAplicacion.SAAnuncio;
 import com.jugarjuntos.ServiciosAplicacion.SAParticipacion;
 import com.jugarjuntos.ServiciosAplicacion.SAUsuario;
@@ -48,6 +51,11 @@ public class VerSolicitudes {
 	
 	private static TParticipacion tpart;
 	
+	@Autowired
+	AnuncioRepository anuncioRepo;
+	
+	@Autowired
+	UsuarioRepository userRepo;
 	
 	@BeforeAll
 	void ASetValues() {
@@ -132,5 +140,12 @@ public class VerSolicitudes {
 			e.printStackTrace();
 		}
 		assertEquals(0, sAParticipacion.solicitudesPendientes(taux.getId()).size());
+	}
+	
+	@AfterAll
+	public void endAll() {//Deja la base de datos como estaba
+		anuncioRepo.deleteById(id_anuncio);
+		userRepo.deleteById(id_usr1);
+		userRepo.deleteById(id_usr2);
 	}
 }

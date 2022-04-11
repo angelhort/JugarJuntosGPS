@@ -162,6 +162,15 @@ body {
 	height: 50px;
 }
 
+.orderButton{
+	background-color: #E2C044;
+	color: white;
+	font-weight: 500;
+	width: 210px;
+    height: 50px;
+    font-size: 18px;
+}
+
 .searchButton:hover {
 	background-color: #C39E16;
 	color: white;
