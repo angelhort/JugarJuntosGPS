@@ -49,13 +49,20 @@ public class SAParticipacionImpTest implements SAParticipacionTest {
 
 	@Override
 	public boolean rechazarSolicitud(TParticipacion participacion) {
-		List<Participacion> p = participacionRepository.findParticipacionById(participacion.getId_anuncio(),
-				participacion.getId_usuario());
+		
+		// Comprobamos que funciona la logica de negocio del método
 
-		if (p != null) {
+		Participacion p = null;
+		
+		if (participacion != null)
+			p = new Participacion(); // Se comprueba que existe información en el Transfer
+
+		if (p != null) { // Si se encontro información se prueba si existe la participacion si existe
+							// devuelve true si no devuelve false
 			return true;
-		} else
-			return false;
+		}
+
+		return false;
 	}
 
 	@Override
