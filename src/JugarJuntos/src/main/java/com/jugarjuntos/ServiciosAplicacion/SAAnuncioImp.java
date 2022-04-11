@@ -7,13 +7,11 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.jugarjuntos.Entities.Anuncio;
 import com.jugarjuntos.Entities.Participacion;
 import com.jugarjuntos.Entities.Usuario;
-import com.jugarjuntos.Entities.UsuarioDetalles.CustomUserDetails;
 import com.jugarjuntos.Repositories.AnuncioRepository;
 import com.jugarjuntos.Repositories.UsuarioRepository;
 import com.jugarjuntos.Transfers.TAnuncio;
@@ -122,6 +120,20 @@ public class SAAnuncioImp implements SAAnuncio {
 			}
 			
 		}).toList();
+	}
+
+	@Override
+	public boolean terminarAnuncio(int id) {
+		Anuncio anuncio = anuncioRepo.findById(id);
+		
+		if (anuncio != null) {
+			anuncio.setActivo(false);
+			anuncioRepo.save(anuncio);
+			
+			return true;
+		}
+		
+		return false;
 	}
 
 }
