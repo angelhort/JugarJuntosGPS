@@ -1,6 +1,7 @@
 package com.jugarjuntos.ServiciosAplicacion;
 
 import java.time.ZoneId;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -50,7 +51,8 @@ public class SAAnuncioImp implements SAAnuncio {
 					throw new Exception();
 				} else {
 					anuncio.setAnunciante(usuarioRepository.findUsuarioById(tAnuncio.getId_Usuario()));
-					anuncio.setFecha_creacion(Date.from(java.time.LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
+					anuncio.setFecha_creacion(
+							Date.from(java.time.LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
 					anuncio.setJuego(tAnuncio.getJuego());
 					anuncio.setPersonas_actuales(1); // Se incluye por defecto al anunciante
 					anuncio.setMax_personas(tAnuncio.getMax_personas());
@@ -117,13 +119,15 @@ public class SAAnuncioImp implements SAAnuncio {
 
 	@Override
 	public List<Anuncio> getAllAnunciosOrderByTime() {
-		return anuncioRepo.findAll().stream().sorted(new Comparator<Anuncio>() {
+		List<Anuncio> sol = anuncioRepo.findAll();
+		Collections.sort(sol, new Comparator<Anuncio>() {
 			@Override
 			public int compare(Anuncio o1, Anuncio o2) {
 				return o2.getFecha_creacion().compareTo(o1.getFecha_creacion());
 			}
-			
-		}).toList();
+
+		});
+		return sol;
 	}
 
 }
