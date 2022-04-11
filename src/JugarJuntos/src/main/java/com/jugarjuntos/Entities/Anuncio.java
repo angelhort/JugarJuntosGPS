@@ -33,9 +33,7 @@ public class Anuncio implements Serializable{
 
 	//Pendiente o finalizado
 	private String estado;
-	
-	private boolean activo;
-	
+		
 	@ManyToOne
 	private Usuario anunciante;
 	
@@ -46,7 +44,6 @@ public class Anuncio implements Serializable{
 		super();
 		this.participacion=new ArrayList<Participacion>();
 		this.estado = "Pendiente";
-		this.activo = true;
 	}
 
 	public Anuncio(String juego, int personas_actuales, int max_personas, String estado) {
@@ -57,7 +54,6 @@ public class Anuncio implements Serializable{
 		if(estado.equals("Pendiente") || estado.equals("Finalizado")) this.estado = estado;
 		else this.estado="Pendiente";
 		this.participacion=new ArrayList<Participacion>();
-		this.activo = true;
 	}
 
 	public List<Participacion> getParticipacion() {
@@ -124,14 +120,6 @@ public class Anuncio implements Serializable{
 
 	public void setFecha_creacion(Date fecha_creacion) {
 		this.fecha_creacion = fecha_creacion;
-	}
-
-	public boolean isActivo() {
-		return activo;
-	}
-
-	public void setActivo(boolean activo) {
-		this.activo = activo;
 	}
 
 	public TAnuncio entityToTransfer() {
