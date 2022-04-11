@@ -38,16 +38,21 @@ public class SAUsuarioImp implements SAUsuario{
 		Matcher matherDiscord = patternDiscord.matcher(tUsuario.getDiscord());
   
         Matcher matherCorreo = patternCorreo.matcher(tUsuario.getCorreo());
+        
+        //Comprobación de que el correo, el discord y la contraseña cumplan su formato y limitaciones
  
         if (matherCorreo.find() == true && matherDiscord.find() == true && tUsuario.getPassword().length() <= 20) {
-			Usuario nuevoUsuario = new Usuario();
+			Usuario nuevoUsuario = new Usuario();                               //Se crea el usuario 
 			if(tUsuario.getNombre() != null && tUsuario.getNombre().trim() != "" && tUsuario.getDiscord() != null && tUsuario.getDiscord().trim() != ""){
+				
+				//Se cambia los atributos del nuevo usuario creado
 				nuevoUsuario.setNombre(tUsuario.getNombre());
 				nuevoUsuario.setCorreo(tUsuario.getCorreo());
 				nuevoUsuario.setPassword(encode_password(tUsuario.getPassword()));
 				nuevoUsuario.setEstado("Libre");
 				nuevoUsuario.setDiscord(tUsuario.getDiscord());
-				em.persist(nuevoUsuario);
+				
+				em.persist(nuevoUsuario);			// Se persiste la entidad para que al hacer commit el EM mantega la entidad persistida 
 				id = nuevoUsuario.getId();
 			}
         }
