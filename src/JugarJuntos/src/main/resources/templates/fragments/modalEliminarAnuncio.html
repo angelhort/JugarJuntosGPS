@@ -3,7 +3,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title">Eliminar anuncio</h5>
-				<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 				</button>
 			</div>
 			<div class="modal-body">
@@ -11,8 +11,9 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+				
 				<form th:action="@{/borrarAnuncio}" method="POST">
-					<input id="id" name="id" type="hidden" th:value="${anuncio.id}">
+					<input id="idanuncio" name="idanuncio" type="hidden" th:value="${anuncio.id}">
 					<button type="button" class="btn btn-danger">Eliminar anuncio</button>
 				</form>
 			</div>
