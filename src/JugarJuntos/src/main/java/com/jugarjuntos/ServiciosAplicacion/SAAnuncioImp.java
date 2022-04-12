@@ -38,7 +38,7 @@ public class SAAnuncioImp implements SAAnuncio {
 		long id_usr = -1;
 
 		if (tAnuncio.getMax_personas() > 0 && tAnuncio.getJuego().length() <= 150
-				&& tAnuncio.getMax_personas() <= 255) {
+				&& tAnuncio.getMax_personas() <= 226 && tAnuncio.getMax_personas() >= 2) {
 
 			Anuncio anuncio = new Anuncio();
 

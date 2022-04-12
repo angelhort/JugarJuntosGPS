@@ -56,7 +56,7 @@ public class AdController {
 		if (res > 0)
 			redirAttrs.addFlashAttribute("success", "Anuncio dado de alta correctamente.");
 		else if(res == -1) {
-			redirAttrs.addFlashAttribute("error", "Error a la hora de crear el anuncio");
+			redirAttrs.addFlashAttribute("error", "Error a la hora de crear el anuncio (asegúrese introducir un número valido de jugadores [2-226])");
 			return "redirect:/formAnuncio";
 		}
 		else {
