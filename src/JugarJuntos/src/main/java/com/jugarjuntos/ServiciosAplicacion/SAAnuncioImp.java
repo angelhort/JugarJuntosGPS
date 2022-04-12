@@ -133,7 +133,7 @@ public class SAAnuncioImp implements SAAnuncio {
 		Anuncio anuncio = anuncioRepo.findById(id);
 		
 		if (anuncio != null) {
-			anuncio.setEstado("terminado");
+			anuncio.setEstado("Finalizado");
 			anuncioRepo.save(anuncio);
 			System.out.println("Hi");
 			return true;
