@@ -15,13 +15,12 @@ import com.jugarjuntos.Entities.Usuario;
 import com.jugarjuntos.Repositories.UsuarioRepository;
 import com.jugarjuntos.Transfers.TUsuario;
 
-
 @Service
-public class SAUsuarioImp implements SAUsuario{
-	
+public class SAUsuarioImp implements SAUsuario {
+
 	@Autowired
 	private EntityManager em;
-	
+
 	@Autowired
 	private UsuarioRepository repo;
 
@@ -40,7 +39,10 @@ public class SAUsuarioImp implements SAUsuario{
         Matcher matherCorreo = patternCorreo.matcher(tUsuario.getCorreo());
         
         //Comprobación de que el correo, el discord y la contraseña cumplan su formato y limitaciones
- 
+        
+        Usuario usuarioExistente = repo.findUsuarioByCorreo(tUsuario.getCorreo());
+        
+       if(usuarioExistente == null) { 
         if (matherCorreo.find() == true && matherDiscord.find() == true && tUsuario.getPassword().length() <= 20 && tUsuario.getNombre().length() <= 20) {
 			Usuario nuevoUsuario = new Usuario();                               //Se crea el usuario 
 			if(tUsuario.getNombre() != null && tUsuario.getNombre().trim() != "" && tUsuario.getDiscord() != null && tUsuario.getDiscord().trim() != ""){
@@ -49,52 +51,51 @@ public class SAUsuarioImp implements SAUsuario{
 				nuevoUsuario.setNombre(tUsuario.getNombre());
 				nuevoUsuario.setCorreo(tUsuario.getCorreo());
 				nuevoUsuario.setPassword(encode_password(tUsuario.getPassword()));
-				nuevoUsuario.setEstado("Libre");
+				nuevoUsuario.setEstado("libre");
 				nuevoUsuario.setDiscord(tUsuario.getDiscord());
 				
 				em.persist(nuevoUsuario);			// Se persiste la entidad para que al hacer commit el EM mantega la entidad persistida 
 				id = nuevoUsuario.getId();
 			}
-        }
+        } 
+       }else id = -2; // Error por correo existente
 		return id; 
        
 	}
-	
+
 	public TUsuario loginUsuario(TUsuario tUsuario) {
-		if(tUsuario.getCorreo() != null) {
-			Pattern pattern = Pattern
-	                .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-	                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-	 
-	      
-	 
-	        Matcher mather = pattern.matcher(tUsuario.getCorreo());
-	        
-	        if (mather.find() == false) return null;
+		if (tUsuario.getCorreo() != null) {
+			Pattern pattern = Pattern.compile(
+					"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+
+			Matcher mather = pattern.matcher(tUsuario.getCorreo());
+
+			if (mather.find() == false)
+				return null;
 		}
-		
-	  Usuario bbdd_user = repo.findUsuarioByCorreo(tUsuario.getCorreo());
-	  if(bbdd_user != null) {
-	  TUsuario t = bbdd_user.entityToTransfer();
-	  if(check_password(tUsuario.getPassword(), bbdd_user.getPassword()))
-		
-		return t;
-	  }
-	  
-	  return null;
-		
+
+		Usuario bbdd_user = repo.findUsuarioByCorreo(tUsuario.getCorreo());
+		if (bbdd_user != null) {
+			TUsuario t = bbdd_user.entityToTransfer();
+			if (check_password(tUsuario.getPassword(), bbdd_user.getPassword()))
+
+				return t;
+		}
+
+		return null;
+
 	}
-	
+
 	private String encode_password(String plain_text_password) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-	    String encodedPassword = passwordEncoder.encode(plain_text_password);
-	    
-	    return encodedPassword;
+		String encodedPassword = passwordEncoder.encode(plain_text_password);
+
+		return encodedPassword;
 	}
-	
+
 	private Boolean check_password(String plain_text_password, String encoded_password) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-	    return passwordEncoder.matches(plain_text_password, encoded_password);
+		return passwordEncoder.matches(plain_text_password, encoded_password);
 	}
 
 }

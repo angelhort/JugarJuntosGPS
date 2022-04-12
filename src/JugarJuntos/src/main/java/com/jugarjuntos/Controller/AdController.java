@@ -112,6 +112,19 @@ public class AdController {
 		return "lobbyAnuncio";
 	}
 	
+	@PostMapping("/borrarAnuncio")
+	public String borrarAnuncio(Model model, RedirectAttributes redirAttrs, @RequestParam int idanuncio) {
+		if (saAnuncio.borrarAnuncio(idanuncio))
+			redirAttrs.addFlashAttribute("success", "El anuncio se borró correctamente");
+		else {
+			redirAttrs.addFlashAttribute("error", "Ocurrió un error borrando el anuncio");
+			redirAttrs.addAttribute("id", idanuncio);
+			return "redirect:/detalles"; //Preguntar a PO
+		}
+		
+		return "redirect:/";
+	}
+	
 	@PostMapping("/terminarAnuncio")
 	public String terminarAnuncio(Model model, RedirectAttributes redirAttrs, @RequestParam int id) {
 		if (saAnuncio.terminarAnuncio(id))

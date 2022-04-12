@@ -18,5 +18,6 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
 	
 	@Query(value = "SELECT * FROM usuario WHERE correo = ?1", nativeQuery = true)
 	public Usuario findUsuarioByCorreo(String correo);
+	
 
 }

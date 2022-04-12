@@ -35,10 +35,12 @@ public class UserController {
 		long res = saUsuario.altaUsuario(usuario);
 		if (res > 0) {
 			redirAttrs.addFlashAttribute("success", "Te registraste correctamente. BIENVENIDO!");
-			
-			
+				
 		} else if (res == -1) {
-			redirAttrs.addFlashAttribute("error", "Error en la creación del usuario. Compruebe los datos obligatorios");
+			redirAttrs.addFlashAttribute("error", "Error en la creación del usuario. El formato del discord es incorrecto");
+			return "redirect:/registro";
+		}else if(res == -2) {
+			redirAttrs.addFlashAttribute("error", "Error en la creación del usuario. El correo introducido tiene una cuenta vinculada");
 			return "redirect:/registro";
 		}
 

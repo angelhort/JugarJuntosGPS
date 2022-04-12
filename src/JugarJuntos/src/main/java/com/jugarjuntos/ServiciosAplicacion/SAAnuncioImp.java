@@ -16,6 +16,7 @@ import com.jugarjuntos.Entities.Anuncio;
 import com.jugarjuntos.Entities.Participacion;
 import com.jugarjuntos.Entities.Usuario;
 import com.jugarjuntos.Repositories.AnuncioRepository;
+import com.jugarjuntos.Repositories.ParticipacionRepository;
 import com.jugarjuntos.Repositories.UsuarioRepository;
 import com.jugarjuntos.Transfers.TAnuncio;
 
@@ -31,14 +32,17 @@ public class SAAnuncioImp implements SAAnuncio {
 	@Autowired
 	UsuarioRepository usuarioRepository;
 
+	@Autowired
+	ParticipacionRepository participacionRepo;
+
 	@Override
 	@Transactional
 	public long altaAnuncio(TAnuncio tAnuncio) {
 		long id = -1;
 		long id_usr = -1;
 
-		if (tAnuncio.getMax_personas() > 0 && tAnuncio.getJuego().length() <= 150
-				&& tAnuncio.getMax_personas() <= 226 && tAnuncio.getMax_personas() >= 2) {
+		if (tAnuncio.getMax_personas() > 0 && tAnuncio.getJuego().length() <= 150 && tAnuncio.getMax_personas() <= 226
+				&& tAnuncio.getMax_personas() >= 2) {
 
 			Anuncio anuncio = new Anuncio();
 
@@ -92,7 +96,7 @@ public class SAAnuncioImp implements SAAnuncio {
 		List<Participacion> participaciones = usuario.getParticipacion();
 
 		for (Participacion p : participaciones) {
-			if (p.getEstado_partida() == "en_lobby") {
+			if (p.getEstado_partida() == "empezado") {
 				Anuncio a = em.find(Anuncio.class, p.getId().getAnuncio_id());
 //				 em.close();
 				return a;
@@ -131,13 +135,31 @@ public class SAAnuncioImp implements SAAnuncio {
 	@Override
 	public boolean terminarAnuncio(int id) {
 		Anuncio anuncio = anuncioRepo.findById(id);
-		
+
 		if (anuncio != null) {
 			anuncio.setEstado("finalizado");
 			anuncioRepo.save(anuncio);
 			return true;
 		}
-		
+
+		return false;
+	}
+
+	@Override
+	public boolean borrarAnuncio(int id) {
+		Anuncio anuncio = anuncioRepo.findById(id);
+		if (anuncio != null) {
+			for(Participacion p : anuncio.getParticipacion()) {	
+			p.getUsuario().setEstado("libre");
+			usuarioRepository.save(p.getUsuario());
+			participacionRepo.delete(p);
+			}
+			anuncio.getAnunciante().setEstado("libre");
+			usuarioRepository.save(anuncio.getAnunciante());
+			anuncioRepo.delete(anuncio);
+			return true;
+		}
+
 		return false;
 	}
 
