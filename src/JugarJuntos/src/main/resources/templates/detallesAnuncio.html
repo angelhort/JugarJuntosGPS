@@ -75,7 +75,7 @@
 			<div class="col-md-12 p-3">
 				<form th:action="@{/terminarAnuncio}" method="POST">
 					<input id="id" name="id" type="hidden" th:value="${anuncio.id}">
-					<button th:if="${anuncio?.anunciante?.id} == ${idUsuario}"
+					<button th:if="${anuncio?.anunciante?.id} == ${idUsuario} AND ${#strings.toUpperCase(anuncio.estado)} == 'PENDIENTE'"
 						class="btn btn-lg btn-primary rounded-pill border-0" style="background-color: #E2C044;">
 						<i class="fa-solid fa-circle-xmark"></i>
 						<span class="my-auto">Terminar anuncio</span>
