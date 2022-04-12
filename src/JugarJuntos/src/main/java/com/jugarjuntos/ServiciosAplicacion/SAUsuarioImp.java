@@ -41,7 +41,7 @@ public class SAUsuarioImp implements SAUsuario{
         
         //Comprobación de que el correo, el discord y la contraseña cumplan su formato y limitaciones
  
-        if (matherCorreo.find() == true && matherDiscord.find() == true && tUsuario.getPassword().length() <= 20) {
+        if (matherCorreo.find() == true && matherDiscord.find() == true && tUsuario.getPassword().length() <= 20 && tUsuario.getNombre().length() <= 20) {
 			Usuario nuevoUsuario = new Usuario();                               //Se crea el usuario 
 			if(tUsuario.getNombre() != null && tUsuario.getNombre().trim() != "" && tUsuario.getDiscord() != null && tUsuario.getDiscord().trim() != ""){
 				
