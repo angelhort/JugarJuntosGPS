@@ -61,7 +61,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         http.authorizeRequests()
                 .antMatchers("/css/jugarjuntos.css", "/", "/fragments", 
                 			 "/login", "/registro", "/detalles", 
-                			 "/getAnunciosPorNombre").permitAll()
+                			 "/getAnunciosPorNombre", "/getAnunciosOrderByTime").permitAll()
                 .antMatchers("/enviarSolicitud").permitAll()
                 .antMatchers("/registro").permitAll()
                 .anyRequest().authenticated()

@@ -29,23 +29,30 @@ public class SAUsuarioImp implements SAUsuario{
 	@Transactional
 	public long altaUsuario(TUsuario tUsuario) {
 		long id = -1;
-		Pattern pattern = Pattern
+		Pattern patternCorreo = Pattern
                 .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                         + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+		
+		Pattern patternDiscord = Pattern.compile("[a-zA-Z]+#[0-9]+");
+		
+		Matcher matherDiscord = patternDiscord.matcher(tUsuario.getDiscord());
+  
+        Matcher matherCorreo = patternCorreo.matcher(tUsuario.getCorreo());
+        
+        //Comprobación de que el correo, el discord y la contraseña cumplan su formato y limitaciones
  
-      
- 
-        Matcher mather = pattern.matcher(tUsuario.getCorreo());
- 
-        if (mather.find() == true) {
-			Usuario nuevoUsuario = new Usuario();
+        if (matherCorreo.find() == true && matherDiscord.find() == true && tUsuario.getPassword().length() <= 20) {
+			Usuario nuevoUsuario = new Usuario();                               //Se crea el usuario 
 			if(tUsuario.getNombre() != null && tUsuario.getNombre().trim() != "" && tUsuario.getDiscord() != null && tUsuario.getDiscord().trim() != ""){
+				
+				//Se cambia los atributos del nuevo usuario creado
 				nuevoUsuario.setNombre(tUsuario.getNombre());
 				nuevoUsuario.setCorreo(tUsuario.getCorreo());
 				nuevoUsuario.setPassword(encode_password(tUsuario.getPassword()));
 				nuevoUsuario.setEstado("Libre");
 				nuevoUsuario.setDiscord(tUsuario.getDiscord());
-				em.persist(nuevoUsuario);
+				
+				em.persist(nuevoUsuario);			// Se persiste la entidad para que al hacer commit el EM mantega la entidad persistida 
 				id = nuevoUsuario.getId();
 			}
         }

@@ -1,6 +1,8 @@
 package com.jugarjuntos.Controller;
 
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import com.jugarjuntos.Entities.Anuncio;
 import com.jugarjuntos.Entities.Participacion;
 import com.jugarjuntos.Entities.UsuarioDetalles.CustomUserDetails;
 import com.jugarjuntos.ServiciosAplicacion.SAAnuncio;
+import com.jugarjuntos.ServiciosAplicacion.SAParticipacion;
 import com.jugarjuntos.Transfers.TAnuncio;
 
 @Controller
@@ -23,6 +26,9 @@ public class AdController {
 
 	@Autowired
 	SAAnuncio saAnuncio;
+	
+	@Autowired
+	SAParticipacion saParticipacion;
 
 	@GetMapping("/formAnuncio")
 	public String crearForm(Model model) {
@@ -35,14 +41,28 @@ public class AdController {
 		tAnuncio.setJuego(juego);
 		tAnuncio.setMax_personas(Integer.parseInt(max_personas));
 		tAnuncio.setEstado("Pendiente");
-		tAnuncio.setPersonas_actuales(0);
-		tAnuncio.setId_Usuario(-1L);
+		tAnuncio.setPersonas_actuales(1);
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		try {
+			tAnuncio.setId_Usuario(((CustomUserDetails) principal).getId());
+		}catch(Exception e) {
+			
+		}
+		
+		System.out.println(tAnuncio.getId());
 		long res = saAnuncio.altaAnuncio(tAnuncio);
 		
 		if (res > 0)
 			redirAttrs.addFlashAttribute("success", "Anuncio dado de alta correctamente.");
-		else
+		else if(res == -1) {
 			redirAttrs.addFlashAttribute("error", "Error a la hora de crear el anuncio");
+			return "redirect:/formAnuncio";
+		}
+		else {
+			redirAttrs.addFlashAttribute("error", "Error a la hora de crear el anuncio (asegúrese de no tener un anuncio en curso y vuelva a intentarlo)");
+			return "redirect:/formAnuncio";
+		}
 			
 		return "redirect:/";
 	}
@@ -50,6 +70,12 @@ public class AdController {
 	@GetMapping("/getAnuncios")
 	public String getAnuncios(Model model) {
 		model.addAttribute("anuncios", saAnuncio.getAllAnuncios());
+		return "index";
+	}
+	
+	@GetMapping("/getAnunciosOrderByTime")
+	public String getAnunciossOrderByTime(Model model) {
+		model.addAttribute("anuncios", saAnuncio.getAllAnunciosOrderByTime());
 		return "index";
 	}
 	
@@ -85,4 +111,18 @@ public class AdController {
 		
 		return "lobbyAnuncio";
 	}
+	
+	@PostMapping("/terminarAnuncio")
+	public String terminarAnuncio(Model model, RedirectAttributes redirAttrs, @RequestParam int id) {
+		if (saAnuncio.terminarAnuncio(id))
+			redirAttrs.addFlashAttribute("success", "El anuncio terminó correctamente");
+		else {
+			redirAttrs.addFlashAttribute("error", "Ocurrió un error terminando el anuncio");
+			redirAttrs.addAttribute("id", id);
+			return "redirect:/detalles";
+		}
+		
+		return "index";
+	}
+	
 }

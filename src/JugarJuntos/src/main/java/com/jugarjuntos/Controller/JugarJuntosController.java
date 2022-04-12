@@ -45,19 +45,21 @@ public class JugarJuntosController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Long idUsuario = -1L;
 		try {
+
 			idUsuario = ((CustomUserDetails) principal).getId();
 			TParticipacion participacion = new TParticipacion(idUsuario, id_anuncio, null);
 			
 			try {
 				saParticipacion.enviarSolicitud(participacion);
 			} catch (BusinessException e) {
-				redirAttrs.addAttribute("juego", id_anuncio);
+				redirAttrs.addFlashAttribute("error", "Error al unirte al anuncio.");
+				redirAttrs.addAttribute("id", id_anuncio);
 				return "redirect:/detalles";
 			}
 			
 			
 		}catch(Exception e) {
-			
+
 		}
 		redirAttrs.addAttribute("id", id_anuncio);
 		if (idUsuario != -1L)
@@ -68,26 +70,35 @@ public class JugarJuntosController {
 		return "redirect:/detalles";
 	}
 	
+
 	@PostMapping("/aceptarSolicitud")
-	public String aceptarSolicitud(Model model, @RequestParam TParticipacion participacion) {
+	public String aceptarSolicitud(Model model,RedirectAttributes redirAttrs, @RequestParam long idAnuncio, @RequestParam long idUsuario) {
+		TParticipacion participacion = new TParticipacion();
+		participacion.setEstado("pendiente");
+		participacion.setId_anuncio(idAnuncio);
+		participacion.setId_usuario(idUsuario);
 		try {
 			saParticipacion.aceptarSolicitud(participacion);
 		} catch (BusinessException e) {
-			model.addAttribute("excepcion", e.toString());
-			return "index";
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		//TODO cambiar la pagina devuelta a la que querais recibir en el frontend
-		return "index";
+		redirAttrs.addAttribute("id", idAnuncio);
+		return "redirect:/detalles";
 	}
 	
 	@PostMapping("/rechazarSolicitud")
-	public String rechazarSolicitud(Model model,@RequestParam TParticipacion participacion) {
+	public String rechazarSolicitud(Model model, RedirectAttributes redirAttrs, @RequestParam String idAnuncio, @RequestParam String idUsuario) {
+		TParticipacion participacion = new TParticipacion();
+		participacion.setId_anuncio(Long.parseLong(idAnuncio));
+		participacion.setId_usuario(Long.parseLong(idUsuario));
 		try {
 			saParticipacion.rechazarSolicitud(participacion);
 		} catch (BusinessException e) {
-			model.addAttribute("excepcion", e.toString());
-			return "index";
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return "index";
+		redirAttrs.addAttribute("id", idAnuncio);
+		return "redirect:/detalles";
 	}
 }

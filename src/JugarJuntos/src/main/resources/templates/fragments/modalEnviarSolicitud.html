@@ -1,0 +1,21 @@
+	<div class="modal fade" id="enviarSolicitudModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel" th:text="${anuncio.juego}"></h5>
+				</div>
+
+				<div class="modal-body"
+					th:text="'¿Estás seguro de que quieres enviar esta solicitud a '+${anuncio.juego}+'?'">
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+					<form th:action="@{/enviarSolicitud}" method="POST">
+						<input id="id_anuncio" name="id_anuncio" type="hidden" th:value="${anuncio.id}">
+						<button type="submit" class="btn btn-warning">Aceptar</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
