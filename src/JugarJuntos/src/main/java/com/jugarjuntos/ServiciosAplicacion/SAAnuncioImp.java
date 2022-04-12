@@ -136,7 +136,6 @@ public class SAAnuncioImp implements SAAnuncio {
 			anuncio.setEstado("terminado");
 			anuncioRepo.save(anuncio);
 			System.out.println("Hi");
-			
 			return true;
 		}
 		

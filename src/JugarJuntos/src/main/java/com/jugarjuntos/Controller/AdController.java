@@ -122,7 +122,7 @@ public class AdController {
 			return "redirect:/detalles";
 		}
 		
-		return "index";
+		return "redirect:/";
 	}
 	
 }

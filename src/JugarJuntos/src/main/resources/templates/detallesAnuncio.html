@@ -74,7 +74,7 @@
 			</div>
 			<div class="col-md-12 p-3">
 				<form th:action="@{/terminarAnuncio}" method="POST">
-					<input id="id_anuncio" name="id_anuncio" type="hidden" th:value="${anuncio.id}">
+					<input id="id" name="id" type="hidden" th:value="${anuncio.id}">
 					<button th:if="${anuncio?.anunciante?.id} == ${idUsuario}"
 						class="btn btn-lg btn-primary rounded-pill border-0" style="background-color: #E2C044;">
 						<i class="fa-solid fa-circle-xmark"></i>
