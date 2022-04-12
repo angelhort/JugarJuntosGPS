@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jugarjuntos.Entities.Anuncio;
 import com.jugarjuntos.Entities.Participacion;
 import com.jugarjuntos.Exceptions.BusinessException;
 import com.jugarjuntos.Repositories.AnuncioRepository;
@@ -34,6 +35,10 @@ public class SAParticipacionImp implements SAParticipacion{
 		List<Participacion> p = participacionRepository.findParticipacionById(participacion.getId_anuncio(), participacion.getId_usuario());
 		
 		if(p != null) {
+			//Comprobar si el anuncio ya está lleno
+			Anuncio a = anuncioRepository.findById(participacion.getId_anuncio());
+			if(a.getMax_personas()==a.getPersonas_actuales())
+				return false;
 			
 			// Incrementamos las personas en la sala en 1
 			//anuncioRepository.incrementPersonasActuales(participacion.getId_anuncio());
