@@ -98,13 +98,13 @@ public class SAAnuncioImp implements SAAnuncio {
 		for (Participacion p : participaciones) {
 			if (p.getEstado_partida() == "empezado") {
 				Anuncio a = em.find(Anuncio.class, p.getId().getAnuncio_id());
-//				 em.close();
+				// em.close();
 				return a;
 			}
 
 		}
 
-//		em.close();
+		// em.close();
 		return null;
 
 	}
@@ -149,10 +149,10 @@ public class SAAnuncioImp implements SAAnuncio {
 	public boolean borrarAnuncio(int id) {
 		Anuncio anuncio = anuncioRepo.findById(id);
 		if (anuncio != null) {
-			for(Participacion p : anuncio.getParticipacion()) {	
-			p.getUsuario().setEstado("libre");
-			usuarioRepository.save(p.getUsuario());
-			participacionRepo.delete(p);
+			for (Participacion p : anuncio.getParticipacion()) {
+				p.getUsuario().setEstado("libre");
+				usuarioRepository.save(p.getUsuario());
+				participacionRepo.delete(p);
 			}
 			anuncio.getAnunciante().setEstado("libre");
 			usuarioRepository.save(anuncio.getAnunciante());
