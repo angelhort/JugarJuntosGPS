@@ -133,7 +133,7 @@ public class SAAnuncioImp implements SAAnuncio {
 	}
 
 	@Override
-	public boolean terminarAnuncio(int id) {
+	public boolean terminarAnuncio(long id) {
 		Anuncio anuncio = anuncioRepo.findById(id);
 
 		if (anuncio != null) {
@@ -146,7 +146,7 @@ public class SAAnuncioImp implements SAAnuncio {
 	}
 
 	@Override
-	public boolean borrarAnuncio(int id) {
+	public boolean borrarAnuncio(long id) {
 		Anuncio anuncio = anuncioRepo.findById(id);
 		if (anuncio != null) {
 			for (Participacion p : anuncio.getParticipacion()) {

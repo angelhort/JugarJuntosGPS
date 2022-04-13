@@ -3,11 +3,14 @@ package com.jugarjuntos.ServiciosAplicacionTests;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.springframework.stereotype.Service;
+
 import com.jugarjuntos.Entities.Anuncio;
 import com.jugarjuntos.Entities.Participacion;
 import com.jugarjuntos.Transfers.TAnuncio;
 import com.jugarjuntos.Transfers.TParticipacion;
 
+@Service
 public class SAAnuncioImpTest implements SAAnuncioTest {
 
 	public long crearUsuario(TAnuncio tAnuncio) {
@@ -46,6 +49,19 @@ public class SAAnuncioImpTest implements SAAnuncioTest {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean terminarAnuncio(long id) {
+		HashMap<Long, TAnuncio> map = new HashMap<>();
+		map.put((long) 1, new TAnuncio("Prueba", 1, 2, "empezado", 2, new ArrayList<>()));
+		TAnuncio anuncio = map.get(id);
+		if (anuncio != null) {
+			anuncio.setEstado("finalizado");
+			return true;
+		}
+		return false;
+
 	}
 
 }

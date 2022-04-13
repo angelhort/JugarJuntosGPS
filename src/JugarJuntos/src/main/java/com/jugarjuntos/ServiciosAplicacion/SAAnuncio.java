@@ -18,7 +18,7 @@ public interface SAAnuncio {
 	
 	public Anuncio getAnuncioByID(long id);
 	
-	public boolean terminarAnuncio(int id);
+	public boolean terminarAnuncio(long id);
 	
-	public boolean borrarAnuncio(int id);
+	public boolean borrarAnuncio(long id);
 }
