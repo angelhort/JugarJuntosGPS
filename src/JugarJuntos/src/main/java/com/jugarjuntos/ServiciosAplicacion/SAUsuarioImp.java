@@ -32,7 +32,7 @@ public class SAUsuarioImp implements SAUsuario {
                 .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                         + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 		
-		Pattern patternDiscord = Pattern.compile("[a-zA-Z]+#[0-9]+");
+		Pattern patternDiscord = Pattern.compile("[a-zA-Z0-9]+#[0-9]{4}+");
 		
 		Matcher matherDiscord = patternDiscord.matcher(tUsuario.getDiscord());
   
