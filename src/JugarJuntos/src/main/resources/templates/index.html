@@ -8,42 +8,30 @@
 
 	<main class="landingPage">
 
-		<div class="fullWidthHeader">
+		<div class="container-fluid fullWidthHeader">
 
-			<h1 class="welcomePhrase" align="center">¿A qué te apetece jugar hoy?</h1>
+			<h1 class="welcomePhrase mb-5 text-center">¿A qué te apetece jugar hoy?</h1>
 
 			<div class="row">
-				<div class="col-4">
+				<div class="col-md-4 mt-2 mb-2">
 					<form action="/getAnunciosPorNombre" class="row g-3 align-items-center">
 						<div class="col-8">
 							<div class="input-group">
-								<input type="text" class="form-control rounded-pill searchBar searchBarInput"
+								<input type="text" class="form-control btn-lg rounded-pill border-0 searchBar searchBarInput"
 									name="juego" placeholder="Ajedrez">
 							</div>
 						</div>
 
 						<div class="col-2">
-							<button type="submit" class="btn rounded-pill searchBar searchButton">Buscar</button>
+							<button type="submit" class="btn btn-lg rounded-pill searchBar searchButton">Buscar</button>
 						</div>
 
 					</form>
 				</div>
 
-				<div class="col-2">
-					<div class="collapse justify-content-end" id="exid">
-						<li class="nav-item dropdown">
-							<a class="dropdown-toggle" href="#" id="exid" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								<span th:text="Test"></span>
-							</a>
-							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="exid">
-								<li><a class="dropdown-item" href="/">Test1</a></li>
-							</ul>
-						</li>
-					</div>
-
+				<div class="col-md-2 mt-2 mb-2 text-center">
 					<div class="btn-group">
-						<div class="btn dropdown-toggle orderButton rounded-pill d-flex align-items-center justify-content-center"
+						<div class="btn btn-lg dropdown-toggle orderButton rounded-pill align-items-center justify-content-center"
 							data-bs-toggle="dropdown">
 							Ordenar Búsqueda
 						</div>
@@ -66,24 +54,24 @@
 					</div>
 				</div>
 
-				<div class="col-2">
+				<div class="col-md-2 mt-2 mb-2 text-center">
 					<a href="/getAnunciosPorNombre?juego=CS:GO"
-						class="btn rounded-pill searchBar suggestButton d-flex align-items-center justify-content-center">CS:GO</a>
+						class="btn btn-lg col-8 rounded-pill searchBar suggestButton">CS:GO</a>
 				</div>
 
-				<div class="col-2">
+				<div class="col-md-2 mt-2 mb-2 text-center">
 					<a href="/getAnunciosPorNombre?juego=Dota"
-						class="btn rounded-pill searchBar suggestButton d-flex align-items-center justify-content-center">Dota</a>
+						class="btn btn-lg col-8 rounded-pill searchBar suggestButton">Dota</a>
 				</div>
 
-				<div class="col-2">
+				<div class="col-md-2 mt-2 mb-2 text-center">
 					<a href="/getAnunciosPorNombre?juego=Parchis"
-						class="btn rounded-pill searchBar suggestButton d-flex align-items-center justify-content-center">Parchís</a>
+						class="btn btn-lg col-8 rounded-pill searchBar suggestButton">Parchís</a>
 				</div>
 			</div>
 		</div>
 
-		<div class="row justify-content-center">
+		<div th:if="${error} or ${success}" class="row justify-content-center">
 			<div class="alert alert-success col-6" id="alertMessage" role="alert" th:text="${success}"
 				th:if="${success}"></div>
 			<div class="alert alert-danger col-6" id="alertMessage" role="alert" th:text="${error}" th:if="${error}">
@@ -92,7 +80,7 @@
 
 		<div class="container">
 			<div class="row justify-content-center">
-				<div class="col-3 d-flex justify-content-center" th:each="anuncio: ${anuncios}">
+				<div class="col-md-3 d-flex justify-content-center" th:each="anuncio: ${anuncios}">
 					<div class="addCard card">
 						<div class="card-body">
 							<h5 class="card-title" th:text="${anuncio.juego}"></h5>
