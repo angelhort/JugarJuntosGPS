@@ -1,7 +1,10 @@
 package com.jugarjuntos.anuncio;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
@@ -11,6 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.jugarjuntos.JugarJuntosApplication;
 import com.jugarjuntos.ServiciosAplicacion.SAAnuncio;
+import com.jugarjuntos.ServiciosAplicacionTests.SAAnuncioImpTest;
+import com.jugarjuntos.ServiciosAplicacionTests.SAAnuncioTest;
 import com.jugarjuntos.Transfers.TAnuncio;
 import com.jugarjuntos.Transfers.TParticipacion;
 
@@ -22,6 +27,7 @@ public class AnuncioTests {
 
 	@Autowired
 	SAAnuncio sAAnuncio;
+	SAAnuncioTest sAAnuncioTest = new SAAnuncioImpTest();
 	TAnuncio tAnuncio = new TAnuncio("Elden Ring", 1, 3, "en_lobby", 1, new ArrayList<TParticipacion>());
 
 	// Operacion que prueba si funciona la operacion de crear anuncio
@@ -41,6 +47,17 @@ public class AnuncioTests {
 	void dgetDetallesAnuncioTest() {
 		assertNotNull(sAAnuncio.getAnuncioByID(2));
 	}
+
+	@Test
+	void eborrarAnuncioBien(){
+		assertTrue(sAAnuncioTest.borrarAnuncio(1));
+	}
+	@Test
+	void fborrarAnuncioMal(){
+		assertFalse(sAAnuncioTest.borrarAnuncio(2));
+	}
+
+
 /*  No implementado todavía borrar
 	// Operación de borrar correctamente una fila existente de la tabla Anuncio
 	@Test
