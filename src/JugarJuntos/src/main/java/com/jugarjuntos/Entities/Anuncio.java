@@ -31,7 +31,7 @@ public class Anuncio implements Serializable{
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha_creacion;
 
-	//Pendiente o finalizado
+	//pendiente,empezado,finalizado
 	private String estado;
 		
 	@ManyToOne

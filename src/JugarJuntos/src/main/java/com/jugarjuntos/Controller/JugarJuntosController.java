@@ -52,7 +52,7 @@ public class JugarJuntosController {
 			try {
 				saParticipacion.enviarSolicitud(participacion);
 			} catch (BusinessException e) {
-				redirAttrs.addFlashAttribute("error", "Error al unirte al anuncio.");
+				redirAttrs.addFlashAttribute("error", "Error al eviar solicitud. Comprueba que no te has unido a otra partida y vuelve a enviar la solicitud");
 				redirAttrs.addAttribute("id", id_anuncio);
 				return "redirect:/detalles";
 			}

@@ -68,11 +68,12 @@ public class SAParticipacionImp implements SAParticipacion{
 
 	@Override
 	public boolean enviarSolicitud(TParticipacion participacion) throws BusinessException {
+		
 		if(anuncioRepository.findById(participacion.getId_anuncio()) != null &&       // Se comprueba que tanto el anuncio como el usuario existan, que el anuncio no haya finalizado, que las
 		usuarioRepository.findUsuarioById(participacion.getId_usuario()) != null &&   // personas actuales no superen al maximo de personas y que el usuario participe en mas anuncios al mismo tiempo
 		anuncioRepository.findById(participacion.getId_anuncio()).getEstado().equalsIgnoreCase("pendiente") && // Comprobar que el anuncio todavía esta en estado pendiente y por tanto podemos unirnos
 		anuncioRepository.findById(participacion.getId_anuncio()).getPersonas_actuales() < anuncioRepository.findById(participacion.getId_anuncio()).getMax_personas() &&
-		participacionRepository.findAllByIdAnuncio_idPendientes(participacion.getId_usuario()) != null) {
+		participacionRepository.findAllByIdAnuncio_idPendientes(participacion.getId_usuario()) != null && participacionRepository.findAllByIdUsuarioAnuncioAceptado(participacion.getId_usuario()).size()==0) {
 			
 			participacionRepository.aniadirSolicitud("esperando","pendiente",participacion.getId_usuario(), participacion.getId_anuncio());
 			return true;
