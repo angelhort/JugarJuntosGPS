@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jugarjuntos.Entities.Anuncio;
 import com.jugarjuntos.Entities.Participacion;
+import com.jugarjuntos.Entities.Usuario;
 import com.jugarjuntos.Entities.UsuarioDetalles.CustomUserDetails;
 import com.jugarjuntos.ServiciosAplicacion.SAAnuncio;
 import com.jugarjuntos.ServiciosAplicacion.SAParticipacion;
@@ -98,6 +99,28 @@ public class AdController {
 		}
 		model.addAttribute("listaParticipantes", participantes);
 		return "detallesAnuncio.html";
+	}
+	
+	@GetMapping("/valorarJugadores")
+	public String valorarJugadores(Model model, @RequestParam int id) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Long idUsuario = -1L;
+		try {
+			idUsuario = ((CustomUserDetails) principal).getId();
+		}catch(Exception e) {
+			
+		}
+		Anuncio anuncio = saAnuncio.getAnuncioByID(id);
+		model.addAttribute("anuncio", anuncio);
+		List<Usuario> jugadoresAValorar = new ArrayList<>();
+		if(anuncio.getAnunciante().getId() != idUsuario)
+			jugadoresAValorar.add(anuncio.getAnunciante());
+		for(Participacion a : anuncio.getParticipacion()) {
+			if(a.getUsuario().getId() != idUsuario)
+				jugadoresAValorar.add(a.getUsuario());
+		}
+		model.addAttribute("listaParticipantes", jugadoresAValorar);
+		return "valorarJugadores";
 	}
 
 	@GetMapping("/getAnunciosPorNombre")
