@@ -39,13 +39,20 @@ public class Usuario implements Serializable{
 	private List<Participacion> participacion;
 	
 
-	//Ocupado o libre
+	//ocupado o libre
 	private String estado;
+	
+	
+	private double puntuacion_total;
+	
+	private int num_votaciones;
 	
 	public Usuario() {
 		super();
 		this.participacion=new ArrayList<Participacion>();
 		this.anuncios=new ArrayList<Anuncio>();
+		num_votaciones=1;
+		puntuacion_total=1.0;
 	}
 	
 
@@ -57,6 +64,8 @@ public class Usuario implements Serializable{
 		this.discord = discord;
 		this.estado = estado;
 		this.participacion=new ArrayList<Participacion>();
+		num_votaciones=1;
+		puntuacion_total=1.0;
 	}
 
 
@@ -149,6 +158,31 @@ public class Usuario implements Serializable{
 		
 		return aux;
 
+	}
+
+
+	public double getPuntuacion_total() {
+		return puntuacion_total;
+	}
+
+
+	public void setPuntuacion_total(double puntuacion_total) {
+		this.puntuacion_total = puntuacion_total;
+	}
+
+
+	public int getNum_votaciones() {
+		return num_votaciones;
+	}
+
+
+	public void setNum_votaciones(int num_votaciones) {
+		this.num_votaciones = num_votaciones;
+	}
+
+
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	

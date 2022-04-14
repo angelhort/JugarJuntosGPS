@@ -53,6 +53,8 @@ public class SAUsuarioImp implements SAUsuario {
 				nuevoUsuario.setPassword(encode_password(tUsuario.getPassword()));
 				nuevoUsuario.setEstado("libre");
 				nuevoUsuario.setDiscord(tUsuario.getDiscord());
+				nuevoUsuario.setNum_votaciones(1);
+				nuevoUsuario.setPuntuacion_total(1.0);
 				
 				em.persist(nuevoUsuario);			// Se persiste la entidad para que al hacer commit el EM mantega la entidad persistida 
 				id = nuevoUsuario.getId();

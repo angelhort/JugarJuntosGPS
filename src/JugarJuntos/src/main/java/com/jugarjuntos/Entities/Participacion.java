@@ -33,11 +33,11 @@ public class Participacion implements Serializable{
 	@MapsId("anuncio_id") private Anuncio anuncio;
 	
 	//Pendiente -> Meter atributo para saber si está en lobby o solo te la has añadido (cuando se pueda añadir futuras partidas)
-	@NonNull
+	@NonNull		//pendiente,aceptado,rechazado
 	private String estado_solicitud = "pendiente";
 	
 	@NonNull
-	private String estado_partida = "finalizado"; //Valores: esperando, en_lobby, finalizado
+	private String estado_partida = "finalizado"; //Valores: pendiente,empezado,finalizado
 	
 	public Participacion(Usuario usuario, Anuncio anuncio, String estado) {
 		super();
