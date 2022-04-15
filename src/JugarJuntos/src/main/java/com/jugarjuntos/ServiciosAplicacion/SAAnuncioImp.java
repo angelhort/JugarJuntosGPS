@@ -40,34 +40,35 @@ public class SAAnuncioImp implements SAAnuncio {
 	public long altaAnuncio(TAnuncio tAnuncio) {
 		long id = -1;
 		long id_usr = -1;
+		
+		if (tAnuncio.getMax_personas() > 225 || tAnuncio.getMax_personas() <= 1)
+			return -1; // Invalid player number
 
-		if (tAnuncio.getMax_personas() > 0 && tAnuncio.getJuego().length() <= 150 && tAnuncio.getMax_personas() <= 226
-				&& tAnuncio.getMax_personas() >= 2) {
+		if (tAnuncio.getJuego().length() > 150)
+			return -3; // Invalid game name
 
-			Anuncio anuncio = new Anuncio();
+		Anuncio anuncio = new Anuncio();
 
-			try {
-				id_usr = usuarioRepository.findUsuarioById(tAnuncio.getId_Usuario()).getId();
+		try {
+			id_usr = usuarioRepository.findUsuarioById(tAnuncio.getId_Usuario()).getId();
 
-				if (anuncioRepo.findAllByAnunciante(id_usr).size() > 0) {
-					throw new Exception();
-				} else {
-					anuncio.setAnunciante(usuarioRepository.findUsuarioById(tAnuncio.getId_Usuario()));
-					anuncio.setFecha_creacion(
-							Date.from(java.time.LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
-					anuncio.setJuego(tAnuncio.getJuego());
-					anuncio.setPersonas_actuales(1); // Se incluye por defecto al anunciante
-					anuncio.setMax_personas(tAnuncio.getMax_personas());
-					anuncio.setEstado(tAnuncio.getEstado());
-					anuncioRepo.save(anuncio);
+			if (anuncioRepo.findAllByAnunciante(id_usr).size() > 0) {
+				System.out.println("Hii");
+				throw new Exception();
+			} else {
+				anuncio.setAnunciante(usuarioRepository.findUsuarioById(tAnuncio.getId_Usuario()));
+				anuncio.setFecha_creacion(
+						Date.from(java.time.LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
+				anuncio.setJuego(tAnuncio.getJuego());
+				anuncio.setPersonas_actuales(1); // Se incluye por defecto al anunciante
+				anuncio.setMax_personas(tAnuncio.getMax_personas());
+				anuncio.setEstado(tAnuncio.getEstado());
+				anuncioRepo.save(anuncio);
 
-					id = anuncio.getId();
-
-				}
-
-			} catch (Exception e) {
-				id = -2;
+				id = anuncio.getId();
 			}
+		} catch (Exception e) {
+			id = -2;
 		}
 
 		return id;

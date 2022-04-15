@@ -52,22 +52,19 @@ public class AdController {
 		tAnuncio.setPersonas_actuales(1);
 		
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		try {
-			tAnuncio.setId_Usuario(((CustomUserDetails) principal).getId());
-		}catch(Exception e) {
-			
-		}
+		tAnuncio.setId_Usuario(((CustomUserDetails) principal).getId());
 		
-		System.out.println(tAnuncio.getId());
 		long res = saAnuncio.altaAnuncio(tAnuncio);
-		
+
 		if (res > 0)
 			redirAttrs.addFlashAttribute("success", "Anuncio dado de alta correctamente.");
-		else if(res == -1) {
+		else if (res == -1) {
 			redirAttrs.addFlashAttribute("error", "Error a la hora de crear el anuncio (asegúrese introducir un número valido de jugadores [2-226])");
 			return "redirect:/formAnuncio";
-		}
-		else {
+		} else if (res == -3) {
+			redirAttrs.addFlashAttribute("error", "El nombre del juego no es válido. Introduzca un número entre 1-150 caracteres");
+			return "redirect:/formAnuncio";
+		} else {
 			redirAttrs.addFlashAttribute("error", "Error a la hora de crear el anuncio (asegúrese de no tener un anuncio en curso y vuelva a intentarlo)");
 			return "redirect:/formAnuncio";
 		}
