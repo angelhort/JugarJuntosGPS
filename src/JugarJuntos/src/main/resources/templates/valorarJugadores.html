@@ -26,16 +26,15 @@
 			<div
 				class="row justify-content-center align-items-center w-75 mt-4 m-3">
 
-				<div class="col-md-4">
-				</div>
-				
+				<div class="col-md-4"></div>
+
 				<div class="col-md-4">
 					<h1 class="fw-bold">Jugadores</h1>
 				</div>
 
 				<div class="col-md-4 text-md-end">
 					<button class="btn btn-lg btn-primary rounded-pill border-0"
-						data-bs-toggle="modal" data-bs-target="#verSolicitudesModal"
+						id="botonEnviar"
 						style="background-color: #E2C044;">
 						<i class="fa fa-paper-plane"></i> <span class="my-auto">Enviar</span>
 					</button>
@@ -43,21 +42,26 @@
 
 			</div>
 
-			<div th:each="participante: ${listaParticipantes}" th:object="${participante}"
-			class="row align-items-center rounded-3 w-75 p-3 m-3" style="background-color: white; font-size: 20px;">
+			<div th:each="participante: ${listaParticipantes}"
+				th:object="${participante}"
+				class="row align-items-center rounded-3 w-75 p-3 m-3"
+				style="background-color: white; font-size: 20px;">
 				<div class="col-md-8 text-md-start">
-					<span class="fw-bold my-auto"
-						th:text="${participante.nombre}"></span>
+					<span class="fw-bold my-auto" th:text="${participante.nombre}"></span>
 				</div>
 				<div class="col-md-4 text-md-end">
 					<div class="rating">
 						<i class="rating__star fa-star fas"></i> <i
+							th:id="'star1' + ${participante.id}"
 							class="rating__star far fa-star"
 							onclick="this.classList.toggle('fas');"></i> <i
+							th:id="'star2' + ${participante.id}"
 							class="rating__star far fa-star"
 							onclick="this.classList.toggle('fas');"></i> <i
+							th:id="'star3' + ${participante.id}"
 							class="rating__star far fa-star"
 							onclick="this.classList.toggle('fas');"></i> <i
+							th:id="'star4' + ${participante.id}"
 							class="rating__star far fa-star"
 							onclick="this.classList.toggle('fas');"></i>
 					</div>
@@ -66,17 +70,38 @@
 			</div>
 		</div>
 
+	<form id="enviarEstrellasForm" th:action="@{/valoracionJugadores}" method="POST">
+		<input id="enviarEstrellasCont" name="listaNumEstrellas" type="hidden">
+		<input id="enviarEstrellasId" name="listaNumEstrellasId" type="hidden">
+	</form>
 	</main>
-
 	<!-- Modal -->
 	<div th:replace="fragments/modalEliminarAnuncio"></div>
 	<div th:replace="fragments/modalEnviarSolicitud"></div>
 	<div th:replace="fragments/modalVerSolicitudesAcceso"></div>
-
 	<script>
 		setTimeout(function() {
 			$('#alertMessage').fadeOut('slow');
 		}, 1500); //Time in milliseconds
+	</script>
+
+	<script th:inline="javascript">
+	document.getElementById('botonEnviar').onclick = function(){
+		var listaParticipantes = /*[[${listaParticipantesId}]]*/ [];
+		var list = [];
+		for(var usuario of listaParticipantes){
+			var cont = 1;
+			for(var i = 1; i < 5; i++ ){
+				var idNom = "star" + i + "" + usuario;
+				if(document.getElementById(idNom).classList.contains('fas'))
+					cont++;
+			}
+			list.push(cont);
+		}
+		document.getElementById('enviarEstrellasCont').value = list;
+		document.getElementById('enviarEstrellasId').value = listaParticipantes;
+	    document.getElementById("enviarEstrellasForm").submit();
+	}
 	</script>
 
 </body>

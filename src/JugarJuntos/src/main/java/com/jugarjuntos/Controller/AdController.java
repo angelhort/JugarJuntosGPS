@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +20,10 @@ import com.jugarjuntos.Entities.Anuncio;
 import com.jugarjuntos.Entities.Participacion;
 import com.jugarjuntos.Entities.Usuario;
 import com.jugarjuntos.Entities.UsuarioDetalles.CustomUserDetails;
+import com.jugarjuntos.Exceptions.BusinessException;
 import com.jugarjuntos.ServiciosAplicacion.SAAnuncio;
 import com.jugarjuntos.ServiciosAplicacion.SAParticipacion;
+import com.jugarjuntos.ServiciosAplicacion.SAUsuario;
 import com.jugarjuntos.Transfers.TAnuncio;
 
 @Controller
@@ -27,6 +31,9 @@ public class AdController {
 
 	@Autowired
 	SAAnuncio saAnuncio;
+	
+	@Autowired
+	SAUsuario saUsuario;
 	
 	@Autowired
 	SAParticipacion saParticipacion;
@@ -79,11 +86,19 @@ public class AdController {
 		model.addAttribute("anuncios", saAnuncio.getAllAnunciosOrderByTime());
 		return "index";
 	}
+
+	@GetMapping("/getAnunciosOrderByValoracion")
+	public String getAnunciosOrderByValoracion(Model model) {
+		model.addAttribute("anuncios", saAnuncio.getAllAnunciosOrderByValoracion());
+		return "index";
+	}
 	
 	@GetMapping("/detalles")
 	public String detalles(Model model, @RequestParam int id) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Long idUsuario = -1L;
+		String media = "0";
+		Integer cont = 0;
 		try {
 			idUsuario = ((CustomUserDetails) principal).getId();
 		}catch(Exception e) {
@@ -91,8 +106,21 @@ public class AdController {
 		}
 		
 		model.addAttribute("idUsuario", idUsuario);
+
 		Anuncio anuncio = saAnuncio.getAnuncioByID(id);
 		model.addAttribute("anuncio", anuncio);
+		List<Object> mediaYCont;
+		try {
+			mediaYCont = saUsuario.calcularMedia(anuncio.getAnunciante().getId());
+			media = (String) mediaYCont.get(0);
+			cont = (Integer) mediaYCont.get(1);
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("media", media);
+		model.addAttribute("contValor", cont);
+		model.addAttribute("idUsuario", idUsuario);
+		
 		List<Long> participantes = new ArrayList<>();
 		for(Participacion a : anuncio.getParticipacion()) {
 			participantes.add(a.getUsuario().getId());
@@ -102,7 +130,7 @@ public class AdController {
 	}
 	
 	@GetMapping("/valorarJugadores")
-	public String valorarJugadores(Model model, @RequestParam int id) {
+	public String valorarJugadores(Model model, @RequestParam int id) {// a esto tiene que llamar el web socket
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Long idUsuario = -1L;
 		try {
@@ -113,14 +141,36 @@ public class AdController {
 		Anuncio anuncio = saAnuncio.getAnuncioByID(id);
 		model.addAttribute("anuncio", anuncio);
 		List<Usuario> jugadoresAValorar = new ArrayList<>();
-		if(anuncio.getAnunciante().getId() != idUsuario)
+		List<Long> listaParticipantesId = new ArrayList<>();
+		if(anuncio.getAnunciante().getId() != idUsuario) {
 			jugadoresAValorar.add(anuncio.getAnunciante());
+			listaParticipantesId.add(anuncio.getAnunciante().getId());
+		}
 		for(Participacion a : anuncio.getParticipacion()) {
-			if(a.getUsuario().getId() != idUsuario)
+			if(a.getUsuario().getId() != idUsuario) {
 				jugadoresAValorar.add(a.getUsuario());
+				listaParticipantesId.add(a.getUsuario().getId());
+			}
 		}
 		model.addAttribute("listaParticipantes", jugadoresAValorar);
+		model.addAttribute("listaParticipantesId", listaParticipantesId);
 		return "valorarJugadores";
+	}
+	
+
+	@PostMapping("/valoracionJugadores")//esto es lo que devuelve la vista de valorar jugadores
+	public String valoracionJugadores(Model model, RedirectAttributes redirAttrs, @RequestParam List<Integer> listaNumEstrellas, @RequestParam List<Long> listaNumEstrellasId) {
+		
+		//listaNumEstrellas es el numero de estrellas en el que a valorado el jugador
+		//listaNumEstrellasId es el id de cada jugador en el mismo orden que la del anterior
+		//ejempo: listaNumEstrellas.get(0) es la valoracion para el jug listaNumEstrellasId.get(0)
+		
+		if(saAnuncio.valorarJugadores(listaNumEstrellas, listaNumEstrellasId)) {
+		redirAttrs.addFlashAttribute("success", "Gracias por valorar a los jugadores, nos vemos en la próxima");
+		}
+		else redirAttrs.addFlashAttribute("success", "Error en la valoración");
+		
+		return "redirect:/";
 	}
 
 	@GetMapping("/getAnunciosPorNombre")
@@ -148,6 +198,20 @@ public class AdController {
 		return "redirect:/";
 	}
 	
+	/*
+	 * @MessageMapping("/terminarAnuncio")
+	 * 
+	 * @SendTo("/detalles") //TODO PONER LA URL DE LOS QUE ESTAN DENTRO DEL ANUNCIO
+	 * public String redireccionValoracion(Model model, @RequestParam long id) {
+	 * Object principal =
+	 * SecurityContextHolder.getContext().getAuthentication().getPrincipal(); Long
+	 * idUsuario = -1L; try { idUsuario = ((CustomUserDetails) principal).getId();
+	 * }catch(Exception e) {
+	 * 
+	 * } if(saParticipacion.isUserInPartida(id, idUsuario)) {
+	 * model.addAttribute("id", id); return "valorarJugadores"; } else return ""; }
+	 */
+	
 	@PostMapping("/terminarAnuncio")
 	public String terminarAnuncio(Model model, RedirectAttributes redirAttrs, @RequestParam int id) {
 		if (saAnuncio.terminarAnuncio(id))
@@ -159,6 +223,52 @@ public class AdController {
 		}
 		
 		return "redirect:/";
+	}
+	
+	@MessageMapping("/empezarPartida")
+	@SendTo("/detalles")
+	public String redireccionPartida(@RequestParam long id) {
+		return "Hola";
+	}
+	
+	@GetMapping("/pruebaSocket")
+	public String prueba() {
+		return "pruebaSocket";
+	}
+	
+	@PostMapping("/empezarPartida")
+	public String empezarPartida(Model model, RedirectAttributes redirAttrs, @RequestParam long idAnuncio,
+			@RequestParam long idUsuario) {
+		if (saAnuncio.empezarAnuncio(idAnuncio, idUsuario)) {
+			redirAttrs.addAttribute("idAnuncio", idAnuncio);
+			redirAttrs.addAttribute("idUsuario", idUsuario);
+			return "redirect:/enPartida";
+		}
+
+		redirAttrs.addAttribute("id", idAnuncio);
+		return "redirect:/detalles";
+	}
+
+	@GetMapping("/enPartida")
+	public String entrarEnPartida(Model model, RedirectAttributes redirAttrs, @RequestParam long idAnuncio,
+			@RequestParam long idUsuario) {
+
+		if (saAnuncio.UsuarioEnAnuncio(idAnuncio, idUsuario) && saAnuncio.checkEmpezado(idAnuncio)) {
+
+			model.addAttribute("idUsuario", idUsuario);
+			Anuncio anuncio = saAnuncio.getAnuncioByID(idAnuncio);
+			model.addAttribute("anuncio", anuncio);
+			List<Long> participantes = new ArrayList<>();
+			for (Participacion a : anuncio.getParticipacion()) {
+				participantes.add(a.getUsuario().getId());
+			}
+
+			model.addAttribute("listaParticipantes", participantes);
+			return "detallesEnPartida.html";
+		}
+
+		model.addAttribute("id", idAnuncio);
+		return "detalles";
 	}
 	
 }

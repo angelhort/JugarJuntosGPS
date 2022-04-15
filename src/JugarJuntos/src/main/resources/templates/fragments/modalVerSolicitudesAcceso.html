@@ -14,7 +14,6 @@
 					<thead>
 						<tr>
 							<th scope="col">Nombre Usuario</th>
-							<th scope="col">Discord</th>
 							<th scope="col">Aceptar</th>
 							<th scope="col">Rechazar</th>
 						</tr>
@@ -23,7 +22,6 @@
 						th:object="${participante}"
 						th:if="${participante.estado_solicitud} == 'pendiente'">
 						<td th:text="${participante.usuario.nombre}"></td>
-						<td th:text="${participante.usuario.discord}"></td>
 						<td>
 							<form th:action="@{/aceptarSolicitud}" method="POST">
 								<input id="idAnuncio" name="idAnuncio" type="hidden"

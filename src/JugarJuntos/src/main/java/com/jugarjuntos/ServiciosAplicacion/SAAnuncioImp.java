@@ -96,7 +96,7 @@ public class SAAnuncioImp implements SAAnuncio {
 		List<Participacion> participaciones = usuario.getParticipacion();
 
 		for (Participacion p : participaciones) {
-			if (p.getEstado_partida() == "empezado") {
+			if (p.getAnuncio().getEstado() == "empezado") {
 				Anuncio a = em.find(Anuncio.class, p.getId().getAnuncio_id());
 				// em.close();
 				return a;
@@ -131,6 +131,21 @@ public class SAAnuncioImp implements SAAnuncio {
 		});
 		return sol;
 	}
+	
+	@Override
+	public List<Anuncio> getAllAnunciosOrderByValoracion() {
+		List<Anuncio> sol = anuncioRepo.findAll();
+		Collections.sort(sol, new Comparator<Anuncio>() {
+			@Override
+			public int compare(Anuncio o1, Anuncio o2) {
+				Double mediaA1 = (double) o1.getAnunciante().getPuntuacion_total() / o1.getAnunciante().getNum_votaciones(), 
+						mediaA2 = (double) o2.getAnunciante().getPuntuacion_total() / o2.getAnunciante().getNum_votaciones();
+				return mediaA2.compareTo(mediaA1);
+			}
+
+		});
+		return sol;
+	}
 
 	@Override
 	public boolean terminarAnuncio(long id) {
@@ -157,6 +172,66 @@ public class SAAnuncioImp implements SAAnuncio {
 			anuncio.getAnunciante().setEstado("libre");
 			usuarioRepository.save(anuncio.getAnunciante());
 			anuncioRepo.delete(anuncio);
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean empezarAnuncio(long idAnuncio, long idUsuario) {
+		Anuncio anuncio = anuncioRepo.findById(idAnuncio);
+		if (anuncio != null && anuncio.getEstado().equals("pendiente")
+				&& anuncio.getAnunciante().getId() == idUsuario) {
+			anuncio.setEstado("empezado");
+			anuncioRepo.save(anuncio);
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean checkEmpezado(long idAnuncio) {
+		Anuncio a = anuncioRepo.findById(idAnuncio);
+		if (a != null && a.getEstado().equals("empezado"))
+			return true;
+		return false;
+	}
+
+	@Override
+	public boolean UsuarioEnAnuncio(long idAnuncio, long idUsuario) {
+		Anuncio a = anuncioRepo.findById(idAnuncio);
+		if (a != null) {
+			if (a.getAnunciante().getId() == idUsuario)
+				return true;
+			else {
+				List<Participacion> elems = a.getParticipacion();
+
+				for (Participacion p : elems) {
+					if (p.getUsuario().getId() == idUsuario && p.getEstado_solicitud().equals("aceptado"))
+						return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	public boolean valorarJugadores(List<Integer> listaNumEstrellas, List<Long> listaNumEstrellasId) {
+
+		if (listaNumEstrellas != null && listaNumEstrellasId != null) {
+			for (int i = 0; i < listaNumEstrellasId.size(); i++) {
+
+				Long idUsuario = listaNumEstrellasId.get(i);
+				Integer puntuacionNueva = listaNumEstrellas.get(i);
+
+				Usuario u = usuarioRepository.findUsuarioById(idUsuario);
+				u.setNum_votaciones(u.getNum_votaciones() + 1);
+				u.setPuntuacion_total(u.getPuntuacion_total() + puntuacionNueva);
+
+				usuarioRepository.save(u);
+
+			}
 			return true;
 		}
 

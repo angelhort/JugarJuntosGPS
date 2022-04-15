@@ -52,7 +52,7 @@ public class Usuario implements Serializable{
 		this.participacion=new ArrayList<Participacion>();
 		this.anuncios=new ArrayList<Anuncio>();
 		num_votaciones=1;
-		puntuacion_total=1.0;
+		puntuacion_total=2.5;
 	}
 	
 
@@ -65,7 +65,7 @@ public class Usuario implements Serializable{
 		this.estado = estado;
 		this.participacion=new ArrayList<Participacion>();
 		num_votaciones=1;
-		puntuacion_total=1.0;
+		puntuacion_total=2.5;
 	}
 
 
