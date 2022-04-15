@@ -51,8 +51,7 @@ public class Anuncio implements Serializable{
 		this.juego = juego;
 		this.personas_actuales = personas_actuales;
 		this.max_personas = max_personas;
-		if(estado.equals("pendiente") || estado.equals("finalizado")) this.estado = estado;
-		else this.estado="pendiente";
+		this.estado = estado;
 		this.participacion=new ArrayList<Participacion>();
 	}
 
@@ -110,8 +109,7 @@ public class Anuncio implements Serializable{
 	}
 
 	public void setEstado(String estado) {
-		if(estado.equals("pendiente") || estado.equals("finalizado")) this.estado = estado;
-		else this.estado="pendiente";
+		this.estado=estado;
 	}
 	
 	public Date getFecha_creacion() {

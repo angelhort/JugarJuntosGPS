@@ -21,4 +21,10 @@ public interface SAAnuncio {
 	public boolean terminarAnuncio(long id);
 	
 	public boolean borrarAnuncio(long id);
+
+	public boolean emepzarAnuncio(long idAnuncio, long idUsuario);
+
+	public boolean checkEmpezado(long idAnuncio);
+
+	public boolean UsuarioEnAnuncio(long idAnuncio, long idUsuario);
 }

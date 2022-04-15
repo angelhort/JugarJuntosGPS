@@ -96,7 +96,7 @@ public class SAAnuncioImp implements SAAnuncio {
 		List<Participacion> participaciones = usuario.getParticipacion();
 
 		for (Participacion p : participaciones) {
-			if (p.getEstado_partida() == "empezado") {
+			if (p.getAnuncio().getEstado()== "empezado") {
 				Anuncio a = em.find(Anuncio.class, p.getId().getAnuncio_id());
 				// em.close();
 				return a;
@@ -160,6 +160,41 @@ public class SAAnuncioImp implements SAAnuncio {
 			return true;
 		}
 
+		return false;
+	}
+
+	@Override
+	public boolean emepzarAnuncio(long idAnuncio, long idUsuario) {
+		Anuncio anuncio = anuncioRepo.findById(idAnuncio);
+		if(anuncio != null && anuncio.getEstado().equals("pendiente") && anuncio.getAnunciante().getId() == idUsuario) {
+			anuncio.setEstado("empezado");
+			anuncioRepo.save(anuncio);
+			return true;
+		}
+		
+		return false;
+	}
+
+	@Override
+	public boolean checkEmpezado(long idAnuncio) {
+		Anuncio a =anuncioRepo.findById(idAnuncio);
+		if(a != null && a.getEstado().equals("empezado")) return true;
+		return false;
+	}
+
+	@Override
+	public boolean UsuarioEnAnuncio(long idAnuncio, long idUsuario) {
+		Anuncio a =anuncioRepo.findById(idAnuncio);
+		if(a != null) {
+			if(a.getAnunciante().getId() ==idUsuario) return true;
+			else {
+				List<Participacion> elems = a.getParticipacion();
+				
+				for (Participacion p : elems) {
+					if(p.getUsuario().getId() == idUsuario && p.getEstado_solicitud().equals("aceptado")) return true;
+				}
+			}
+		}
 		return false;
 	}
 

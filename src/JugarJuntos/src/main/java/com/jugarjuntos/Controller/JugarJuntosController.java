@@ -101,4 +101,5 @@ public class JugarJuntosController {
 		redirAttrs.addAttribute("id", idAnuncio);
 		return "redirect:/detalles";
 	}
+	
 }
