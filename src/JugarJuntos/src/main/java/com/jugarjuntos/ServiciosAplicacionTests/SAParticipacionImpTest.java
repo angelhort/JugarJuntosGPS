@@ -94,8 +94,8 @@ public class SAParticipacionImpTest implements SAParticipacionTest {
 						.findById(participacion.getId_anuncio()).getMax_personas()
 				&& participacionRepository.findAllByIdAnuncio_idPendientes(participacion.getId_usuario()) != null) {
 
-			participacionRepository.aniadirSolicitud("esperando", "pendiente", participacion.getId_usuario(),
-					participacion.getId_anuncio());
+			participacionRepository.aniadirSolicitud("pendiente", participacion.getId_usuario(),
+					participacion.getId_anuncio(), "");
 			return true;
 		}
 
