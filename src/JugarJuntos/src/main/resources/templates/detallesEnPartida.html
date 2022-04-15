@@ -1,0 +1,57 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div th:replace="fragments/head"></div>
+
+<body>
+	<div th:replace="fragments/navbar"></div>
+	<main class="landingPage vh-100">
+
+		<div class="container-fluid pt-5 pb-5" style="background-color: #F7F7F7;">
+			<h1 class="text-center fw-bold" th:text="${anuncio.juego}"></h1>
+			<p th:if="${#strings.toUpperCase(anuncio.estado)} == 'PENDIENTE'" class="text-center fs-5"
+				th:text="${#strings.toUpperCase(anuncio.estado)}" style="font-weight: 500; color: green;"></p>
+			<p th:if="${#strings.toUpperCase(anuncio.estado)} == 'FINALIZADO'" class="text-center fs-5"
+				th:text="${#strings.toUpperCase(anuncio.estado)}" style="font-weight: 500; color: red;"></p>
+			<p th:if="${#strings.toUpperCase(anuncio.estado)} == 'EMPEZADO'" class="text-center fs-5"
+				th:text="${#strings.toUpperCase(anuncio.estado)}" style="font-weight: 500; color: orange;"></p>
+		</div>
+
+		<div th:if="${success} or ${error}" class="row justify-content-center">
+			<div class="alert alert-success col-md-6" id="alertMessage" role="alert" th:text="${success}"
+				th:if="${success}"></div>
+			<div class="alert alert-danger col-md-6" id="alertMessage" role="alert" th:text="${error}" th:if="${error}">
+			</div>
+		</div>
+
+		<div class="container" align="center">
+			<div class="row justify-content-center align-items-center w-75 mt-4 m-3">
+
+				<h1> test </h1>
+
+				<div class="col-md-12 p-3">
+					<form th:action="@{/terminarAnuncio}" method="POST">
+						<input id="id" name="id" type="hidden" th:value="${anuncio.id}">
+						<button
+							th:if="${anuncio?.anunciante?.id} == ${idUsuario} AND ${#strings.toUpperCase(anuncio.estado)} == 'EMPEZADO'"
+							class="btn btn-lg btn-primary rounded-pill border-0" style="background-color: #E2C044;">
+							<i class="fa-solid fa-circle-xmark"></i>
+							<span class="my-auto">Terminar anuncio</span>
+					</form>
+					</button>
+				</div>
+
+			</div>
+		</div>
+
+
+	</main>
+
+	<script>
+		setTimeout(function () {
+			$('#alertMessage').fadeOut('slow');
+		}, 1500); //Time in milliseconds
+	</script>
+</body>
+
+</html>
