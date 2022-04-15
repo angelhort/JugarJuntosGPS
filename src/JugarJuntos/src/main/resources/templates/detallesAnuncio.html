@@ -58,12 +58,19 @@
 
 			<div class="row align-items-center rounded-3 w-75 p-3 mb-5 mt-4"
 				style="background-color: white; font-size: 20px;">
-				<div class="col-md-6 text-md-start">
+				<div class="col-md-4 text-md-start">
 					<span class="fw-bold my-auto" th:text="${anuncio?.anunciante?.nombre}"></span> <i
 						class="fa-solid fa-crown text-md-end" style="color: #E2C044;"></i>
 				</div>
+				<div class="col-md-2 text-md-center">
+					<span class="my-auto" th:text="${media}"></span>
+					<i class="rating__star fa-star fas"></i>
+				</div>
+				<div class="col-md-2 text-md-center">
+					<span class=" my-auto" th:text="'N&#176 val: '+${contValor}"></span>
+				</div>
 				<div th:if="${anuncio.anunciante.id} == ${idUsuario} or ${#lists.contains(listaParticipantes, idUsuario)}"
-					class="col-md-6 text-md-end">
+					class="col-md-4 text-md-end">
 					<i class="fa-brands fa-discord text-md-end" style="color: #5865F2;"></i> <span
 						class="fw-light my-auto" style="color: #A3A3A3;"
 						th:text="${anuncio?.anunciante?.discord}"></span>

@@ -89,7 +89,8 @@ public class AdController {
 		}catch(Exception e) {
 			
 		}
-		
+		model.addAttribute("media", 4.3);
+		model.addAttribute("contValor", 90);
 		model.addAttribute("idUsuario", idUsuario);
 		Anuncio anuncio = saAnuncio.getAnuncioByID(id);
 		model.addAttribute("anuncio", anuncio);
