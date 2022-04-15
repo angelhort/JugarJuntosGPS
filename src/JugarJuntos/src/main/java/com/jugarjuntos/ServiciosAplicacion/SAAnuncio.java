@@ -16,6 +16,8 @@ public interface SAAnuncio {
 	
 	public List<Anuncio> getAllAnunciosOrderByTime();
 	
+	public List<Anuncio> getAllAnunciosOrderByValoracion();
+	
 	public Anuncio getAnuncioByID(long id);
 	
 	public boolean terminarAnuncio(long id);

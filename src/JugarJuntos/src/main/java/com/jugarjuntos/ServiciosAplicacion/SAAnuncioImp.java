@@ -131,6 +131,21 @@ public class SAAnuncioImp implements SAAnuncio {
 		});
 		return sol;
 	}
+	
+	@Override
+	public List<Anuncio> getAllAnunciosOrderByValoracion() {
+		List<Anuncio> sol = anuncioRepo.findAll();
+		Collections.sort(sol, new Comparator<Anuncio>() {
+			@Override
+			public int compare(Anuncio o1, Anuncio o2) {
+				Double mediaA1 = (double) o1.getAnunciante().getPuntuacion_total() / o1.getAnunciante().getNum_votaciones(), 
+						mediaA2 = (double) o2.getAnunciante().getPuntuacion_total() / o2.getAnunciante().getNum_votaciones();
+				return mediaA2.compareTo(mediaA1);
+			}
+
+		});
+		return sol;
+	}
 
 	@Override
 	public boolean terminarAnuncio(long id) {
@@ -197,5 +212,6 @@ public class SAAnuncioImp implements SAAnuncio {
 		}
 		return false;
 	}
+
 
 }

@@ -87,8 +87,14 @@ public class AdController {
 	public String getAnunciossOrderByTime(Model model) {
 		model.addAttribute("anuncios", saAnuncio.getAllAnunciosOrderByTime());
 		return "index";
-	}
+	}///getAnunciosOrderByValoracion
 
+	@GetMapping("/getAnunciosOrderByValoracion")
+	public String getAnunciosOrderByValoracion(Model model) {
+		model.addAttribute("anuncios", saAnuncio.getAllAnunciosOrderByValoracion());
+		return "index";
+	}
+	
 	@GetMapping("/detalles")
 	public String detalles(Model model, @RequestParam int id) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

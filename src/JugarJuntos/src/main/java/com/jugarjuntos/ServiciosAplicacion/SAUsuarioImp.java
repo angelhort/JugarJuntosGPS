@@ -108,7 +108,7 @@ public class SAUsuarioImp implements SAUsuario {
 		Usuario user = repo.findUsuarioById(id);
 		List<Object> list = new ArrayList<Object>();
 		if (user != null) {
-			double media = user.getPuntuacion_total() / user.getNum_votaciones();
+			double media = (double) user.getPuntuacion_total() / user.getNum_votaciones();
 			list.add(String.format("%.2f", media));
 			list.add( user.getNum_votaciones());
 			return list;
