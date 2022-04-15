@@ -82,5 +82,12 @@ public class SAParticipacionImp implements SAParticipacion{
 		else throw new BusinessException("No existe esta solicitud de acceso a la sala.");
 	}
 
+	@Override
+	public boolean isUserInPartida(long idAnuncio, long idUsuario) {
+		if(participacionRepository.findParticipacionById(idAnuncio, idUsuario).isEmpty())
+			return false;
+		else return true;
+	}
+
 	
 }
