@@ -28,7 +28,7 @@ public interface ParticipacionRepository extends CrudRepository<Participacion , 
 	@Modifying
 	@Query(value = "INSERT INTO participacion VALUES (?1, ?2, ?3, ?4)", nativeQuery = true)
 	@Transactional
-	public void aniadirSolicitud(String string, String string2, long l, long m);
+	public void aniadirSolicitud(String estado, long l, long m, String texto);
 	
 	@Query(value = "DELETE from participacion WHERE usuario_id = ?1 AND anuncio_id = ?2", nativeQuery = true)
 	public void eliminarUsuarioParticipacion(long usuarioId , long anuncioId);

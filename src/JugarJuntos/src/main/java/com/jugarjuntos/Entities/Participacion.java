@@ -36,14 +36,16 @@ public class Participacion implements Serializable{
 	@NonNull		//pendiente,aceptado,rechazado
 	private String estado_solicitud = "pendiente";
 	
+	private String text;
 	
-	public Participacion(Usuario usuario, Anuncio anuncio, String estado) {
+	public Participacion(Usuario usuario, Anuncio anuncio, String estado, String text) {
 		super();
 		
 		this.id = new ParticipacionId(usuario.getId(), anuncio.getId());
 		this.usuario=usuario;
 		this.anuncio=anuncio;
 		estado_solicitud="pendiente";
+		this.text = text;
 	}
 
 	public Participacion() {
@@ -80,6 +82,14 @@ public class Participacion implements Serializable{
 
 	public void setEstado_solicitud(String estado_solicitud) {
 		this.estado_solicitud = estado_solicitud;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
 	}
 
 	public TParticipacion entityToTransfer() {

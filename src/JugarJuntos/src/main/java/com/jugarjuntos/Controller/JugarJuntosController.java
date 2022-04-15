@@ -46,7 +46,7 @@ public class JugarJuntosController {
 		Long idUsuario = -1L;
 		try {
 			idUsuario = ((CustomUserDetails) principal).getId();
-			TParticipacion participacion = new TParticipacion(idUsuario, id_anuncio, null);
+			TParticipacion participacion = new TParticipacion(idUsuario, id_anuncio, null, text);
 			
 			try {
 				saParticipacion.enviarSolicitud(participacion);

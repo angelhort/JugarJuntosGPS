@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.jugarjuntos.Entities.Anuncio;
 import com.jugarjuntos.Entities.Participacion;
+import com.jugarjuntos.Entities.Usuario;
 import com.jugarjuntos.Exceptions.BusinessException;
 import com.jugarjuntos.Repositories.AnuncioRepository;
 import com.jugarjuntos.Repositories.ParticipacionRepository;
@@ -68,14 +69,16 @@ public class SAParticipacionImp implements SAParticipacion{
 
 	@Override
 	public boolean enviarSolicitud(TParticipacion participacion) throws BusinessException {
-		
-		if(anuncioRepository.findById(participacion.getId_anuncio()) != null &&       // Se comprueba que tanto el anuncio como el usuario existan, que el anuncio no haya finalizado, que las
-		usuarioRepository.findUsuarioById(participacion.getId_usuario()) != null &&   // personas actuales no superen al maximo de personas y que el usuario participe en mas anuncios al mismo tiempo
-		anuncioRepository.findById(participacion.getId_anuncio()).getEstado().equalsIgnoreCase("pendiente") && // Comprobar que el anuncio todavía esta en estado pendiente y por tanto podemos unirnos
-		anuncioRepository.findById(participacion.getId_anuncio()).getPersonas_actuales() < anuncioRepository.findById(participacion.getId_anuncio()).getMax_personas() &&
-		participacionRepository.findAllByIdAnuncio_idPendientes(participacion.getId_usuario()) != null && participacionRepository.findAllByIdUsuarioAnuncioAceptado(participacion.getId_usuario()).size()==0) {
+		Anuncio anuncio = anuncioRepository.findById(participacion.getId_anuncio());
+		Usuario usuario = usuarioRepository.findUsuarioById(participacion.getId_usuario());
+		List<Participacion> part = participacionRepository.findAllByIdAnuncio_idPendientes(participacion.getId_usuario());
+		if(anuncio != null &&       // Se comprueba que tanto el anuncio como el usuario existan, que el anuncio no haya finalizado, que las
+		usuario != null &&   // personas actuales no superen al maximo de personas y que el usuario participe en mas anuncios al mismo tiempo
+		anuncio.getEstado().equalsIgnoreCase("pendiente") && // Comprobar que el anuncio todavía esta en estado pendiente y por tanto podemos unirnos
+		anuncio.getPersonas_actuales() < anuncio.getMax_personas() &&
+		part != null && part.size() == 0) {
 			
-			participacionRepository.aniadirSolicitud("esperando","pendiente",participacion.getId_usuario(), participacion.getId_anuncio());
+			participacionRepository.aniadirSolicitud("pendiente",participacion.getId_usuario(), participacion.getId_anuncio(), participacion.getText());
 			return true;
 		}
 	

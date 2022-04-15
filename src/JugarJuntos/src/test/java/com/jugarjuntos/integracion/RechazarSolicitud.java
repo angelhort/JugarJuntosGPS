@@ -52,7 +52,7 @@ public class RechazarSolicitud {
 		usuario.setId(saUsuario.altaUsuario(usuario));
 		
 		
-		participacion = new TParticipacion(usuario.getId(), anuncio.getId(), null);
+		participacion = new TParticipacion(usuario.getId(), anuncio.getId(), null, "");
 		saParticipacion.enviarSolicitud(participacion);
 	}
 	

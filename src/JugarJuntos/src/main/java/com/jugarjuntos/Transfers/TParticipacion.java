@@ -5,7 +5,7 @@ public class TParticipacion {
 	private long id_usuario;
 	private long id_anuncio;
 	private String estado;
-	
+	private String text;
 	
 	
 	public TParticipacion() {
@@ -24,11 +24,12 @@ public class TParticipacion {
 
 
 
-	public TParticipacion(long id_usuario, long id_anuncio, String estado) {
+	public TParticipacion(long id_usuario, long id_anuncio, String estado, String text) {
 		super();
 		this.id_usuario = id_usuario;
 		this.id_anuncio = id_anuncio;
 		this.estado = estado;
+		this.text = text;
 	}
 
 
@@ -59,6 +60,20 @@ public class TParticipacion {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+
+
+
+	public String getText() {
+		return text;
+	}
+
+
+
+
+	public void setText(String text) {
+		this.text = text;
 	}
 	
 	
