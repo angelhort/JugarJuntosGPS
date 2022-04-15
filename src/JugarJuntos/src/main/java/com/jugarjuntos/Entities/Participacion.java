@@ -36,8 +36,6 @@ public class Participacion implements Serializable{
 	@NonNull		//pendiente,aceptado,rechazado
 	private String estado_solicitud = "pendiente";
 	
-	@NonNull
-	private String estado_partida = "finalizado"; //Valores: pendiente,empezado,finalizado
 	
 	public Participacion(Usuario usuario, Anuncio anuncio, String estado) {
 		super();
@@ -45,13 +43,7 @@ public class Participacion implements Serializable{
 		this.id = new ParticipacionId(usuario.getId(), anuncio.getId());
 		this.usuario=usuario;
 		this.anuncio=anuncio;
-		if(check_status(estado)) this.estado_partida=estado;
 		estado_solicitud="pendiente";
-	}
-
-	private boolean check_status(String estado) {
-		if(estado == "finalizado" || estado == "en_lobby" || estado == "expulsado") return true;
-		return false;
 	}
 
 	public Participacion() {
@@ -82,15 +74,6 @@ public class Participacion implements Serializable{
 		this.anuncio = anuncio;
 	}
 	
-	/*
-	public String getEstado_partida() {
-		return estado_partida;
-	}
-
-	public void setEstado_partida(String estado_partida) {
-		this.estado_partida = estado_partida;
-	}
-	*/
 	public String getEstado_solicitud() {
 		return estado_solicitud;
 	}
@@ -103,7 +86,6 @@ public class Participacion implements Serializable{
 		TParticipacion t = new TParticipacion();
 		t.setId_anuncio(this.anuncio.getId());
 		t.setId_usuario(this.usuario.getId());
-		t.setEstado(this.estado_partida);
 		return t;
 	}
 	
