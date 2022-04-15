@@ -96,7 +96,7 @@ public class SAAnuncioImp implements SAAnuncio {
 		List<Participacion> participaciones = usuario.getParticipacion();
 
 		for (Participacion p : participaciones) {
-			if (p.getAnuncio().getEstado()== "empezado") {
+			if (p.getAnuncio().getEstado() == "empezado") {
 				Anuncio a = em.find(Anuncio.class, p.getId().getAnuncio_id());
 				// em.close();
 				return a;
@@ -164,37 +164,62 @@ public class SAAnuncioImp implements SAAnuncio {
 	}
 
 	@Override
-	public boolean emepzarAnuncio(long idAnuncio, long idUsuario) {
+	public boolean empezarAnuncio(long idAnuncio, long idUsuario) {
 		Anuncio anuncio = anuncioRepo.findById(idAnuncio);
-		if(anuncio != null && anuncio.getEstado().equals("pendiente") && anuncio.getAnunciante().getId() == idUsuario) {
+		if (anuncio != null && anuncio.getEstado().equals("pendiente")
+				&& anuncio.getAnunciante().getId() == idUsuario) {
 			anuncio.setEstado("empezado");
 			anuncioRepo.save(anuncio);
 			return true;
 		}
-		
+
 		return false;
 	}
 
 	@Override
 	public boolean checkEmpezado(long idAnuncio) {
-		Anuncio a =anuncioRepo.findById(idAnuncio);
-		if(a != null && a.getEstado().equals("empezado")) return true;
+		Anuncio a = anuncioRepo.findById(idAnuncio);
+		if (a != null && a.getEstado().equals("empezado"))
+			return true;
 		return false;
 	}
 
 	@Override
 	public boolean UsuarioEnAnuncio(long idAnuncio, long idUsuario) {
-		Anuncio a =anuncioRepo.findById(idAnuncio);
-		if(a != null) {
-			if(a.getAnunciante().getId() ==idUsuario) return true;
+		Anuncio a = anuncioRepo.findById(idAnuncio);
+		if (a != null) {
+			if (a.getAnunciante().getId() == idUsuario)
+				return true;
 			else {
 				List<Participacion> elems = a.getParticipacion();
-				
+
 				for (Participacion p : elems) {
-					if(p.getUsuario().getId() == idUsuario && p.getEstado_solicitud().equals("aceptado")) return true;
+					if (p.getUsuario().getId() == idUsuario && p.getEstado_solicitud().equals("aceptado"))
+						return true;
 				}
 			}
 		}
+		return false;
+	}
+
+	public boolean valorarJugadores(List<Integer> listaNumEstrellas, List<Long> listaNumEstrellasId) {
+
+		if (listaNumEstrellas != null && listaNumEstrellasId != null) {
+			for (int i = 0; i < listaNumEstrellasId.size(); i++) {
+
+				Long idUsuario = listaNumEstrellasId.get(i);
+				Integer puntuacionNueva = listaNumEstrellas.get(i);
+
+				Usuario u = usuarioRepository.findUsuarioById(idUsuario);
+				u.setNum_votaciones(u.getNum_votaciones() + 1);
+				u.setPuntuacion_total(u.getPuntuacion_total() + puntuacionNueva);
+
+				usuarioRepository.save(u);
+
+			}
+			return true;
+		}
+
 		return false;
 	}
 
