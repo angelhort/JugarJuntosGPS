@@ -1,21 +1,45 @@
-	<div class="modal fade" id="enviarSolicitudModal" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel" th:text="${anuncio.juego}"></h5>
-				</div>
 
-				<div class="modal-body"
+<div class="modal fade" id="enviarSolicitudModal" tabindex="-1"
+	aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel"
+					th:text="${anuncio.juego}"></h5>
+			</div>
+
+			<div class="modal-body">
+				<p
 					th:text="'¿Estás seguro de que quieres enviar esta solicitud a '+${anuncio.juego}+'?'">
-				</div>
+				</p>
 
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-					<form th:action="@{/enviarSolicitud}" method="POST">
-						<input id="id_anuncio" name="id_anuncio" type="hidden" th:value="${anuncio.id}">
-						<button type="submit" class="btn btn-warning">Aceptar</button>
-					</form>
-				</div>
+				<textarea id="textoArea" class="formInput form-control"
+					placeholder="A&ntilde;adir texto a solicitud"></textArea>
+			</div>
+
+
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary"
+					data-bs-dismiss="modal">Cancelar</button>
+				<button id="botonEnviar" class="btn btn-warning">Aceptar</button>
 			</div>
 		</div>
 	</div>
+</div>
+
+<form id="enviarSolicitudForm" th:action="@{/enviarSolicitud}"
+	method="POST">
+	<input id="id_anuncio" name="id_anuncio" type="hidden"
+		th:value="${anuncio.id}" /> <input id="text" name="text" type="hidden" />
+
+</form>
+
+<script>
+	document.getElementById('botonEnviar').onclick = function() {
+		var textoA = document.getElementById('textoArea').value;
+		document.getElementById('text').value = textoA;
+		document.getElementById("enviarSolicitudForm").submit();
+	}
+</script>
+

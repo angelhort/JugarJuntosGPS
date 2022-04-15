@@ -41,11 +41,10 @@ public class JugarJuntosController {
 	}
 	
 	@PostMapping("/enviarSolicitud")
-	public String enviarSolicitud(Model model, RedirectAttributes redirAttrs, @RequestParam long id_anuncio) {
+	public String enviarSolicitud(Model model, RedirectAttributes redirAttrs, @RequestParam long id_anuncio, @RequestParam String text) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Long idUsuario = -1L;
 		try {
-
 			idUsuario = ((CustomUserDetails) principal).getId();
 			TParticipacion participacion = new TParticipacion(idUsuario, id_anuncio, null);
 			
@@ -56,8 +55,6 @@ public class JugarJuntosController {
 				redirAttrs.addAttribute("id", id_anuncio);
 				return "redirect:/detalles";
 			}
-			
-			
 		}catch(Exception e) {
 
 		}
