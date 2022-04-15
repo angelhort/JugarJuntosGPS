@@ -31,7 +31,7 @@ public class AdController {
 
 	@Autowired
 	SAAnuncio saAnuncio;
-
+	
 	@Autowired
 	SAUsuario saUsuario;
 	
@@ -42,52 +42,50 @@ public class AdController {
 	public String crearForm(Model model) {
 		return "crearAnuncio.html";
 	}
-
+	
 	@PostMapping("/formAnuncio")
-	public String crearAnuncio(Model model, RedirectAttributes redirAttrs, @RequestParam String juego,
-			@RequestParam String max_personas) {
+	public String crearAnuncio(Model model, RedirectAttributes redirAttrs, @RequestParam String juego, @RequestParam String max_personas) {
 		TAnuncio tAnuncio = new TAnuncio();
 		tAnuncio.setJuego(juego);
 		tAnuncio.setMax_personas(Integer.parseInt(max_personas));
-		tAnuncio.setEstado("pendiente");
+		tAnuncio.setEstado("Pendiente");
 		tAnuncio.setPersonas_actuales(1);
-
+		
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		try {
 			tAnuncio.setId_Usuario(((CustomUserDetails) principal).getId());
-		} catch (Exception e) {
-
+		}catch(Exception e) {
+			
 		}
-
+		
 		System.out.println(tAnuncio.getId());
 		long res = saAnuncio.altaAnuncio(tAnuncio);
-
+		
 		if (res > 0)
 			redirAttrs.addFlashAttribute("success", "Anuncio dado de alta correctamente.");
-		else if (res == -1) {
-			redirAttrs.addFlashAttribute("error",
-					"Error a la hora de crear el anuncio (asegúrese introducir un número valido de jugadores [2-226])");
-			return "redirect:/formAnuncio";
-		} else {
-			redirAttrs.addFlashAttribute("error",
-					"Error a la hora de crear el anuncio (asegúrese de no tener un anuncio en curso y vuelva a intentarlo)");
+		else if(res == -1) {
+			redirAttrs.addFlashAttribute("error", "Error a la hora de crear el anuncio (asegúrese introducir un número valido de jugadores [2-226])");
 			return "redirect:/formAnuncio";
 		}
-
+		else {
+			redirAttrs.addFlashAttribute("error", "Error a la hora de crear el anuncio (asegúrese de no tener un anuncio en curso y vuelva a intentarlo)");
+			return "redirect:/formAnuncio";
+		}
+			
 		return "redirect:/";
 	}
-
+	
 	@GetMapping("/getAnuncios")
 	public String getAnuncios(Model model) {
 		model.addAttribute("anuncios", saAnuncio.getAllAnuncios());
 		return "index";
 	}
-
+	
 	@GetMapping("/getAnunciosOrderByTime")
 	public String getAnunciossOrderByTime(Model model) {
 		model.addAttribute("anuncios", saAnuncio.getAllAnunciosOrderByTime());
 		return "index";
-	}///getAnunciosOrderByValoracion
+	}
 
 	@GetMapping("/getAnunciosOrderByValoracion")
 	public String getAnunciosOrderByValoracion(Model model) {
@@ -103,9 +101,12 @@ public class AdController {
 		Integer cont = 0;
 		try {
 			idUsuario = ((CustomUserDetails) principal).getId();
-		} catch (Exception e) {
-
+		}catch(Exception e) {
+			
 		}
+		
+		model.addAttribute("idUsuario", idUsuario);
+
 		Anuncio anuncio = saAnuncio.getAnuncioByID(id);
 		model.addAttribute("anuncio", anuncio);
 		List<Object> mediaYCont;
@@ -121,36 +122,32 @@ public class AdController {
 		model.addAttribute("idUsuario", idUsuario);
 		
 		List<Long> participantes = new ArrayList<>();
-		for (Participacion a : anuncio.getParticipacion()) {
+		for(Participacion a : anuncio.getParticipacion()) {
 			participantes.add(a.getUsuario().getId());
 		}
 		model.addAttribute("listaParticipantes", participantes);
-
-		if (saAnuncio.UsuarioEnAnuncio(anuncio.getId(), idUsuario) && saAnuncio.checkEmpezado(anuncio.getId())) {
-			return "detallesEnPartida.html";
-		}
 		return "detallesAnuncio.html";
 	}
-
+	
 	@GetMapping("/valorarJugadores")
 	public String valorarJugadores(Model model, @RequestParam int id) {// a esto tiene que llamar el web socket
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Long idUsuario = -1L;
 		try {
 			idUsuario = ((CustomUserDetails) principal).getId();
-		} catch (Exception e) {
-
+		}catch(Exception e) {
+			
 		}
 		Anuncio anuncio = saAnuncio.getAnuncioByID(id);
 		model.addAttribute("anuncio", anuncio);
 		List<Usuario> jugadoresAValorar = new ArrayList<>();
 		List<Long> listaParticipantesId = new ArrayList<>();
-		if (anuncio.getAnunciante().getId() != idUsuario) {
+		if(anuncio.getAnunciante().getId() != idUsuario) {
 			jugadoresAValorar.add(anuncio.getAnunciante());
 			listaParticipantesId.add(anuncio.getAnunciante().getId());
 		}
-		for (Participacion a : anuncio.getParticipacion()) {
-			if (a.getUsuario().getId() != idUsuario) {
+		for(Participacion a : anuncio.getParticipacion()) {
+			if(a.getUsuario().getId() != idUsuario) {
 				jugadoresAValorar.add(a.getUsuario());
 				listaParticipantesId.add(a.getUsuario().getId());
 			}
@@ -159,26 +156,20 @@ public class AdController {
 		model.addAttribute("listaParticipantesId", listaParticipantesId);
 		return "valorarJugadores";
 	}
+	
 
-	@PostMapping("/valoracionJugadores") // esto es lo que devuelve la vista de valorar jugadores
-	public String valoracionJugadores(Model model, RedirectAttributes redirAttrs,
-			@RequestParam List<Integer> listaNumEstrellas, @RequestParam List<Long> listaNumEstrellasId) {
-
-		String aux = "";
-		for (Integer i : listaNumEstrellas) {
-			aux += i + " ";// esto se puede borrar, era para ver si funcionaba bien
+	@PostMapping("/valoracionJugadores")//esto es lo que devuelve la vista de valorar jugadores
+	public String valoracionJugadores(Model model, RedirectAttributes redirAttrs, @RequestParam List<Integer> listaNumEstrellas, @RequestParam List<Long> listaNumEstrellasId) {
+		
+		//listaNumEstrellas es el numero de estrellas en el que a valorado el jugador
+		//listaNumEstrellasId es el id de cada jugador en el mismo orden que la del anterior
+		//ejempo: listaNumEstrellas.get(0) es la valoracion para el jug listaNumEstrellasId.get(0)
+		
+		if(saAnuncio.valorarJugadores(listaNumEstrellas, listaNumEstrellasId)) {
+		redirAttrs.addFlashAttribute("success", "Gracias por valorar a los jugadores, nos vemos en la próxima");
 		}
-		for (Long i : listaNumEstrellasId) {
-			aux += i + " ";
-		}
-		// listaNumEstrellas es el numero de estrellas en el que a valorado el jugador
-		// listaNumEstrellasId es el id de cada jugador en el mismo orden que la del
-		// anterior
-		// ejempo: listaNumEstrellas.get(0) es la valoracion para el jug
-		// listaNumEstrellasId.get(0)
-
-		redirAttrs.addFlashAttribute("success", aux);
-
+		else redirAttrs.addFlashAttribute("success", "Error en la valoración");
+		
 		return "redirect:/";
 	}
 
@@ -190,10 +181,10 @@ public class AdController {
 
 	@GetMapping("/lobbyAnuncio")
 	public String irALobby(Model model) {
-
+		
 		return "lobbyAnuncio";
 	}
-
+	
 	@PostMapping("/borrarAnuncio")
 	public String borrarAnuncio(Model model, RedirectAttributes redirAttrs, @RequestParam int idanuncio) {
 		if (saAnuncio.borrarAnuncio(idanuncio))
@@ -201,25 +192,12 @@ public class AdController {
 		else {
 			redirAttrs.addFlashAttribute("error", "Ocurrió un error borrando el anuncio");
 			redirAttrs.addAttribute("id", idanuncio);
-			return "redirect:/detalles"; // Preguntar a PO
+			return "redirect:/detalles"; //Preguntar a PO
 		}
-
+		
 		return "redirect:/";
 	}
-
-	@PostMapping("/terminarAnuncio")
-	public String terminarAnuncio(Model model, RedirectAttributes redirAttrs, @RequestParam int id) {
-		if (saAnuncio.terminarAnuncio(id))
-			redirAttrs.addFlashAttribute("success", "El anuncio terminó correctamente");
-		else {
-			redirAttrs.addFlashAttribute("error", "Ocurrió un error terminando el anuncio");
-			redirAttrs.addAttribute("id", id);
-			return "redirect:/detalles";
-		}
-
-		return "redirect:/";
-	}
-
+	
 	/*
 	 * @MessageMapping("/terminarAnuncio")
 	 * 
@@ -233,23 +211,35 @@ public class AdController {
 	 * } if(saParticipacion.isUserInPartida(id, idUsuario)) {
 	 * model.addAttribute("id", id); return "valorarJugadores"; } else return ""; }
 	 */
-
+	
+	@PostMapping("/terminarAnuncio")
+	public String terminarAnuncio(Model model, RedirectAttributes redirAttrs, @RequestParam int id) {
+		if (saAnuncio.terminarAnuncio(id))
+			redirAttrs.addFlashAttribute("success", "El anuncio terminó correctamente");
+		else {
+			redirAttrs.addFlashAttribute("error", "Ocurrió un error terminando el anuncio");
+			redirAttrs.addAttribute("id", id);
+			return "redirect:/detalles";
+		}
+		
+		return "redirect:/";
+	}
+	
 	@MessageMapping("/empezarPartida")
 	@SendTo("/detalles")
 	public String redireccionPartida(@RequestParam long id) {
 		return "Hola";
 	}
-
+	
 	@GetMapping("/pruebaSocket")
 	public String prueba() {
 		return "pruebaSocket";
-
 	}
-
+	
 	@PostMapping("/empezarPartida")
 	public String empezarPartida(Model model, RedirectAttributes redirAttrs, @RequestParam long idAnuncio,
 			@RequestParam long idUsuario) {
-		if (saAnuncio.emepzarAnuncio(idAnuncio, idUsuario)) {
+		if (saAnuncio.empezarAnuncio(idAnuncio, idUsuario)) {
 			redirAttrs.addAttribute("idAnuncio", idAnuncio);
 			redirAttrs.addAttribute("idUsuario", idUsuario);
 			return "redirect:/enPartida";
@@ -280,5 +270,5 @@ public class AdController {
 		model.addAttribute("id", idAnuncio);
 		return "detalles";
 	}
-
+	
 }
