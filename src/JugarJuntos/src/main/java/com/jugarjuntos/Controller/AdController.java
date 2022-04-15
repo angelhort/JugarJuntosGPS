@@ -1,8 +1,6 @@
 package com.jugarjuntos.Controller;
 
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -162,10 +160,10 @@ public class AdController {
 		//listaNumEstrellasId es el id de cada jugador en el mismo orden que la del anterior
 		//ejempo: listaNumEstrellas.get(0) es la valoracion para el jug listaNumEstrellasId.get(0)
 		
-		if(saAnuncio.valorarJugadores(listaNumEstrellas, listaNumEstrellasId)) {
-		redirAttrs.addFlashAttribute("success", "Gracias por valorar a los jugadores, nos vemos en la próxima");
-		}
-		else redirAttrs.addFlashAttribute("success", "Error en la valoración");
+		if(saAnuncio.valorarJugadores(listaNumEstrellas, listaNumEstrellasId))
+			redirAttrs.addFlashAttribute("success", "Gracias por valorar a los jugadores, nos vemos en la próxima");
+		else
+			redirAttrs.addFlashAttribute("success", "Error en la valoración");
 		
 		return "redirect:/";
 	}
@@ -178,7 +176,6 @@ public class AdController {
 
 	@GetMapping("/lobbyAnuncio")
 	public String irALobby(Model model) {
-		
 		return "lobbyAnuncio";
 	}
 	

@@ -1,7 +1,6 @@
 package com.jugarjuntos.ServiciosAplicacion;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +13,8 @@ import com.jugarjuntos.Repositories.AnuncioRepository;
 import com.jugarjuntos.Repositories.ParticipacionRepository;
 import com.jugarjuntos.Repositories.UsuarioRepository;
 import com.jugarjuntos.Transfers.TParticipacion;
+
+
 @Service
 public class SAParticipacionImp implements SAParticipacion{
 	@Autowired
@@ -68,21 +69,25 @@ public class SAParticipacionImp implements SAParticipacion{
 	}
 
 	@Override
-	public boolean enviarSolicitud(TParticipacion participacion) throws BusinessException {
+	public int enviarSolicitud(TParticipacion participacion) {
 		Anuncio anuncio = anuncioRepository.findById(participacion.getId_anuncio());
 		Usuario usuario = usuarioRepository.findUsuarioById(participacion.getId_usuario());
 		List<Participacion> part = participacionRepository.findAllByIdAnuncio_idPendientes(participacion.getId_usuario());
-		if(anuncio != null &&       // Se comprueba que tanto el anuncio como el usuario existan, que el anuncio no haya finalizado, que las
-		usuario != null &&   // personas actuales no superen al maximo de personas y que el usuario participe en mas anuncios al mismo tiempo
-		anuncio.getEstado().equalsIgnoreCase("pendiente") && // Comprobar que el anuncio todavía esta en estado pendiente y por tanto podemos unirnos
-		anuncio.getPersonas_actuales() < anuncio.getMax_personas() &&
-		part != null && part.size() == 0) {
-			
+
+		if (anuncio == null || usuario == null)
+			return -1; // Invalid user or ad
+		
+		if (!anuncio.getEstado().equalsIgnoreCase("pendiente"))
+			return -2; // Ad has finished or the game is being played
+		
+		if (anuncio.getPersonas_actuales() >= anuncio.getMax_personas())
+			return -3; // Ad is full
+		
+		if (part != null && part.size() == 0) {
 			participacionRepository.aniadirSolicitud("pendiente",participacion.getId_usuario(), participacion.getId_anuncio(), participacion.getText());
-			return true;
-		}
-	
-		else throw new BusinessException("No existe esta solicitud de acceso a la sala.");
+			return 0;
+		} else
+			return -4;
 	}
 
 	@Override

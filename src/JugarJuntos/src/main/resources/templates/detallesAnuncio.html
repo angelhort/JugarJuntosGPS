@@ -17,7 +17,7 @@
 				th:text="${#strings.toUpperCase(anuncio.estado)}" style="font-weight: 500; color: orange;"></p>
 		</div>
 
-		<div th:if="${success} or ${error}" class="row justify-content-center">
+		<div th:if="${success} or ${error}" class="row justify-content-center mt-3">
 			<div class="alert alert-success col-md-6" id="alertMessage" role="alert" th:text="${success}"
 				th:if="${success}"></div>
 			<div class="alert alert-danger col-md-6" id="alertMessage" role="alert" th:text="${error}" th:if="${error}">
@@ -50,6 +50,7 @@
 					</button>
 
 					<button th:if="${anuncio?.anunciante?.id} != ${idUsuario}"
+						th:disabled="${idUsuario == ''}"
 						class="btn btn-lg btn-primary rounded-pill border-0" data-bs-toggle="modal"
 						data-bs-target="#enviarSolicitudModal" style="background-color: #E2C044;">
 						<i class="fa fa-paper-plane" aria-hidden="true"></i>

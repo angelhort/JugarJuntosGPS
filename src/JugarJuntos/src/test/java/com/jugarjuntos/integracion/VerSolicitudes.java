@@ -120,11 +120,8 @@ public class VerSolicitudes {
 		
 		tpart.setId_anuncio(id_anuncio);
 		
-		try {
-			sAParticipacion.enviarSolicitud(tpart);
-		} catch (BusinessException e) {
-			e.printStackTrace();
-		}
+		if (sAParticipacion.enviarSolicitud(tpart) != 0)
+			System.out.println("Error enviando la solicitud");
 	}
 	
 	@Test

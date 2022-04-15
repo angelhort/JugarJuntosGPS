@@ -1,5 +1,6 @@
 package com.jugarjuntos.integracion;
 
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -50,13 +51,7 @@ public class EnviarSolicitud {
 
 	@Test
 	public void bTestEnviarSolicitudBien() {
-
-		try {
-			assertTrue(saParticipacion.enviarSolicitud(new TParticipacion(idUsuario.intValue(), idAnuncio.intValue())));
-		} catch (BusinessException e) {
-			e.printStackTrace(); // NO fallara
-		}
-
+		assertNotEquals(saParticipacion.enviarSolicitud(new TParticipacion(idUsuario.intValue(), idAnuncio.intValue())), 0);
 	}
 	
 

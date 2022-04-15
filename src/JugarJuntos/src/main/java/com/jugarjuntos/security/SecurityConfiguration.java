@@ -62,7 +62,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .antMatchers("/css/jugarjuntos.css", "/", "/fragments", 
                 			 "/login", "/registro", "/detalles", 
                 			 "/getAnunciosPorNombre", "/getAnunciosOrderByTime","/getAnunciosOrderByValoracion").permitAll()
-                .antMatchers("/enviarSolicitud").permitAll()
                 .antMatchers("/registro").permitAll()
                 .anyRequest().authenticated()
                 .and()
