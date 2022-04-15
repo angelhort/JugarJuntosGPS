@@ -1,6 +1,9 @@
 package com.jugarjuntos.integracion;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.AfterAll;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.MethodOrderer;
@@ -73,6 +76,7 @@ public class BorrarAnuncio {
 			sAParticipacion.aceptarSolicitud(participacion);
 		} catch (BusinessException e) {
 			e.printStackTrace();
+			dClean();
 		}
 	}
 	
