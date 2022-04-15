@@ -16,6 +16,7 @@
 							<th scope="col">Nombre Usuario</th>
 							<th scope="col">Aceptar</th>
 							<th scope="col">Rechazar</th>
+							<th scope="col">Mensaje</th>
 						</tr>
 					</thead>
 					<tr th:each="participante: ${anuncio.participacion}"
@@ -46,6 +47,7 @@
 								</button>
 							</form>
 						</td>
+						<td th:text="${participante.text}"></td>
 					</tr>
 				</table>
 			</div>
