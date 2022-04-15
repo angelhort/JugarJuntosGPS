@@ -20,8 +20,10 @@ import com.jugarjuntos.Entities.Anuncio;
 import com.jugarjuntos.Entities.Participacion;
 import com.jugarjuntos.Entities.Usuario;
 import com.jugarjuntos.Entities.UsuarioDetalles.CustomUserDetails;
+import com.jugarjuntos.Exceptions.BusinessException;
 import com.jugarjuntos.ServiciosAplicacion.SAAnuncio;
 import com.jugarjuntos.ServiciosAplicacion.SAParticipacion;
+import com.jugarjuntos.ServiciosAplicacion.SAUsuario;
 import com.jugarjuntos.Transfers.TAnuncio;
 
 @Controller
@@ -29,6 +31,9 @@ public class AdController {
 
 	@Autowired
 	SAAnuncio saAnuncio;
+	
+	@Autowired
+	SAUsuario saUsuario;
 	
 	@Autowired
 	SAParticipacion saParticipacion;
@@ -86,6 +91,8 @@ public class AdController {
 	public String detalles(Model model, @RequestParam int id) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Long idUsuario = -1L;
+		String media = "0";
+		Integer cont = 0;
 		try {
 			idUsuario = ((CustomUserDetails) principal).getId();
 		}catch(Exception e) {
@@ -93,8 +100,21 @@ public class AdController {
 		}
 		
 		model.addAttribute("idUsuario", idUsuario);
+
 		Anuncio anuncio = saAnuncio.getAnuncioByID(id);
 		model.addAttribute("anuncio", anuncio);
+		List<Object> mediaYCont;
+		try {
+			mediaYCont = saUsuario.calcularMedia(anuncio.getAnunciante().getId());
+			media = (String) mediaYCont.get(0);
+			cont = (Integer) mediaYCont.get(1);
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("media", media);
+		model.addAttribute("contValor", cont);
+		model.addAttribute("idUsuario", idUsuario);
+		
 		List<Long> participantes = new ArrayList<>();
 		for(Participacion a : anuncio.getParticipacion()) {
 			participantes.add(a.getUsuario().getId());
