@@ -36,10 +36,6 @@ function sendName() {
     stompClient.send("/pruebaSocket", {}, JSON.stringify({'name': $("#name").val()}));
 }
 
-function redirectValoracion(id){
-    stompClient.send("/valorarJugadores", id);
-}
-
 function showGreeting(message) {
     $("#greetings").append("<tr><td>" + message + "</td></tr>");
 }

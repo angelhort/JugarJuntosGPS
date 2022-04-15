@@ -12,5 +12,4 @@ public interface SAParticipacion {
 	boolean aceptarSolicitud(TParticipacion participacion) throws BusinessException;
 	boolean rechazarSolicitud(TParticipacion participacion) throws BusinessException;
 	boolean enviarSolicitud(TParticipacion participacion) throws BusinessException;
-	boolean isUserInPartida(long idAnuncio, long idUsuario);
 }
