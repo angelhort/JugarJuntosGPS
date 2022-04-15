@@ -1,5 +1,7 @@
 package com.jugarjuntos.ServiciosAplicacion;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.jugarjuntos.Entities.Usuario;
+import com.jugarjuntos.Exceptions.BusinessException;
 import com.jugarjuntos.Repositories.UsuarioRepository;
 import com.jugarjuntos.Transfers.TUsuario;
 
@@ -98,6 +101,19 @@ public class SAUsuarioImp implements SAUsuario {
 	private Boolean check_password(String plain_text_password, String encoded_password) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		return passwordEncoder.matches(plain_text_password, encoded_password);
+	}
+
+	@Override
+	public List<Object> calcularMedia(long id) throws BusinessException {
+		Usuario user = repo.findUsuarioById(id);
+		List<Object> list = new ArrayList<Object>();
+		if (user != null) {
+			double media = user.getPuntuacion_total() / user.getNum_votaciones();
+			list.add(String.format("%.2f", media));
+			list.add( user.getNum_votaciones());
+			return list;
+		}
+		else throw new BusinessException("No existe el usuario");
 	}
 
 }
