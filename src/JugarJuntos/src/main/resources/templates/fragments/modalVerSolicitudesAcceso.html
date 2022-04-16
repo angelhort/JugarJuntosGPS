@@ -47,7 +47,7 @@
 								</button>
 							</form>
 						</td>
-						<td th:text="${participante.text}"></td>
+						<td th:text="${participante.text != ''} ? ${participante.text} : 'Sin mensaje.'"></td>
 					</tr>
 				</table>
 			</div>
