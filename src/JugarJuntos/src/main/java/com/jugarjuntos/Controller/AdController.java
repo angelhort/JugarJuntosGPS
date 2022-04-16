@@ -46,7 +46,7 @@ public class AdController {
 		TAnuncio tAnuncio = new TAnuncio();
 		tAnuncio.setJuego(juego);
 		tAnuncio.setMax_personas(Integer.parseInt(max_personas));
-		tAnuncio.setEstado("Pendiente");
+		tAnuncio.setEstado("pendiente");
 		tAnuncio.setPersonas_actuales(1);
 		
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -121,6 +121,14 @@ public class AdController {
 			participantes.add(a.getUsuario().getId());
 		}
 		model.addAttribute("listaParticipantes", participantes);
+		
+		if (saAnuncio.UsuarioEnAnuncio(anuncio.getId(), idUsuario) && saAnuncio.checkEmpezado(anuncio.getId())) {
+			//redirAttrs.addFlashAttribute("success", "La partida ha dado comienzo. Asegúrate de ponerte en contacto con el resto de jugadores por Discord para obtener una mejor experiencia.");
+			return "detallesEnPartida.html";
+		}
+		
+		//Incluir IF para redireccionar a valorar jugadores en caso de haber acabado la partida, no haber valorado a los jugadores previamente y haber participado en esa partida.
+		
 		return "detallesAnuncio.html";
 	}
 	
