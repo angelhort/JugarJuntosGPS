@@ -50,7 +50,7 @@
 					</button>
 
 					<button th:if="${anuncio?.anunciante?.id} != ${idUsuario}"
-						th:disabled="${idUsuario == ''}"
+						th:disabled="${estadoUsuario != null}"
 						class="btn btn-lg btn-primary rounded-pill border-0" data-bs-toggle="modal"
 						data-bs-target="#enviarSolicitudModal" style="background-color: #E2C044;">
 						<i class="fa fa-paper-plane" aria-hidden="true"></i>
