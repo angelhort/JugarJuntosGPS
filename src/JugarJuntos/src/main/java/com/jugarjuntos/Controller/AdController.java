@@ -94,16 +94,17 @@ public class AdController {
 		Long idUsuario = -1L;
 		String media = "0";
 		Integer cont = 0;
+		
 		try {
 			idUsuario = ((CustomUserDetails) principal).getId();
+			model.addAttribute("idUsuario", idUsuario);
 		}catch(Exception e) {
-			
+			e.printStackTrace();
 		}
 		
-		model.addAttribute("idUsuario", idUsuario);
-
 		Anuncio anuncio = saAnuncio.getAnuncioByID(id);
 		model.addAttribute("anuncio", anuncio);
+		
 		List<Object> mediaYCont;
 		try {
 			mediaYCont = saUsuario.calcularMedia(anuncio.getAnunciante().getId());
@@ -112,15 +113,17 @@ public class AdController {
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
+		
 		model.addAttribute("media", media);
 		model.addAttribute("contValor", cont);
 		model.addAttribute("idUsuario", idUsuario);
 		
-		List<Long> participantes = new ArrayList<>();
-		for(Participacion a : anuncio.getParticipacion()) {
-			participantes.add(a.getUsuario().getId());
-		}
-		model.addAttribute("listaParticipantes", participantes);
+		String estadoUsuario = null;
+		for (Participacion p : anuncio.getParticipacion())
+			if (p.getUsuario().getId() == idUsuario)
+				estadoUsuario = p.getEstado_solicitud();
+		
+		model.addAttribute("estadoUsuario", estadoUsuario);
 		
 		if (saAnuncio.UsuarioEnAnuncio(anuncio.getId(), idUsuario) && saAnuncio.checkEmpezado(anuncio.getId())) {
 			//redirAttrs.addFlashAttribute("success", "La partida ha dado comienzo. Asegúrate de ponerte en contacto con el resto de jugadores por Discord para obtener una mejor experiencia.");
