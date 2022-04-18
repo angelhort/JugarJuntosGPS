@@ -109,6 +109,15 @@ public class SAAnuncioImp implements SAAnuncio {
 		return null;
 
 	}
+	
+	public List<Anuncio> findAnunciosByAnunciante(long id_anunciante) {
+		Usuario usuario = em.find(Usuario.class, id_anunciante);
+		
+		if(usuario == null)
+			return null;
+		
+		return anuncioRepo.findAllByAnunciante(id_anunciante);
+	}
 
 	@Override
 	public List<Anuncio> getAllAnuncios() {

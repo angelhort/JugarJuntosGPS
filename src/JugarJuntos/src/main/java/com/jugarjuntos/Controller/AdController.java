@@ -139,6 +139,7 @@ public class AdController {
 	public String verUsuario(Model model, @RequestParam int id) {
 		Usuario usuario = saUsuario.getUsuarioByID(id);
 		model.addAttribute("usuario", usuario);
+		model.addAttribute("anuncios", saAnuncio.findAnunciosByAnunciante(id));
 		try {
 			model.addAttribute("media", saUsuario.calcularMedia(id).get(0));
 		} catch (BusinessException e) {
