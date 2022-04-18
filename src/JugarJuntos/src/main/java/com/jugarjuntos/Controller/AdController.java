@@ -193,20 +193,22 @@ public class AdController {
 	@GetMapping("/getAnunciosPorNombre")
 	public String getAnunciosPorNombre(Model model, @RequestParam String juego, @RequestParam String orden) {
 		List<Anuncio> lista = null;
+
 		switch (orden) {
-		case "Por orden de publicación (Mas recientes primero)":
-			lista = saAnuncio.getAllAnunciosOrderByTime(juego);
-			break;
-		case "Por valoracion del anunciante":
-			lista = saAnuncio.getAllAnunciosOrderByValoracion(juego);
-			break;
-		case "Por orden de publicación (Mas antiguos primero)":
-			lista = saAnuncio.getAnunciosByNombreJuego(juego);
-			break;
-		default:
-			lista = saAnuncio.getAnunciosByNombreJuego(juego);
-			break;
+			case "recientes":
+				lista = saAnuncio.getAllAnunciosOrderByTime(juego);
+				break;
+			case "antiguos":
+				lista = saAnuncio.getAnunciosByNombreJuego(juego);
+				break;
+			case "valorados":
+				lista = saAnuncio.getAllAnunciosOrderByValoracion(juego);
+				break;
+			default:
+				lista = saAnuncio.getAnunciosByNombreJuego(juego);
+				break;
 		}
+		
 		model.addAttribute("anuncios", lista);
 		return "index";
 	}
