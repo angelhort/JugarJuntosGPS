@@ -180,7 +180,18 @@ public class AdController {
 	}
 
 	@GetMapping("/getAnunciosPorNombre")
-	public String getAnunciosPorNombre(Model model, @RequestParam String juego) {
+	public String getAnunciosPorNombre(Model model, @RequestParam String juego, @RequestParam String orden) {
+		List<Anuncio> lista = null;
+		switch(orden) {
+		case"tiempo":
+			break;
+		case "valoracion":
+			break;
+		case "normal":
+			break;
+		default:
+			break;
+		}
 		model.addAttribute("anuncios", saAnuncio.getAnunciosByNombreJuego(juego));
 		return "index";
 	}

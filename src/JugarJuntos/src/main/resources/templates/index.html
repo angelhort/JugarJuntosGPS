@@ -15,11 +15,18 @@
 			<div class="row">
 				<div class="col-md-4 mt-2 mb-2">
 					<form action="/getAnunciosPorNombre" class="row g-3 align-items-center">
-						<div class="col-8">
+						<div class="col-6">
 							<div class="input-group">
 								<input type="text" class="form-control btn-lg rounded-pill border-0 searchBar searchBarInput"
 									name="juego" placeholder="Ajedrez">
 							</div>
+						</div>
+						<div class="col-2">
+						<select type="text" class="form-control" id="orden" name="orden">
+      <option>Ordenar por tiempo</option>
+      <option>Ordenar por valoración</option>
+      <option>Ordenar por tiempo 2</option>
+    </select>
 						</div>
 
 						<div class="col-2">
@@ -28,7 +35,7 @@
 
 					</form>
 				</div>
-
+<!-- 
 				<div class="col-md-2 mt-2 mb-2 text-center">
 					<div class="btn-group">
 						<div class="btn btn-lg dropdown-toggle orderButton rounded-pill align-items-center justify-content-center"
@@ -53,7 +60,7 @@
 						</ul>
 					</div>
 				</div>
-
+-->
 				<div class="col-md-2 mt-2 mb-2 text-center">
 					<a href="/getAnunciosPorNombre?juego=CS:GO"
 						class="btn btn-lg col-8 rounded-pill searchBar suggestButton">CS:GO</a>
