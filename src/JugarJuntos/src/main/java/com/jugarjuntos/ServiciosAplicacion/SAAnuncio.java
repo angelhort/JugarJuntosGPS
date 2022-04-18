@@ -16,9 +16,9 @@ public interface SAAnuncio {
 
 	public List<Anuncio> getAllAnuncios();
 
-	public List<Anuncio> getAllAnunciosOrderByTime();
+	public List<Anuncio> getAllAnunciosOrderByTime(String juego);
 	
-	public List<Anuncio> getAllAnunciosOrderByValoracion();
+	public List<Anuncio> getAllAnunciosOrderByValoracion(String juego);
 	
 	public Anuncio getAnuncioByID(long id);
 

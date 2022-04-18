@@ -101,7 +101,7 @@ public class OrdenarPorFecha {
 		//---------------------------
 		//Extraigo la lista de anuncios ordenada
 		
-		lista = sA.getAllAnunciosOrderByTime();
+		lista = sA.getAllAnunciosOrderByTime("");
 		
 		tam=lista.size();
 		
