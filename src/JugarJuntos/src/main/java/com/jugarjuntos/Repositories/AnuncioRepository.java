@@ -18,6 +18,6 @@ public interface AnuncioRepository extends CrudRepository<Anuncio, Long>{
 	@Query(value = "UPDATE anuncio SET personas_actuales = personas_actuales + 1 WHERE id = ?1", nativeQuery = true)
 	public void incrementPersonasActuales(long id);
 	
-	@Query(value = "SELECT * FROM anuncio WHERE anunciante_id = ?1 AND estado='Pendiente'", nativeQuery = true)
+	@Query(value = "SELECT * FROM anuncio WHERE anunciante_id = ?1 AND LOWER(estado) = 'pendiente'", nativeQuery = true)
 	public List<Anuncio> findAllByAnunciante(long id_usr);
 }

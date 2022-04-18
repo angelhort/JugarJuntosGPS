@@ -3,6 +3,7 @@ package com.jugarjuntos.ServiciosAplicacion;
 
 import java.util.List;
 
+import com.jugarjuntos.Entities.Usuario;
 import com.jugarjuntos.Exceptions.BusinessException;
 import com.jugarjuntos.Transfers.TUsuario;
 
@@ -14,4 +15,6 @@ public interface SAUsuario {
 	public TUsuario loginUsuario(TUsuario tUsuario);
 	
 	public List<Object> calcularMedia(long id)throws BusinessException;
+
+	public Usuario getUsuarioByID(int id);
 }

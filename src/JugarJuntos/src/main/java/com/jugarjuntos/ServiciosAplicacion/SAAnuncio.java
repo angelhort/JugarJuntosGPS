@@ -13,6 +13,8 @@ public interface SAAnuncio {
 	public List<Anuncio> getAnunciosByNombreJuego(String juego);
 
 	public Anuncio findAnuncioByUser(long id_user);
+	
+	public List<Anuncio> findAnunciosByAnunciante(long id_anunciante);
 
 	public List<Anuncio> getAllAnuncios();
 
