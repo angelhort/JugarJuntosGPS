@@ -42,7 +42,7 @@
 					<div class="col-md-2 text-md-center">
 						<span class=" my-auto" th:text="'N&#176 val: '+${contValor}"></span>
 					</div>
-					<div th:if="${anuncio.anunciante.id} == ${idUsuario} or ${#lists.contains(listaParticipantes, idUsuario)}"
+					<div th:if="${anuncio.anunciante.id} == ${idUsuario} or ${estadoUsuario} == 'aceptado'"
 						class="col-md-4 text-md-end">
 						<i class="fa-brands fa-discord text-md-end" style="color: #5865F2;"></i> <span
 							class="fw-light my-auto" style="color: #A3A3A3;"
@@ -58,7 +58,7 @@
 					<div class="col-md-6 text-md-start">
 						<span class="fw-bold my-auto" th:text="${participante.usuario.nombre}"></span>
 					</div>
-					<div th:if="${anuncio.anunciante.id} == ${idUsuario} or ${#lists.contains(listaParticipantes, idUsuario)}"
+					<div th:if="${anuncio.anunciante.id} == ${idUsuario} or ${estadoUsuario} == 'aceptado'"
 						class="col-md-6 text-md-end">
 						<i class="fa-brands fa-discord text-md-end" style="color: #5865F2;"></i> <span
 							class="fw-light my-auto" style="color: #A3A3A3;"
