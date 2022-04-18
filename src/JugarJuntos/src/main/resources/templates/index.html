@@ -13,26 +13,26 @@
 			<h1 class="welcomePhrase mb-5 text-center">¿A qué te apetece jugar hoy?</h1>
 
 			<div class="row">
-				<div class="col-md-4 mt-2 mb-2">
+				<div class="col-md-12 mt-2 mb-2">
 					<form action="/getAnunciosPorNombre" class="row g-3 align-items-center">
-						<div class="col-4">
+						<div class="col-10">
+						<div class="row g-2">
 							<div class="input-group">
 								<input type="text"
 									class="form-control btn-lg rounded-pill border-0 searchBar searchBarInput"
 									name="juego" placeholder="Ajedrez">
 							</div>
-						</div>
-						<div class="col-6">
-							<select type="text" class="form-control" id="orden" name="orden">
-								<option>Por orden de publicación (Mas recientes primero)</option>
-								<option>Por orden de publicación (Mas antiguos primero)</option>
-								<option>Por valoracion del anunciante</option>
+							<select type="text" class="form-control btn-lg rounded-pill border-0 searchBar searchBarInput suggestButton" id="orden" name="orden">
+								<option>Mas recientes</option>
+								<option>Mas antiguos</option>
+								<option>Mejores valorados</option>
 								<!-- <option>Por valoracion del nombre del juego</option> -->
 							</select>
 						</div>
-
+						</div>
 						<div class="col-2">
-							<button type="submit" class="btn btn-lg rounded-pill searchBar searchButton">Buscar</button>
+							<button type="submit" class="btn btn-lg rounded-pill searchBar searchButton">
+							<i class="fa-solid fa-filter"></i> Filtrar</button>
 						</div>
 
 					</form>
@@ -62,21 +62,21 @@
 						</ul>
 					</div>
 				</div>
--->
+
 				<div class="col-md-2 mt-2 mb-2 text-center">
-					<a href="/getAnunciosPorNombre?juego=CS:GO"
+					<a href="/getAnunciosPorNombre?juego=CS:GO?&orden=Por orden de publicacion (Mas recientes primero)"
 						class="btn btn-lg col-8 rounded-pill searchBar suggestButton">CS:GO</a>
 				</div>
 
 				<div class="col-md-2 mt-2 mb-2 text-center">
-					<a href="/getAnunciosPorNombre?juego=Dota"
+					<a href="/getAnunciosPorNombre?juego=Dota?&orden=Por orden de publicacion (Mas recientes primero)"
 						class="btn btn-lg col-8 rounded-pill searchBar suggestButton">Dota</a>
 				</div>
 
 				<div class="col-md-2 mt-2 mb-2 text-center">
-					<a href="/getAnunciosPorNombre?juego=Parchis"
+					<a href="/getAnunciosPorNombre?juego=Parchis?&orden=Por orden de publicacion (Mas recientes primero)"
 						class="btn btn-lg col-8 rounded-pill searchBar suggestButton">Parchís</a>
-				</div>
+				</div>-->
 			</div>
 		</div>
 

@@ -194,13 +194,13 @@ public class AdController {
 	public String getAnunciosPorNombre(Model model, @RequestParam String juego, @RequestParam String orden) {
 		List<Anuncio> lista = null;
 		switch (orden) {
-		case "Por orden de publicación (Mas recientes primero)":
+		case "Mas recientes":
 			lista = saAnuncio.getAllAnunciosOrderByTime(juego);
 			break;
-		case "Por valoracion del anunciante":
+		case "Mejores valorados":
 			lista = saAnuncio.getAllAnunciosOrderByValoracion(juego);
 			break;
-		case "Por orden de publicación (Mas antiguos primero)":
+		case "Mas antiguos":
 			lista = saAnuncio.getAnunciosByNombreJuego(juego);
 			break;
 		default:
