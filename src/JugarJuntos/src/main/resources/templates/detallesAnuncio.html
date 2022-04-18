@@ -66,12 +66,10 @@
 						th:text="${anuncio?.anunciante?.nombre}"></a> 
 						<i class="fa-solid fa-crown text-md-end" style="color: #E2C044;"></i>
 				</div>
-				<div class="col-md-2 text-md-center">
+				<div class="col-md-4 text-md-center">
 					<span class="my-auto" th:text="${media}"></span>
 					<i class="rating__star fa-star fas"></i>
-				</div>
-				<div class="col-md-2 text-md-center">
-					<span class=" my-auto" th:text="'N&#176 val: '+${contValor}"></span>
+					<span class="fw-light my-auto" style="color:grey;" th:text="'('+ ${contValor} + ')'"></span>
 				</div>
 				<div th:if="${anuncio.anunciante.id} == ${idUsuario} or ${estadoUsuario} == 'aceptado'"
 					class="col-md-4 text-md-end">
