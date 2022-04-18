@@ -135,6 +135,18 @@ public class AdController {
 		return "detallesAnuncio.html";
 	}
 	
+	@GetMapping("/verUsuario")
+	public String verUsuario(Model model, @RequestParam int id) {
+		Usuario usuario = saUsuario.getUsuarioByID(id);
+		model.addAttribute("usuario", usuario);
+		try {
+			model.addAttribute("media", saUsuario.calcularMedia(id).get(0));
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+		return "detallesUsuario.html";
+	}
+	
 	@GetMapping("/valorarJugadores")
 	public String valorarJugadores(Model model, @RequestParam int id) {// a esto tiene que llamar el web socket
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

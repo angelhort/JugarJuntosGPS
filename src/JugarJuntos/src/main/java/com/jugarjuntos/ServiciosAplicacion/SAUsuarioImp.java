@@ -38,34 +38,39 @@ public class SAUsuarioImp implements SAUsuario {
 		Pattern patternDiscord = Pattern.compile("[a-zA-Z0-9]+#[0-9]{4}+$");
 		
 		Matcher matherDiscord = patternDiscord.matcher(tUsuario.getDiscord());
-  
-        Matcher matherCorreo = patternCorreo.matcher(tUsuario.getCorreo());
-        
-        //Comprobación de que el correo, el discord y la contraseña cumplan su formato y limitaciones
-        
-        Usuario usuarioExistente = repo.findUsuarioByCorreo(tUsuario.getCorreo());
-        
-       if(usuarioExistente == null) { 
-        if (matherCorreo.find() == true && matherDiscord.find() == true && tUsuario.getPassword().length() <= 20 && tUsuario.getNombre().length() <= 20) {
-			Usuario nuevoUsuario = new Usuario();                               //Se crea el usuario 
-			if(tUsuario.getNombre() != null && tUsuario.getNombre().trim() != "" && tUsuario.getDiscord() != null && tUsuario.getDiscord().trim() != ""){
-				
-				//Se cambia los atributos del nuevo usuario creado
-				nuevoUsuario.setNombre(tUsuario.getNombre());
-				nuevoUsuario.setCorreo(tUsuario.getCorreo());
-				nuevoUsuario.setPassword(encode_password(tUsuario.getPassword()));
-				nuevoUsuario.setEstado("libre");
-				nuevoUsuario.setDiscord(tUsuario.getDiscord());
-				nuevoUsuario.setNum_votaciones(1);
-				nuevoUsuario.setPuntuacion_total(1.0);
-				
-				em.persist(nuevoUsuario);			// Se persiste la entidad para que al hacer commit el EM mantega la entidad persistida 
-				id = nuevoUsuario.getId();
+
+		Matcher matherCorreo = patternCorreo.matcher(tUsuario.getCorreo());
+
+		// Comprobación de que el correo, el discord y la contraseña cumplan su formato
+		// y limitaciones
+
+		Usuario usuarioExistente = repo.findUsuarioByCorreo(tUsuario.getCorreo());
+
+		if (usuarioExistente == null) {
+			if (matherCorreo.find() == true && matherDiscord.find() == true && tUsuario.getPassword().length() <= 20
+					&& tUsuario.getNombre().length() <= 20) {
+				Usuario nuevoUsuario = new Usuario(); // Se crea el usuario
+				if (tUsuario.getNombre() != null && tUsuario.getNombre().trim() != "" && tUsuario.getDiscord() != null
+						&& tUsuario.getDiscord().trim() != "") {
+
+					// Se cambia los atributos del nuevo usuario creado
+					nuevoUsuario.setNombre(tUsuario.getNombre());
+					nuevoUsuario.setCorreo(tUsuario.getCorreo());
+					nuevoUsuario.setPassword(encode_password(tUsuario.getPassword()));
+					nuevoUsuario.setEstado("libre");
+					nuevoUsuario.setDiscord(tUsuario.getDiscord());
+					nuevoUsuario.setNum_votaciones(1);
+					nuevoUsuario.setPuntuacion_total(1.0);
+
+					em.persist(nuevoUsuario); // Se persiste la entidad para que al hacer commit el EM mantega la
+												// entidad persistida
+					id = nuevoUsuario.getId();
+				}
 			}
-        } 
-       }else id = -2; // Error por correo existente
-		return id; 
-       
+		} else
+			id = -2; // Error por correo existente
+		return id;
+
 	}
 
 	public TUsuario loginUsuario(TUsuario tUsuario) {
@@ -110,10 +115,15 @@ public class SAUsuarioImp implements SAUsuario {
 		if (user != null) {
 			double media = (double) user.getPuntuacion_total() / user.getNum_votaciones();
 			list.add(String.format("%.2f", media));
-			list.add( user.getNum_votaciones());
+			list.add(user.getNum_votaciones());
 			return list;
-		}
-		else throw new BusinessException("No existe el usuario");
+		} else
+			throw new BusinessException("No existe el usuario");
+	}
+
+	@Override
+	public Usuario getUsuarioByID(int id) {
+		return repo.findUsuarioById(id);
 	}
 
 }

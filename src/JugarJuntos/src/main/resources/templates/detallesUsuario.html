@@ -1,0 +1,31 @@
+<!doctype html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div th:replace="fragments/head"></div>
+
+<body>
+    <div th:replace="fragments/navbar"></div>
+
+    <main class="landingPage vh-100">
+
+		<div class="container-fluid pt-5 pb-5" style="background-color: #F7F7F7;">
+			<h1 class="text-center fw-bold" th:text="${usuario.nombre}"></h1>
+            <div class="col-md-2 text-md-center">
+                <span class="text-center" th:text="${media}"></span>
+                <i class="rating__star fa-star fas"></i>
+            </div>    
+		</div>
+
+		
+
+		<div class="container" align="center">
+			
+		</div>
+	</main>
+        
+    </div>
+
+</body>
+
+</html>
