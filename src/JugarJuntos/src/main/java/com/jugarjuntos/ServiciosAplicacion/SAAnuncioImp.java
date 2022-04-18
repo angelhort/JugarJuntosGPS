@@ -41,7 +41,7 @@ public class SAAnuncioImp implements SAAnuncio {
 		long id = -1;
 		long id_usr = -1;
 		
-		if (tAnuncio.getMax_personas() > 225 || tAnuncio.getMax_personas() <= 1)
+		if (tAnuncio.getMax_personas() > 226 || tAnuncio.getMax_personas() <= 1)
 			return -1; // Invalid player number
 
 		if (tAnuncio.getJuego().length() > 150)
