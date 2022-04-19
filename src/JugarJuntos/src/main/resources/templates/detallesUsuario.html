@@ -26,12 +26,32 @@
 
 		
 
-		<div class="container" align="center">
-			
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-3 d-flex justify-content-center" th:each="anuncio: ${anuncios}">
+					<div class="addCard card">
+						<div class="card-body">
+							<h5 class="card-title" th:text="${anuncio.juego}"></h5>
+
+							<ul class="mb-0 list-inline mt-3">
+								<li class="list-inline-item">
+									<i class="fa-solid fa-circle-user fa-xl" style="color: #C4C4C4;"></i>
+								</li>
+								<li class="list-inline-item">
+									<p th:text="${anuncio.personas_actuales}+'/'+${anuncio.max_personas}"
+										style="color: #939393;"></p>
+								</li>
+							</ul>
+
+							<a th:href="@{/detalles?id={id}(id=${anuncio.id})}"
+								class="rounded-pill detailsButton btn">Ver
+								detalles</a>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</main>
-        
-    </div>
 
 </body>
 
