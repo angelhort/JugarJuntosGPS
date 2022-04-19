@@ -81,7 +81,7 @@ public class AdController {
 	}
 
 	@GetMapping("/detalles")
-	public String detalles(Model model, @RequestParam int id) {
+	public String detalles(Model model, RedirectAttributes redirAttrs, @RequestParam int id) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Long idUsuario = -1L;
 		String media = "0";
@@ -121,7 +121,10 @@ public class AdController {
 			// redirAttrs.addFlashAttribute("success", "La partida ha dado comienzo.
 			// Asegúrate de ponerte en contacto con el resto de jugadores por Discord para
 			// obtener una mejor experiencia.");
-			return "detallesEnPartida.html";
+			
+			redirAttrs.addAttribute("idAnuncio", anuncio.getId());
+			redirAttrs.addAttribute("idUsuario", idUsuario);
+			return "redirect:/enPartida";
 		}
 
 		// Incluir IF para redireccionar a valorar jugadores en caso de haber acabado la
@@ -292,7 +295,7 @@ public class AdController {
 			redirAttrs.addAttribute("idUsuario", idUsuario);
 			return "redirect:/enPartida";
 		}
-
+		
 		redirAttrs.addAttribute("id", idAnuncio);
 		return "redirect:/detalles";
 	}
@@ -312,11 +315,34 @@ public class AdController {
 			}
 
 			model.addAttribute("listaParticipantes", participantes);
+			
+			String media = "0";
+			Integer cont = 0;
+			List<Object> mediaYCont;
+			try {
+				mediaYCont = saUsuario.calcularMedia(anuncio.getAnunciante().getId());
+				media = (String) mediaYCont.get(0);
+				cont = (Integer) mediaYCont.get(1);
+			} catch (BusinessException e) {
+				e.printStackTrace();
+			}
+
+			model.addAttribute("media", media);
+			model.addAttribute("contValor", cont);
+			model.addAttribute("idUsuario", idUsuario);
+
+			String estadoUsuario = null;
+			for (Participacion p : anuncio.getParticipacion())
+				if (p.getUsuario().getId() == idUsuario)
+					estadoUsuario = p.getEstado_solicitud();
+
+			model.addAttribute("estadoUsuario", estadoUsuario);
+			
 			return "detallesEnPartida.html";
 		}
-
-		model.addAttribute("id", idAnuncio);
-		return "detalles";
+		
+		redirAttrs.addAttribute("id", idAnuncio);
+		return "redirect:/detalles";
 	}
 
 }
