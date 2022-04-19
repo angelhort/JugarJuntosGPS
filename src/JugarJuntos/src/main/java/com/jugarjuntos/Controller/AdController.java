@@ -198,20 +198,20 @@ public class AdController {
 		List<Anuncio> lista = null;
 
 		switch (orden) {
-			case "recientes":
-				lista = saAnuncio.getAllAnunciosOrderByTime(juego);
-				break;
-			case "antiguos":
-				lista = saAnuncio.getAnunciosByNombreJuego(juego);
-				break;
-			case "valorados":
-				lista = saAnuncio.getAllAnunciosOrderByValoracion(juego);
-				break;
-			default:
-				lista = saAnuncio.getAnunciosByNombreJuego(juego);
-				break;
+		case "recientes":
+			lista = saAnuncio.getAllAnunciosOrderByTime(juego);
+			break;
+		case "antiguos":
+			lista = saAnuncio.getAnunciosByNombreJuego(juego);
+			break;
+		case "valorados":
+			lista = saAnuncio.getAllAnunciosOrderByValoracion(juego);
+			break;
+		default:
+			lista = saAnuncio.getAnunciosByNombreJuego(juego);
+			break;
 		}
-		
+
 		model.addAttribute("anuncios", lista);
 		return "index";
 	}
@@ -234,12 +234,11 @@ public class AdController {
 		return "redirect:/";
 	}
 
-	
 	@PostMapping("/terminarAnuncio")
-  @MessageMapping("/terminarAnuncio")  
-  @SendTo("/detalles") //TODO PONER LA URL DE LOS QUE ESTAN DENTRO DEL ANUNCIO
-  public String redireccionValoracion(Model model, RedirectAttributes redirAttrs, @RequestParam int id) {
-	  if (saAnuncio.terminarAnuncio(id)) {
+	@MessageMapping("/terminarAnuncio")
+	@SendTo("/detalles") // TODO PONER LA URL DE LOS QUE ESTAN DENTRO DEL ANUNCIO
+	public String redireccionValoracion(Model model, RedirectAttributes redirAttrs, @RequestParam int id) {
+		if (saAnuncio.terminarAnuncio(id)) {
 			redirAttrs.addFlashAttribute("success", "El anuncio terminó correctamente");
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			Long idUsuario = -1L;
@@ -251,30 +250,27 @@ public class AdController {
 			if (saParticipacion.isUserInPartida(id, idUsuario)) {
 				model.addAttribute("id", id);
 				return "redirect:/valorarJugadores";
-			}
-			else return "redirect:/detalles"; 
-	  }
-		else {
-			redirAttrs.addFlashAttribute("error", "Ocurrió un error terminando el anuncio");
-			redirAttrs.addAttribute("id", id);
-			return "redirect:/detalles";
-	 }
-	 
-  }
-	 
-
-	/*@PostMapping("/terminarAnuncio")
-	public String terminarAnuncio(Model model, RedirectAttributes redirAttrs, @RequestParam int id) {
-		if (saAnuncio.terminarAnuncio(id))
-			redirAttrs.addFlashAttribute("success", "El anuncio terminó correctamente");
-		else {
+			} else
+				return "redirect:/detalles";
+		} else {
 			redirAttrs.addFlashAttribute("error", "Ocurrió un error terminando el anuncio");
 			redirAttrs.addAttribute("id", id);
 			return "redirect:/detalles";
 		}
 
-		return "redirect:/";
-	}*/
+	}
+
+	/*
+	 * @PostMapping("/terminarAnuncio") public String terminarAnuncio(Model model,
+	 * RedirectAttributes redirAttrs, @RequestParam int id) { if
+	 * (saAnuncio.terminarAnuncio(id)) redirAttrs.addFlashAttribute("success",
+	 * "El anuncio terminó correctamente"); else {
+	 * redirAttrs.addFlashAttribute("error",
+	 * "Ocurrió un error terminando el anuncio"); redirAttrs.addAttribute("id", id);
+	 * return "redirect:/detalles"; }
+	 * 
+	 * return "redirect:/"; }
+	 */
 
 	@MessageMapping("/empezarPartida")
 	@SendTo("/detalles")
