@@ -18,7 +18,9 @@ function connect() {
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/terminarAnuncio', window.location.replace("/valoracionJugadores"));
+        stompClient.subscribe('/bye', function(){
+            window.location.replace("/valorarJugadores");
+        });
     });
 }
 
@@ -30,12 +32,8 @@ function disconnect() {
     console.log("Disconnected");
 }
 
-function sendName() {
-    stompClient.send("/pruebaSocket", {}, JSON.stringify({'name': $("#name").val()}));
-}
-
 function redirectValoracion(id){
-    stompClient.send("/valorarJugadores", id);
+    stompClient.send("/hello", {}, id);
 }
 
 function showGreeting(message) {
