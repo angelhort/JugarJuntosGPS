@@ -71,11 +71,12 @@
 						<input id="id" name="id" type="hidden" th:value="${anuncio.id}">
 						<button
 							th:if="${anuncio?.anunciante?.id} == ${idUsuario} AND ${#strings.toUpperCase(anuncio.estado)} == 'EMPEZADO'"
-							class="btn btn-lg btn-primary rounded-pill border-0" style="background-color: #E2C044;">
+							class="btn btn-lg btn-primary rounded-pill border-0" style="background-color: #E2C044;"  type ="submit">
 							<i class="fa-solid fa-circle-xmark"></i>
 							<span class="my-auto">Terminar anuncio</span>
+							</button>
 					</form>
-					</button>
+					
 				</div>
 
 				<div th:if="${success} or ${error}" class="row justify-content-center mt-3">
