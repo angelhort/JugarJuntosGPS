@@ -17,7 +17,11 @@ public class TUsuario {
 	private List<TAnuncio> anuncios;
 
 	private List<TParticipacion> participacion;
-
+	
+	private double puntuacion_total;
+	
+	private int num_votaciones;
+	
 	// Ocupado o libre
 	private String estado;
 
@@ -32,6 +36,8 @@ public class TUsuario {
 		this.anuncios = anuncios;
 		this.participacion = participacion;
 		this.estado = estado;
+		num_votaciones=1;
+		puntuacion_total=2.5;
 	}
 
 	public TUsuario(String nombre, String correo, String password, String discord, List<TAnuncio> anuncios,
@@ -44,10 +50,14 @@ public class TUsuario {
 		this.anuncios = anuncios;
 		this.participacion = participacion;
 		this.estado = estado;
+		num_votaciones=1;
+		puntuacion_total=2.5;
 	}
 
 	public TUsuario() {
 		super();
+		num_votaciones=1;
+		puntuacion_total=2.5;
 	}
 
 	public TUsuario(long id, String nombre, String correo, String password, String discord, String estado) {
@@ -58,6 +68,8 @@ public class TUsuario {
 		this.password = password;
 		this.discord = discord;
 		this.estado = estado;
+		num_votaciones=1;
+		puntuacion_total=2.5;
 	}
 	
 	public TUsuario(String nombre, String correo, String password, String discord) {
@@ -65,6 +77,8 @@ public class TUsuario {
 		this.correo = correo;
 		this.password = password;
 		this.discord = discord;
+		num_votaciones=1;
+		puntuacion_total=2.5;
 	}
 
 	public long getId() {
@@ -130,5 +144,22 @@ public class TUsuario {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+
+	public double getPuntuacion_total() {
+		return puntuacion_total;
+	}
+
+	public void setPuntuacion_total(double puntuacion_total) {
+		this.puntuacion_total = puntuacion_total;
+	}
+
+	public int getNum_votaciones() {
+		return num_votaciones;
+	}
+
+	public void setNum_votaciones(int num_votaciones) {
+		this.num_votaciones = num_votaciones;
+	}
+	
 
 }
