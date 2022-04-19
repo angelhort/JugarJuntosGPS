@@ -73,7 +73,7 @@ public class VerValoracionAnunciante {
 		@Test
 		public void bVerValoracion1Bien() {
 			try {
-				assertEquals(String.format("%.2f", media), (double) sAUsuario.calcularMedia(id_usr1).get(0));
+				assertEquals(String.format("%.2f", media), sAUsuario.calcularMedia(id_usr1).get(0));
 			} catch (BusinessException e) {
 				e.printStackTrace();
 			}
@@ -88,6 +88,7 @@ public class VerValoracionAnunciante {
 			}
 		}
 		
+		@Test
 		public void dVerValoracionMal1() {
 			List<Integer> num_estrellas = new ArrayList<Integer>();
 			num_estrellas.add(3);
@@ -95,12 +96,13 @@ public class VerValoracionAnunciante {
 			lista_ids.add(id_usr1);
 			sAAnuncio.valorarJugadores(num_estrellas, lista_ids);
 			try {
-				assertNotEquals(String.format("%.2f", media), (double) sAUsuario.calcularMedia(id_usr1).get(0));
+				assertNotEquals(String.format("%.2f", media), sAUsuario.calcularMedia(id_usr1).get(0));
 			} catch (BusinessException e) {
 				e.printStackTrace();
 			}
 		}
 		
+		@Test
 		public void eVerValoracionMal2() {
 			try {
 				assertNotEquals(num_val, (int) sAUsuario.calcularMedia(id_usr1).get(1));
@@ -109,18 +111,20 @@ public class VerValoracionAnunciante {
 			}
 		}
 		
+		@Test
 		public void fVerValoracionBien1() {
 			media+=3;
 			num_val++;
 			media=media/num_val;
 			
 			try {
-				assertEquals(String.format("%.2f", media), (double) sAUsuario.calcularMedia(id_usr1).get(0));
+				assertEquals(String.format("%.2f", media), sAUsuario.calcularMedia(id_usr1).get(0));
 			} catch (BusinessException e) {
 				e.printStackTrace();
 			}
 		}
 		
+		@Test
 		public void gVerValoracionBien2() {
 			try {
 				assertEquals(num_val, (int) sAUsuario.calcularMedia(id_usr1).get(1));
@@ -129,7 +133,7 @@ public class VerValoracionAnunciante {
 			}
 		}
 		
-		@AfterAll
+		@Test
 		public void hendAll() {//Deja la base de datos como estaba
 			userRepo.deleteById(id_usr1);
 			
