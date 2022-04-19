@@ -67,9 +67,10 @@
 				</div>
 
 				<div class="col-md-12 p-3">
-					<form th:action="@{/terminarAnuncio}" method="POST">
-						<input id="id" name="id" type="hidden" th:value="${anuncio.id}">
+					<form>
+						<input id="idAnuncio" name="idAnuncio" type="hidden" th:value="${anuncio.id}">
 						<button
+							id = "send"
 							th:if="${anuncio?.anunciante?.id} == ${idUsuario} AND ${#strings.toUpperCase(anuncio.estado)} == 'EMPEZADO'"
 							class="btn btn-lg btn-primary rounded-pill border-0" style="background-color: #E2C044;"  type ="submit">
 							<i class="fa-solid fa-circle-xmark"></i>

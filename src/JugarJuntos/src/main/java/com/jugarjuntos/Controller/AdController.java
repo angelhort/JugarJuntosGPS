@@ -234,10 +234,9 @@ public class AdController {
 		return "redirect:/";
 	}
 
-	@PostMapping("/terminarAnuncio")
 	@MessageMapping("/terminarAnuncio")
 	@SendTo("/detalles") // TODO PONER LA URL DE LOS QUE ESTAN DENTRO DEL ANUNCIO
-	public String redireccionValoracion(Model model, RedirectAttributes redirAttrs, @RequestParam int id) {
+	public String redireccionValoracion(Model model, RedirectAttributes redirAttrs, @RequestParam long id) {
 		if (saAnuncio.terminarAnuncio(id)) {
 			redirAttrs.addFlashAttribute("success", "El anuncio terminó correctamente");
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
