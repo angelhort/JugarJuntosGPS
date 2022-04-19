@@ -18,7 +18,7 @@ function connect() {
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/pruebaSocket', function (greeting) {
+        stompClient.subscribe('/terminarAnuncio', function (greeting) {
             showGreeting(JSON.parse(greeting.body).content);
         });
     });
