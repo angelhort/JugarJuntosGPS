@@ -13,13 +13,15 @@
 			<a sec:authorize="!isAuthenticated()" th:href="@{login}" class="detailsButton btn">Iniciar Sesión</a>
 			<ul sec:authorize="isAuthenticated()" class="navbar-nav">
 				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+					<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button"
 						data-bs-toggle="dropdown" aria-expanded="false">
 						<span th:text="${#authentication.getPrincipal().getName()}"></span>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-						<li><a class="dropdown-item" href="/logout">Cerrar Sesión</a></li>
+						<li><a class="dropdown-item" th:href="@{/verUsuario?id={id}(id=${#authentication.getPrincipal().getId()})}">Ver perfil</a></li>
+						<li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesión</a></li>
 					</ul>
+					
 				</li>
 			</ul>
 		</div>
