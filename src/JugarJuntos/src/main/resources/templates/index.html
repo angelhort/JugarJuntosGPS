@@ -13,60 +13,29 @@
 			<h1 class="welcomePhrase mb-5 text-center">¿A qué te apetece jugar hoy?</h1>
 
 			<div class="row">
-				<div class="col-md-4 mt-2 mb-2">
-					<form action="/getAnunciosPorNombre" class="row g-3 align-items-center">
-						<div class="col-8">
+				<div class="mt-2 mb-2">
+					<form action="/getAnunciosPorNombre" class="row g-3 align-items-center justify-content-center">
+						<div class="col-5">
 							<div class="input-group">
-								<input type="text" class="form-control btn-lg rounded-pill border-0 searchBar searchBarInput"
+								<input type="text"
+									class="form-control btn-lg rounded-pill border-0 searchBar searchBarInput"
 									name="juego" placeholder="Ajedrez">
 							</div>
 						</div>
 
-						<div class="col-2">
+						<div class="col-auto">
 							<button type="submit" class="btn btn-lg rounded-pill searchBar searchButton">Buscar</button>
 						</div>
 
-					</form>
-				</div>
-
-				<div class="col-md-2 mt-2 mb-2 text-center">
-					<div class="btn-group">
-						<div class="btn btn-lg dropdown-toggle orderButton rounded-pill align-items-center justify-content-center"
-							data-bs-toggle="dropdown">
-							Ordenar Búsqueda
+						<div class="col-auto">
+							<select type="text" class="form-select border-0 rounded-pill" style="background-color: #E7E7E7; color: grey;" id="orden" name="orden">
+								<option selected>Ordenar</option>
+								<option value="recientes">Más recientes</option>
+								<option value="antiguos">Más antiguos</option>
+								<option value="valorados">Mejor valorados</option>
+							</select>
 						</div>
-						<ul class="dropdown-menu dropdown-menu-end">
-							<li>
-								<a href="/getAnunciosOrderByTime" class="dropdown-item">Por orden de publicación (Mas
-									recientes primero)</a>
-							</li>
-							<li>
-								<a href="/" class="dropdown-item">Por orden de publicación (Mas
-									antiguos primero)</a>
-							</li>
-							<li>
-								<a href="/getAnunciosOrderByValoracion" class="dropdown-item">Por valoración del anunciante</a>
-							</li>
-							<li>
-								<a href="#" class="dropdown-item">Por nombre del juego</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-
-				<div class="col-md-2 mt-2 mb-2 text-center">
-					<a href="/getAnunciosPorNombre?juego=CS:GO"
-						class="btn btn-lg col-8 rounded-pill searchBar suggestButton">CS:GO</a>
-				</div>
-
-				<div class="col-md-2 mt-2 mb-2 text-center">
-					<a href="/getAnunciosPorNombre?juego=Dota"
-						class="btn btn-lg col-8 rounded-pill searchBar suggestButton">Dota</a>
-				</div>
-
-				<div class="col-md-2 mt-2 mb-2 text-center">
-					<a href="/getAnunciosPorNombre?juego=Parchis"
-						class="btn btn-lg col-8 rounded-pill searchBar suggestButton">Parchís</a>
+					</form>
 				</div>
 			</div>
 		</div>

@@ -41,7 +41,7 @@ public class SAAnuncioImp implements SAAnuncio {
 		long id = -1;
 		long id_usr = -1;
 		
-		if (tAnuncio.getMax_personas() > 225 || tAnuncio.getMax_personas() <= 1)
+		if (tAnuncio.getMax_personas() > 226 || tAnuncio.getMax_personas() <= 1)
 			return -1; // Invalid player number
 
 		if (tAnuncio.getJuego().length() > 150)
@@ -83,7 +83,7 @@ public class SAAnuncioImp implements SAAnuncio {
 		// query.setParameter("juego", "%" + juego + "%");
 		// List<Anuncio> a = query.getResultList();
 
-		return anuncioRepo.findAllByJuego(juego);
+		return (juego.equals("")) ? anuncioRepo.findAll() : anuncioRepo.findAllByJuego(juego);
 
 	}
 
@@ -130,8 +130,8 @@ public class SAAnuncioImp implements SAAnuncio {
 	}
 
 	@Override
-	public List<Anuncio> getAllAnunciosOrderByTime() {
-		List<Anuncio> sol = anuncioRepo.findAll();
+	public List<Anuncio> getAllAnunciosOrderByTime(String juego) {
+		List<Anuncio> sol = (juego.equals("")) ? anuncioRepo.findAll() : anuncioRepo.findAllByJuego(juego);
 		Collections.sort(sol, new Comparator<Anuncio>() {
 			@Override
 			public int compare(Anuncio o1, Anuncio o2) {
@@ -143,8 +143,8 @@ public class SAAnuncioImp implements SAAnuncio {
 	}
 	
 	@Override
-	public List<Anuncio> getAllAnunciosOrderByValoracion() {
-		List<Anuncio> sol = anuncioRepo.findAll();
+	public List<Anuncio> getAllAnunciosOrderByValoracion(String juego) {
+		List<Anuncio> sol = (juego.equals("")) ? anuncioRepo.findAll() : anuncioRepo.findAllByJuego(juego);
 		Collections.sort(sol, new Comparator<Anuncio>() {
 			@Override
 			public int compare(Anuncio o1, Anuncio o2) {
