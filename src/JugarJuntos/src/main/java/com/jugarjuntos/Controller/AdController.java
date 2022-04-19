@@ -237,6 +237,7 @@ public class AdController {
 	@MessageMapping("/terminarAnuncio")
 	@SendTo("/detalles") // TODO PONER LA URL DE LOS QUE ESTAN DENTRO DEL ANUNCIO
 	public String redireccionValoracion(Model model, RedirectAttributes redirAttrs, @RequestParam long id) {
+		System.out.println("Pepino de mar");
 		if (saAnuncio.terminarAnuncio(id)) {
 			redirAttrs.addFlashAttribute("success", "El anuncio terminó correctamente");
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -259,6 +260,11 @@ public class AdController {
 
 	}
 
+	@MessageMapping("/hello")
+	@SendTo("/bye") 
+	public void hello(@RequestParam long id){
+		System.out.println("Probando " + id);
+	}
 	/*
 	 * @PostMapping("/terminarAnuncio") public String terminarAnuncio(Model model,
 	 * RedirectAttributes redirAttrs, @RequestParam int id) { if
