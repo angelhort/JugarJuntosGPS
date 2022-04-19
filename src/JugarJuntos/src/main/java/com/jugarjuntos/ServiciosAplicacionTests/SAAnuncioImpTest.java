@@ -2,6 +2,7 @@ package com.jugarjuntos.ServiciosAplicacionTests;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -62,6 +63,22 @@ public class SAAnuncioImpTest implements SAAnuncioTest {
 		}
 		return false;
 
+	}
+
+	public boolean valorarJugadores(List<Integer> listaNumEstrellas, List<Long> listaNumEstrellasId) {
+		Integer numVotaciones = 0;
+		Double puntuacionTotal = 0.0;
+
+		if (listaNumEstrellas != null && listaNumEstrellasId != null) {
+			for (int i = 0; i < listaNumEstrellasId.size(); i++) {
+				numVotaciones += i;
+				puntuacionTotal += i;
+			}
+			
+			return true;
+		}
+
+		return false;
 	}
 
 }

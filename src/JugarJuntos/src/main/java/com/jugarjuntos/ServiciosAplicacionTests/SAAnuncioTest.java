@@ -1,6 +1,7 @@
 package com.jugarjuntos.ServiciosAplicacionTests;
 
 import com.jugarjuntos.Transfers.TAnuncio;
+import java.util.List;
 
 public interface SAAnuncioTest {
 
@@ -11,5 +12,7 @@ public interface SAAnuncioTest {
 	public boolean borrarAnuncio(long id);
 
 	public boolean terminarAnuncio(long id);
+
+	public boolean valorarJugadores(List<Integer> listaNumEstrellas, List<Long> listaNumEstrellasId);
 
 }
