@@ -18,9 +18,7 @@ function connect() {
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/terminarAnuncio', function (greeting) {
-            showGreeting(JSON.parse(greeting.body).content);
-        });
+        stompClient.subscribe('/terminarAnuncio', window.location.replace("/valoracionJugadores"));
     });
 }
 
@@ -48,7 +46,9 @@ $(function () {
     $("form").on('submit', function (e) {
         e.preventDefault();
     });
-    $( "#connect" ).click(function() { connect(); });
-    $( "#disconnect" ).click(function() { disconnect(); });
-    $( "#send" ).click(function() { sendName(); });
+    //$( "#connect" ).click(function() { connect(); });
+    //$( "#disconnect" ).click(function() { disconnect(); });
+    $( "#send" ).click(function() { redirectValoracion($("#idAnuncio").val()); });
 });
+
+$(document).ready(connect);
