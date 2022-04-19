@@ -231,19 +231,23 @@ public class AdController {
 		return "redirect:/";
 	}
 
-	/*
-	 * @MessageMapping("/terminarAnuncio")
-	 * 
-	 * @SendTo("/detalles") //TODO PONER LA URL DE LOS QUE ESTAN DENTRO DEL ANUNCIO
-	 * public String redireccionValoracion(Model model, @RequestParam long id) {
-	 * Object principal =
-	 * SecurityContextHolder.getContext().getAuthentication().getPrincipal(); Long
-	 * idUsuario = -1L; try { idUsuario = ((CustomUserDetails) principal).getId();
-	 * }catch(Exception e) {
-	 * 
-	 * } if(saParticipacion.isUserInPartida(id, idUsuario)) {
-	 * model.addAttribute("id", id); return "valorarJugadores"; } else return ""; }
-	 */
+	
+  @MessageMapping("/terminarAnuncio")  
+  @SendTo("/detalles") //TODO PONER LA URL DE LOS QUE ESTAN DENTRO DEL ANUNCIO
+  public String redireccionValoracion(Model model, @RequestParam long id) {
+	  Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	  Long idUsuario = -1L; 
+	  try { 
+		  idUsuario = ((CustomUserDetails) principal).getId();
+	  }catch(Exception e) {
+	  
+	  } 
+	  if(saParticipacion.isUserInPartida(id, idUsuario)) {
+	  model.addAttribute("id", id); return "valorarJugadores";
+	  } 
+	  else return ""; 
+  }
+	 
 
 	@PostMapping("/terminarAnuncio")
 	public String terminarAnuncio(Model model, RedirectAttributes redirAttrs, @RequestParam int id) {
