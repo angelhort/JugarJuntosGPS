@@ -123,7 +123,7 @@ public class AdController {
 			// obtener una mejor experiencia.");
 			
 			redirAttrs.addAttribute("idAnuncio", anuncio.getId());
-			redirAttrs.addAttribute("idUsuario", idUsuario);
+			//redirAttrs.addAttribute("idUsuario", idUsuario);
 			return "redirect:/enPartida";
 		}
 
@@ -262,8 +262,8 @@ public class AdController {
 
 	@MessageMapping("/hello")
 	@SendTo("/bye") 
-	public void hello(@RequestParam long id){
-		System.out.println("Probando " + id);
+	public String hello(@RequestParam long id){
+		return "index";
 	}
 	/*
 	 * @PostMapping("/terminarAnuncio") public String terminarAnuncio(Model model,
@@ -293,7 +293,7 @@ public class AdController {
 			@RequestParam long idUsuario) {
 		if (saAnuncio.empezarAnuncio(idAnuncio, idUsuario)) {
 			redirAttrs.addAttribute("idAnuncio", idAnuncio);
-			redirAttrs.addAttribute("idUsuario", idUsuario);
+			//redirAttrs.addAttribute("idUsuario", idUsuario);
 			return "redirect:/enPartida";
 		}
 		
@@ -302,8 +302,17 @@ public class AdController {
 	}
 
 	@GetMapping("/enPartida")
-	public String entrarEnPartida(Model model, RedirectAttributes redirAttrs, @RequestParam long idAnuncio,
-			@RequestParam long idUsuario) {
+	public String entrarEnPartida(Model model, RedirectAttributes redirAttrs, @RequestParam long idAnuncio) {
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Long idUsuario = -1L;
+
+		try {
+			idUsuario = ((CustomUserDetails) principal).getId();
+			model.addAttribute("idUsuario", idUsuario);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		if (saAnuncio.UsuarioEnAnuncio(idAnuncio, idUsuario) && saAnuncio.checkEmpezado(idAnuncio)) {
 
