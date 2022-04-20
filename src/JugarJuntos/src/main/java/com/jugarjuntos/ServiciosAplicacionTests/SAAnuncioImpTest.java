@@ -77,8 +77,9 @@ public class SAAnuncioImpTest implements SAAnuncioTest {
 			
 			return true;
 		}
-
 		return false;
 	}
+
+
 
 }
