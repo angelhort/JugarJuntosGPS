@@ -52,7 +52,7 @@ public class SAAnuncioImp implements SAAnuncio {
 		try {
 			id_usr = usuarioRepository.findUsuarioById(tAnuncio.getId_Usuario()).getId();
 
-			if (anuncioRepo.findAllByAnunciante(id_usr).size() > 0) {
+			if (anuncioRepo.findAllByAnunciantePend(id_usr).size() > 0) {
 				System.out.println("Hii");
 				throw new Exception();
 			} else {
@@ -83,7 +83,7 @@ public class SAAnuncioImp implements SAAnuncio {
 		// query.setParameter("juego", "%" + juego + "%");
 		// List<Anuncio> a = query.getResultList();
 
-		return (juego.equals("")) ? anuncioRepo.findAll() : anuncioRepo.findAllByJuego(juego);
+		return (juego.equals("")) ? anuncioRepo.findAllPend() : anuncioRepo.findAllByJuego(juego);
 
 	}
 
@@ -121,7 +121,7 @@ public class SAAnuncioImp implements SAAnuncio {
 
 	@Override
 	public List<Anuncio> getAllAnuncios() {
-		return anuncioRepo.findAll();
+		return anuncioRepo.findAllPend();
 	}
 
 	@Override
@@ -131,7 +131,7 @@ public class SAAnuncioImp implements SAAnuncio {
 
 	@Override
 	public List<Anuncio> getAllAnunciosOrderByTime(String juego) {
-		List<Anuncio> sol = (juego.equals("")) ? anuncioRepo.findAll() : anuncioRepo.findAllByJuego(juego);
+		List<Anuncio> sol = (juego.equals("")) ? anuncioRepo.findAllPend() : anuncioRepo.findAllByJuego(juego);
 		Collections.sort(sol, new Comparator<Anuncio>() {
 			@Override
 			public int compare(Anuncio o1, Anuncio o2) {
@@ -144,7 +144,7 @@ public class SAAnuncioImp implements SAAnuncio {
 	
 	@Override
 	public List<Anuncio> getAllAnunciosOrderByValoracion(String juego) {
-		List<Anuncio> sol = (juego.equals("")) ? anuncioRepo.findAll() : anuncioRepo.findAllByJuego(juego);
+		List<Anuncio> sol = (juego.equals("")) ? anuncioRepo.findAllPend() : anuncioRepo.findAllByJuego(juego);
 		Collections.sort(sol, new Comparator<Anuncio>() {
 			@Override
 			public int compare(Anuncio o1, Anuncio o2) {
