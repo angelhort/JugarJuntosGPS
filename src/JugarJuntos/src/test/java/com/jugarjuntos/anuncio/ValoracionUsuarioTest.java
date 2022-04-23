@@ -24,7 +24,7 @@ public class ValoracionUsuarioTest {
     public static final List<Long> listaNumEstrellasId = new ArrayList<>(Arrays.asList(1L, 2L, 3L));
 
     @Autowired
-	SAAnuncioTest sAAnuncioTest = new SAAnuncioImpTest();
+	SAAnuncioTest sAAnuncioTest;
 
 	@Test
 	void valorarJugadoresOKTest() {

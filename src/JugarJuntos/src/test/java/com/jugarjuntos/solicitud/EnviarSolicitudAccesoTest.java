@@ -25,7 +25,7 @@ public class EnviarSolicitudAccesoTest {
 	private static final TAnuncio anuncioBAD = new TAnuncio(null, -1, -1, null, -1, null);
 
 	@Autowired
-	SAParticipacionTest sa = new SAParticipacionImpTest();
+	SAParticipacionTest sa;
 	
 	@Test
 	void aceptarSolicitudOKTest() {
