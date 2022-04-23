@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.jugarjuntos.JugarJuntosApplication;
-import com.jugarjuntos.ServiciosAplicacionTests.SAAnuncioImpTest;
 import com.jugarjuntos.ServiciosAplicacionTests.SAAnuncioTest;
 
 @SpringBootTest(classes = JugarJuntosApplication.class)

@@ -3,7 +3,6 @@ package com.jugarjuntos.solicitud;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.jugarjuntos.JugarJuntosApplication;
-import com.jugarjuntos.ServiciosAplicacionTests.SAParticipacionImpTest;
 import com.jugarjuntos.ServiciosAplicacionTests.SAParticipacionTest;
 import com.jugarjuntos.Transfers.TAnuncio;
 import com.jugarjuntos.Transfers.TParticipacion;
@@ -20,9 +19,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class EnviarSolicitudAccesoTest {
     
     private static final TUsuario usuarioOK = new TUsuario("user", "mail@gmail.com", "A123", "user#2341");
-	private static final TUsuario usuarioBAD = new TUsuario(null, null, null, null);
 	private static final TAnuncio anuncioOK = new TAnuncio("game", 1, 2, "pendiente", 1, null);
-	private static final TAnuncio anuncioBAD = new TAnuncio(null, -1, -1, null, -1, null);
+	private static final TAnuncio anuncioBAD = new TAnuncio(null, -1, -1, "badStatus", -1, null);
 
 	@Autowired
 	SAParticipacionTest sa;
@@ -34,7 +32,7 @@ public class EnviarSolicitudAccesoTest {
 
 	@Test
 	void invalidUserTest() {
-        assertEquals(sa.enviarSolicitud(new TParticipacion(), usuarioBAD, anuncioOK), false);
+        assertEquals(sa.enviarSolicitud(new TParticipacion(), null, anuncioOK), false);
 	}
 
 	@Test
@@ -44,6 +42,6 @@ public class EnviarSolicitudAccesoTest {
 
 	@Test
 	void invalidUserAndAdTest() {
-        assertEquals(sa.enviarSolicitud(new TParticipacion(), usuarioBAD, anuncioBAD), false);
+        assertEquals(sa.enviarSolicitud(new TParticipacion(), null, anuncioBAD), false);
 	}
 }
