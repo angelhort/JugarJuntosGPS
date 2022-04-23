@@ -14,5 +14,6 @@ public interface SAAnuncioTest {
 	public boolean terminarAnuncio(long id);
 
 	public boolean valorarJugadores(List<Integer> listaNumEstrellas, List<Long> listaNumEstrellasId);
-
+	
+	public boolean empezarAnuncio(long idAnuncio, long idUsuario);
 }
