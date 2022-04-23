@@ -70,7 +70,6 @@ public class JugarJuntosController {
 		try {
 			saParticipacion.aceptarSolicitud(participacion);
 		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		redirAttrs.addAttribute("id", idAnuncio);
@@ -85,7 +84,6 @@ public class JugarJuntosController {
 		try {
 			saParticipacion.rechazarSolicitud(participacion);
 		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		redirAttrs.addAttribute("id", idAnuncio);

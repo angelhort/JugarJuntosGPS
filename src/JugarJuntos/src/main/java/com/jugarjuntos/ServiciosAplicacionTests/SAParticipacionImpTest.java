@@ -1,17 +1,20 @@
 package com.jugarjuntos.ServiciosAplicacionTests;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jugarjuntos.Entities.Anuncio;
 import com.jugarjuntos.Entities.Participacion;
-import com.jugarjuntos.Exceptions.BusinessException;
+import com.jugarjuntos.Entities.Usuario;
 import com.jugarjuntos.Repositories.AnuncioRepository;
 import com.jugarjuntos.Repositories.ParticipacionRepository;
 import com.jugarjuntos.Repositories.UsuarioRepository;
+import com.jugarjuntos.Transfers.TAnuncio;
 import com.jugarjuntos.Transfers.TParticipacion;
+import com.jugarjuntos.Transfers.TUsuario;
 
 @Service
 public class SAParticipacionImpTest implements SAParticipacionTest {
@@ -66,41 +69,21 @@ public class SAParticipacionImpTest implements SAParticipacionTest {
 	}
 
 	@Override
-	public boolean enviarSolicitud(TParticipacion participacion) {
-		if (anuncioRepository.findById(participacion.getId_anuncio()) != null && // Se comprueba que tanto el anuncio
-																					// como el usuario existan, que el
-																					// anuncio no haya finalizado, que
-																					// las
-				usuarioRepository.findUsuarioById(participacion.getId_usuario()) != null && // personas actuales no
-																							// superen al maximo de
-																							// personas y que el usuario
-																							// participe en mas anuncios
-																							// al mismo tiempo
-				anuncioRepository.findById(participacion.getId_anuncio()).getEstado().equalsIgnoreCase("pendiente") && // Comprobar
-																														// que
-																														// el
-																														// anuncio
-																														// todavía
-																														// esta
-																														// en
-																														// estado
-																														// pendiente
-																														// y
-																														// por
-																														// tanto
-																														// podemos
-																														// unirnos
-				anuncioRepository.findById(participacion.getId_anuncio()).getPersonas_actuales() < anuncioRepository
-						.findById(participacion.getId_anuncio()).getMax_personas()
-				&& participacionRepository.findAllByIdAnuncio_idPendientes(participacion.getId_usuario()) != null) {
+	public boolean enviarSolicitud(TParticipacion participacion, TUsuario usuario, TAnuncio anuncio) {
+		List<Participacion> part = new ArrayList<>();
 
-			participacionRepository.aniadirSolicitud("pendiente", participacion.getId_usuario(),
-					participacion.getId_anuncio(), "");
+		if (anuncio == null || usuario == null)
+			return false; // Invalid user or ad
+		
+		if (!anuncio.getEstado().equalsIgnoreCase("pendiente"))
+			return false; // Ad has finished or the game is being played
+		
+		if (anuncio.getPersonas_actuales() >= anuncio.getMax_personas())
+			return false; // Ad is full
+		
+		if (part != null && part.size() == 0)
 			return true;
-		}
-
-		else
-			return false;
+		
+		return false;
 	}
-
 }
