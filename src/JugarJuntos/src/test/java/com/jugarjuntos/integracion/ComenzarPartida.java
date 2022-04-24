@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.jugarjuntos.JugarJuntosApplication;
+import com.jugarjuntos.Entities.Anuncio;
+import com.jugarjuntos.Repositories.AnuncioRepository;
+import com.jugarjuntos.Repositories.UsuarioRepository;
 import com.jugarjuntos.ServiciosAplicacion.SAAnuncio;
 import com.jugarjuntos.ServiciosAplicacion.SAUsuario;
 import com.jugarjuntos.Transfers.TAnuncio;
@@ -28,6 +32,12 @@ public class ComenzarPartida {
 
 	@Autowired
 	SAUsuario saUsuario;
+
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private AnuncioRepository anuncioRepository;
 	
 	private static Long idAnuncio = null;
 
@@ -42,10 +52,11 @@ public class ComenzarPartida {
 		assertNotNull(idAnuncio);
 		assertNotNull(idUsuario);
 
-	
-
 		assertTrue(saAnuncio.empezarAnuncio(idAnuncio, idUsuario));
 
-		saAnuncio.borrarAnuncio(idAnuncio);
+		Optional<Anuncio> anuncio = anuncioRepository.findById(idAnuncio);
+		anuncioRepository.delete(anuncio.get());
+		usuarioRepository.delete(usuarioRepository.findUsuarioById(idUsuario));
+
 	}
 }

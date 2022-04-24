@@ -69,7 +69,7 @@ public class BorrarAnuncio {
 		
 		anuncio.setId(sAAnuncio.altaAnuncio(anuncio));
 		
-		participacion = new TParticipacion(us2.getId(), anuncio.getId());
+		participacion = new TParticipacion(us2.getId(), anuncio.getId(), "pendiente", "");
 		
 		try {
 			sAParticipacion.enviarSolicitud(participacion);

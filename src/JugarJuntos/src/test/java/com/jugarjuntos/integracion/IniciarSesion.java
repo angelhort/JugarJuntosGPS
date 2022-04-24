@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.jugarjuntos.JugarJuntosApplication;
+import com.jugarjuntos.Repositories.UsuarioRepository;
 import com.jugarjuntos.ServiciosAplicacion.SAUsuario;
 import com.jugarjuntos.Transfers.TUsuario;
 
@@ -18,15 +19,16 @@ public class IniciarSesion {
 	@Autowired
 	SAUsuario saUsuario;
 	
+	@Autowired
+	UsuarioRepository usuarioRepository;
+
 	private TUsuario usuario = new TUsuario("TestIntegracion", "test@integracion.com", "pruebaTest", "testIntegracion");
-	
-	@BeforeAll
-	public void setup() throws Exception {		
-		saUsuario.altaUsuario(usuario);
-	}
+	private long idUsuario;
 	
 	@Test
 	public void checkLoginUsuario() {
+		idUsuario = saUsuario.altaUsuario(usuario);
 		assertNotNull(saUsuario.loginUsuario(usuario));
+		usuarioRepository.delete(usuarioRepository.findUsuarioById(idUsuario));
 	}
 }

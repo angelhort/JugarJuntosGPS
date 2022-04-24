@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.jugarjuntos.JugarJuntosApplication;
+import com.jugarjuntos.Repositories.AnuncioRepository;
+import com.jugarjuntos.Repositories.UsuarioRepository;
 import com.jugarjuntos.ServiciosAplicacion.SAAnuncio;
 import com.jugarjuntos.ServiciosAplicacion.SAUsuario;
 import com.jugarjuntos.Transfers.TAnuncio;
@@ -27,6 +29,12 @@ public class TerminarAnuncio {
 
 	@Autowired
 	SAUsuario saUsuario;
+
+	@Autowired
+	AnuncioRepository anuncioRepo;
+
+	@Autowired
+	UsuarioRepository usuarioRepo;
 	
 
 	@Test
@@ -39,8 +47,9 @@ public class TerminarAnuncio {
 		assertNotNull(idAnuncio);
 		
 		assertTrue(saAnuncio.terminarAnuncio(idAnuncio.intValue()));
-		
-		//saAnuncio.borrarAnuncio(idAnuncio.intValue());
+
+		anuncioRepo.deleteById(idAnuncio);
+		usuarioRepo.deleteById(usuario.getId());
 	}
 	
 }
