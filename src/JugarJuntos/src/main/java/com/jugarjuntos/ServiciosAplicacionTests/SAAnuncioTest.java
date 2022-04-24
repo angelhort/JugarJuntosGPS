@@ -16,4 +16,6 @@ public interface SAAnuncioTest {
 	public boolean valorarJugadores(List<Integer> listaNumEstrellas, List<Long> listaNumEstrellasId);
 	
 	public boolean empezarAnuncio(long idAnuncio, long idUsuario);
+	
+	public List<TAnuncio> getAllAnunciosOrderByTime(String juego);
 }

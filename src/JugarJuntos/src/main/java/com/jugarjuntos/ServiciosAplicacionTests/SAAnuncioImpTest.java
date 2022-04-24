@@ -1,6 +1,10 @@
 package com.jugarjuntos.ServiciosAplicacionTests;
 
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -36,7 +40,6 @@ public class SAAnuncioImpTest implements SAAnuncioTest {
 		map.put((long) 2, new TAnuncio("Buscaminas GOTY", 0, 5, "pendiente", 2, new ArrayList<>()));
 		map.put((long) 3, new TAnuncio("Buscaminas DLC Origins", 0, 5, "pendiente", 3, new ArrayList<>()));
 		map.put((long) 5, new TAnuncio("Buscaminas GTX ", 0, 5, "finalizado", 5, new ArrayList<>()));
-
 
 		return map.get(id);
 	}
@@ -82,11 +85,35 @@ public class SAAnuncioImpTest implements SAAnuncioTest {
 		}
 		return false;
 	}
+	
+	public List<TAnuncio> getAllAnunciosOrderByTime(String juego) {
+		TAnuncio juego1 = new TAnuncio();
+		TAnuncio juego2 = new TAnuncio();
+		juego1.setJuego(juego);
+		juego2.setJuego(juego);
+		juego1.setFecha_creacion(Date.from(java.time.LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
+		juego2.setFecha_creacion(Date.from(java.time.LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
+		List<TAnuncio> array = new ArrayList<TAnuncio>();
+		array.add(juego1);
+		array.add(juego2);
+		List<TAnuncio> sol = (juego.equals("")) ? array : array;
+		Collections.sort(sol, new Comparator<TAnuncio>() {
+			@Override
+			public int compare(TAnuncio o1, TAnuncio o2) {
+				return o2.getFecha_creacion().compareTo(o1.getFecha_creacion());
+			}
+
+		});
+		return sol;
+	}
+
+	@Override
 	public boolean empezarAnuncio(long idAnuncio, long idUsuario) {
 		TAnuncio anun = getAnuncioByID(idAnuncio);
+		TUsuario usu = getAnuncianteById(idUsuario);
 		
 		if (anun != null && anun.getEstado().equals("pendiente")
-				&& getAnuncianteById(idUsuario).getId() == idUsuario) {
+				&&usu != null && usu.getId() == idUsuario) {
 			anun.setEstado("empezado");
 			
 			return true;
@@ -101,9 +128,9 @@ public class SAAnuncioImpTest implements SAAnuncioTest {
 		
 
 		HashMap<Long, TUsuario> map = new HashMap<>();
-		map.put((long) 1, new TUsuario("Jorge","hola@gmail.com","1234","Djorge"));
-		map.put((long) 2, new TUsuario("Ruben","ruben@gmail.com","1223","DRuben"));
-		map.put((long) 3, new TUsuario("Jose","jose@gmail.com","12233","DJose"));
+		map.put((long) 1, new TUsuario(1,"Jorge","hola@gmail.com","1234","Djorge","libre"));
+		map.put((long) 2, new TUsuario(2,"Ruben","ruben@gmail.com","1223","DRuben","libre"));
+		map.put((long) 3, new TUsuario(3,"Jose","jose@gmail.com","12233","DJose","libre"));
 
 		return map.get(id);
 	}
