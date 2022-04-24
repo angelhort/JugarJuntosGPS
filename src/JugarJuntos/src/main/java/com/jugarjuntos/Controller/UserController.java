@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+
 import com.jugarjuntos.Exceptions.BusinessException;
 import com.jugarjuntos.ServiciosAplicacion.SAUsuario;
 import com.jugarjuntos.Transfers.TUsuario;
@@ -33,11 +36,11 @@ public class UserController {
 	}
 
 	@PostMapping("/registro")
-	public String crearUsuario(TUsuario usuario, RedirectAttributes redirAttrs) {
+	public String crearUsuario(TUsuario usuario, RedirectAttributes redirAttrs, HttpServletRequest request) {
 		long res = saUsuario.altaUsuario(usuario);
 		if (res > 0) {
 			redirAttrs.addFlashAttribute("success", "Te registraste correctamente. BIENVENIDO!");
-				
+			authWithHttpServletRequest(request, usuario.getCorreo(), usuario.getPassword());
 		} else if (res == -1) {
 			redirAttrs.addFlashAttribute("error", "Error en la creación del usuario. El formato del discord es incorrecto");
 			return "redirect:/registro";
@@ -49,5 +52,11 @@ public class UserController {
 		return "redirect:/";
 	}
 
-
+	public void authWithHttpServletRequest(HttpServletRequest request, String username, String password) {
+		try {
+			request.login(username, password);
+		} catch (ServletException e) {
+			System.out.println(e.toString());
+		}
+	}
 }
