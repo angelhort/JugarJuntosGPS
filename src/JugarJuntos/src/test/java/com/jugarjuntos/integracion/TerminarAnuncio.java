@@ -42,7 +42,7 @@ public class TerminarAnuncio {
 		TUsuario usuario = new TUsuario("PepeluGucci", "pepeluGucciDior@ucm.es", "contra", "pepeluLoko#4999");
 		usuario.setId(saUsuario.altaUsuario(usuario));
 		
-		Long idAnuncio = saAnuncio.altaAnuncio(new TAnuncio("Test terminar anuncio", 1, 6, "Pendiente",(int) usuario.getId(), new ArrayList<TParticipacion>()));
+		Long idAnuncio = saAnuncio.altaAnuncio(new TAnuncio("Test terminar anuncio", 1, 6, "pendiente",(int) usuario.getId(), new ArrayList<TParticipacion>()));
 		
 		assertNotNull(idAnuncio);
 		

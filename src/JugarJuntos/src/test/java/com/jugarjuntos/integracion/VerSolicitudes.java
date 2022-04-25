@@ -57,34 +57,34 @@ public class VerSolicitudes {
 	@Autowired
 	UsuarioRepository userRepo;
 	
-	@BeforeAll
+	@Test
 	void ASetValues() {
 		
 		usr1 = new TUsuario();
 		
-		usr1.setCorreo("usrtest1@test.com");
+		usr1.setCorreo("usrtest121@test.com");
 		
-		usr1.setNombre("usrtest1");
+		usr1.setNombre("usrtest121");
 		
-		usr1.setPassword("pswdusr1");
+		usr1.setPassword("pswdusr121");
 		
-		usr1.setDiscord("discordusr1");
+		usr1.setDiscord("discordusr12#1111");
 		
-		usr1.setEstado("Libre");
+		usr1.setEstado("libre");
 		
 		//--------------------------
 		
 		usr2 = new TUsuario();
 		
-		usr2.setCorreo("usrtest2@test.com");
+		usr2.setCorreo("usrtest212@test.com");
 		
-		usr2.setNombre("usrtest2");
+		usr2.setNombre("usrtest212");
 		
-		usr2.setPassword("pswdusr2");
+		usr2.setPassword("pswdusr22");
 		
-		usr2.setDiscord("discordusr2");
+		usr2.setDiscord("discordusr22#1111");
 		
-		usr2.setEstado("Libre");
+		usr2.setEstado("libre");
 		
 		//--------------------------
 		
@@ -100,11 +100,11 @@ public class VerSolicitudes {
 		
 		taux = new TAnuncio();
 		
-		taux.setEstado("Pendiente");
+		taux.setEstado("pendiente");
 		
 		taux.setId_Usuario(id_usr1);
 		
-		taux.setJuego("Juegostest1");
+		taux.setJuego("Juegostest112");
 		
 		taux.setMax_personas(2);
 		
@@ -116,9 +116,7 @@ public class VerSolicitudes {
 		
 		taux.setId(id_anuncio);
 		
-		tpart = new TParticipacion(id_usr1, id_usr2);
-		
-		tpart.setId_anuncio(id_anuncio);
+		tpart = new TParticipacion(id_usr2, id_anuncio);
 		
 		if (sAParticipacion.enviarSolicitud(tpart) != 0)
 			System.out.println("Error enviando la solicitud");
@@ -139,8 +137,8 @@ public class VerSolicitudes {
 		assertEquals(0, sAParticipacion.solicitudesPendientes(taux.getId()).size());
 	}
 	
-	@AfterAll
-	public void endAll() {//Deja la base de datos como estaba
+	@Test
+	public void zendAll() {//Deja la base de datos como estaba
 		anuncioRepo.deleteById(id_anuncio);
 		userRepo.deleteById(id_usr1);
 		userRepo.deleteById(id_usr2);

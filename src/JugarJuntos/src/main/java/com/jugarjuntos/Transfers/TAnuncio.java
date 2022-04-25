@@ -25,7 +25,7 @@ public class TAnuncio {
 	
 	
 
-	public TAnuncio(String juego, int personas_actuales, int max_personas, String estado, int id_usuario,
+	public TAnuncio(String juego, int personas_actuales, int max_personas, String estado, long id_usuario,
 			List<TParticipacion> participacion) {
 		super();
 		this.juego = juego;

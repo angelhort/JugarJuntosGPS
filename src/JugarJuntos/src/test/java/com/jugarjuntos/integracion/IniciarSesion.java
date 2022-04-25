@@ -22,7 +22,7 @@ public class IniciarSesion {
 	@Autowired
 	UsuarioRepository usuarioRepository;
 
-	private TUsuario usuario = new TUsuario("TestIntegracion", "test@integracion.com", "pruebaTest", "testIntegracion");
+	private TUsuario usuario = new TUsuario("TestIni11", "testini1@gmail.com", "pruebaTest11", "testini1#1111");
 	private long idUsuario;
 	
 	@Test

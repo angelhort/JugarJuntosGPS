@@ -50,18 +50,17 @@ public class AceptarSolicitud {
 
 	@BeforeEach
 	public void stat() {
-		anunciante = new TUsuario("aane2errqwue", "aAnqrwrrw@gmail.com", "1234", "aarnqqrwii#3341");
+		anunciante = new TUsuario("prueba", "prueba@gmail.com", "1234", "prueba#3341");
 		id_anunciante = saUsuario.altaUsuario(anunciante);
-		usuario = new TUsuario("akrrq2t", "akis2qro1rqw@gmail.com", "1234", "akqrwwsr#3245");
+		usuario = new TUsuario("prueba2", "prueba2@gmail.com", "1234", "prueba2#3245");
 		usuario.setId(saUsuario.altaUsuario(usuario));
-		
 	}
 	
 	@Test
 	public void bAceptarSolicitudOK() throws BusinessException {
 		// Anuncio normal que permitirá aceptar solicitudes	
 		anuncio = new TAnuncio();
-		anuncio.setJuego("anuncioPrrruebAS");
+		anuncio.setJuego("anuncioPruebAS");
 		anuncio.setPersonas_actuales(1);
 		anuncio.setMax_personas(200);
 		anuncio.setEstado("pendiente");

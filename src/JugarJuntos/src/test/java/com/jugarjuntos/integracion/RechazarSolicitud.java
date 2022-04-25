@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.jugarjuntos.JugarJuntosApplication;
+import com.jugarjuntos.Entities.Anuncio;
+import com.jugarjuntos.Entities.Usuario;
 import com.jugarjuntos.Exceptions.BusinessException;
 import com.jugarjuntos.Repositories.AnuncioRepository;
 import com.jugarjuntos.Repositories.ParticipacionRepository;
@@ -50,40 +52,36 @@ public class RechazarSolicitud {
 	private TAnuncio anuncio;
 	private TUsuario usuario, anunciante;
 	private TParticipacion participacion;
-	
-	@Test
-	public void aSetup() throws BusinessException {
-		anuncio = new TAnuncio();
-		anuncio.setJuego("juegoDePrueba");
-		anuncio.setMax_personas(4);
-		anuncio.setEstado("pendiente");
-		anuncio.setPersonas_actuales(1);
-		anuncio.setFecha_creacion(Date.from(java.time.LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
-		
-		anunciante = new TUsuario("Manu", "ManuManitas@ucm.es", "contrasenia", "manuBobo#4536");
-		anunciante.setId(saUsuario.altaUsuario(anunciante));
-		
-		anuncio.setId_Usuario(anunciante.getId());
+	private long id_anunciante;
 
-		anuncio.setId(saAnuncio.altaAnuncio(anuncio));
-		
-		usuario = new TUsuario("Pepelu", "pepeluGucci@ucm.es", "contrasenia", "pepeluLoko#4536");
-		usuario.setId(saUsuario.altaUsuario(usuario));
-		
-		
-		participacion = new TParticipacion(usuario.getId(), anuncio.getId(), null, "");
-		saParticipacion.enviarSolicitud(participacion);
-	}
-	
 	
 	@Test
 	public void checkRechazarSolicitud() throws BusinessException {
+		anunciante = new TUsuario("prueba111", "prueba111@gmail.com", "1234", "prueba111#3341");
+		id_anunciante = saUsuario.altaUsuario(anunciante);
+		usuario = new TUsuario("prueba2111", "prueba2111@gmail.com", "1234", "prueba2111#3245");
+
+		usuario.setId(saUsuario.altaUsuario(usuario));
+		anuncio = new TAnuncio();
+		anuncio.setJuego("anuncioPruebAS");
+		anuncio.setPersonas_actuales(1);
+		anuncio.setMax_personas(200);
+		anuncio.setEstado("pendiente");
+		anuncio.setFecha_creacion(Date.from(java.time.LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
+		anuncio.setId_Usuario(id_anunciante);
+		anuncio.setId(saAnuncio.altaAnuncio(anuncio));
+
+		participacion = new TParticipacion(id_anunciante, anuncio.getId(),"pendiente",  "");
+		saParticipacion.enviarSolicitud(participacion);
+
 		assertTrue(saParticipacion.rechazarSolicitud(participacion));
-	}
-	
-	@Test
-	public void zEnd() {
-		anuncioRepo.deleteById(anuncio.getId());
-		userRepo.deleteById(usuario.getId());
+
+		Anuncio anuncio1 = anuncioRepo.findById(anuncio.getId());
+		Usuario usuario1 = userRepo.findUsuarioById(usuario.getId());
+		Usuario usuario2 = userRepo.findUsuarioById(id_anunciante);
+
+		anuncioRepo.delete(anuncio1);
+		userRepo.delete(usuario1);
+		userRepo.delete(usuario2);
 	}
 }

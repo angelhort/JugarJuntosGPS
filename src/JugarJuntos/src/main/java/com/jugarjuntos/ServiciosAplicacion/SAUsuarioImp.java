@@ -88,7 +88,6 @@ public class SAUsuarioImp implements SAUsuario {
 		if (bbdd_user != null) {
 			TUsuario t = bbdd_user.entityToTransfer();
 			if (check_password(tUsuario.getPassword(), bbdd_user.getPassword()))
-
 				return t;
 		}
 
