@@ -29,7 +29,15 @@ public class SAParticipacionImpTest implements SAParticipacionTest {
 
 	@Override
 	public List<Participacion> solicitudesPendientes(long id) {
-		return participacionRepository.findAllByIdAnuncio_idPendientes(id);
+		if (id > 0 && id < 75) {
+			List<Participacion> la = new ArrayList<>();
+			la.add(new Participacion());
+			la.add(new Participacion());
+			return la;
+		}
+		else {
+			return new ArrayList<>();
+		}
 	}
 
 	@Override
@@ -52,11 +60,11 @@ public class SAParticipacionImpTest implements SAParticipacionTest {
 
 	@Override
 	public boolean rechazarSolicitud(TParticipacion participacion) {
-		
+
 		// Comprobamos que funciona la logica de negocio del método
 
 		Participacion p = null;
-		
+
 		if (participacion != null)
 			p = new Participacion(); // Se comprueba que existe información en el Transfer
 
@@ -74,16 +82,16 @@ public class SAParticipacionImpTest implements SAParticipacionTest {
 
 		if (anuncio == null || usuario == null)
 			return false; // Invalid user or ad
-		
+
 		if (!anuncio.getEstado().equalsIgnoreCase("pendiente"))
 			return false; // Ad has finished or the game is being played
-		
+
 		if (anuncio.getPersonas_actuales() >= anuncio.getMax_personas())
 			return false; // Ad is full
-		
+
 		if (part != null && part.size() == 0)
 			return true;
-		
+
 		return false;
 	}
 }

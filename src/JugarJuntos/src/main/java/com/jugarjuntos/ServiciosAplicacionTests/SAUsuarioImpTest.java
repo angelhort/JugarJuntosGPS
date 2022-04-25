@@ -29,4 +29,19 @@ public class SAUsuarioImpTest implements SAUsuarioTest {
 		return false;
 	}
 
+	@Override
+	public long altaUsuario(TUsuario usuario) {
+		if (usuario.getNombre() != null 
+				&& usuario.getNombre().trim() != "" 
+				&& usuario.getNombre().length() <= 20
+				&& usuario.getPassword() != null 
+				&& usuario.getPassword().trim() != ""
+				&& usuario.getPassword().length() <= 20 
+				&& usuario.getDiscord() != null
+				&& usuario.getDiscord().trim() != "")
+			return 1;
+		else
+			return -1;
+	}
+
 }
