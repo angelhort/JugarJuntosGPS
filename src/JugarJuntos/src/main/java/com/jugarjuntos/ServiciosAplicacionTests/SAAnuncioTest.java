@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface SAAnuncioTest {
 
-	public long crearUsuario(TAnuncio tAnuncio);
+	public long altaAnuncio(TAnuncio tAnuncio);
 
 	public TAnuncio getAnuncioByID(long id); // Devuelve un anuncio solo con los ids 1,2 y 3.
 
@@ -18,4 +18,5 @@ public interface SAAnuncioTest {
 	public boolean empezarAnuncio(long idAnuncio, long idUsuario);
 	
 	public List<TAnuncio> getAllAnunciosOrderByTime(String juego);
+	public List<TAnuncio> getAllAnuncios();
 }

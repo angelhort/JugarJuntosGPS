@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.text.TabableView;
+
 import org.springframework.stereotype.Service;
 
 import com.jugarjuntos.Entities.Anuncio;
@@ -19,7 +21,7 @@ import com.jugarjuntos.Transfers.TUsuario;
 @Service
 public class SAAnuncioImpTest implements SAAnuncioTest {
 
-	public long crearUsuario(TAnuncio tAnuncio) {
+	public long altaAnuncio(TAnuncio tAnuncio) {
 		if (tAnuncio.getMax_personas() > 0) {
 			Anuncio anuncio = new Anuncio();
 			anuncio.setJuego(tAnuncio.getJuego());
@@ -84,6 +86,10 @@ public class SAAnuncioImpTest implements SAAnuncioTest {
 			return true;
 		}
 		return false;
+	}
+	public List<TAnuncio> getAllAnuncios(){
+		List<TAnuncio> anuncios = new ArrayList<>();
+		return anuncios;
 	}
 	
 	public List<TAnuncio> getAllAnunciosOrderByTime(String juego) {
