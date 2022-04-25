@@ -23,7 +23,7 @@ import com.jugarjuntos.Transfers.TUsuario;
 
 @SpringBootTest(classes = JugarJuntosApplication.class)
 @TestMethodOrder(MethodOrderer.MethodName.class) // Ejecutar pruebas por orden alfabético
-public class OrdenarResultDeBusqPorValorAnunciant {
+public class OrdenarPorValorAnunciant {
 
 	@Autowired
 	SAAnuncio saAnuncio;
