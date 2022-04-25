@@ -18,8 +18,9 @@ function connect() {
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/bye', function(){
-            window.location.replace("/valorarJugadores");
+        stompClient.subscribe('/bye', function(route) {
+            disconnect();
+            window.location.replace(route.body);
         });
     });
 }

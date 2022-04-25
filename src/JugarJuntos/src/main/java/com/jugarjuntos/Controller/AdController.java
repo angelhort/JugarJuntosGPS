@@ -234,53 +234,10 @@ public class AdController {
 		return "redirect:/";
 	}
 
-	@MessageMapping("/terminarAnuncio")
-	@SendTo("/detalles") // TODO PONER LA URL DE LOS QUE ESTAN DENTRO DEL ANUNCIO
-	public String redireccionValoracion(Model model, RedirectAttributes redirAttrs, @RequestParam long id) {
-		System.out.println("Pepino de mar");
-		if (saAnuncio.terminarAnuncio(id)) {
-			redirAttrs.addFlashAttribute("success", "El anuncio terminó correctamente");
-			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			Long idUsuario = -1L;
-			try {
-				idUsuario = ((CustomUserDetails) principal).getId();
-			} catch (Exception e) {
-
-			}
-			if (saParticipacion.isUserInPartida(id, idUsuario)) {
-				model.addAttribute("id", id);
-				return "redirect:/valorarJugadores";
-			} else
-				return "redirect:/detalles";
-		} else {
-			redirAttrs.addFlashAttribute("error", "Ocurrió un error terminando el anuncio");
-			redirAttrs.addAttribute("id", id);
-			return "redirect:/detalles";
-		}
-
-	}
-
 	@MessageMapping("/hello")
 	@SendTo("/bye") 
 	public String hello(@RequestParam long id){
-		return "index";
-	}
-	/*
-	 * @PostMapping("/terminarAnuncio") public String terminarAnuncio(Model model,
-	 * RedirectAttributes redirAttrs, @RequestParam int id) { if
-	 * (saAnuncio.terminarAnuncio(id)) redirAttrs.addFlashAttribute("success",
-	 * "El anuncio terminó correctamente"); else {
-	 * redirAttrs.addFlashAttribute("error",
-	 * "Ocurrió un error terminando el anuncio"); redirAttrs.addAttribute("id", id);
-	 * return "redirect:/detalles"; }
-	 * 
-	 * return "redirect:/"; }
-	 */
-
-	@MessageMapping("/empezarPartida")
-	@SendTo("/detalles")
-	public String redireccionPartida(@RequestParam long id) {
-		return "Hola";
+		return String.format("/valorarJugadores?id=%d", id);
 	}
 
 	@GetMapping("/pruebaSocket")
