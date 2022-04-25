@@ -3,12 +3,10 @@ package com.jugarjuntos.integracion;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -17,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.jugarjuntos.JugarJuntosApplication;
 import com.jugarjuntos.Entities.Participacion;
-import com.jugarjuntos.Exceptions.BusinessException;
 import com.jugarjuntos.Repositories.AnuncioRepository;
 import com.jugarjuntos.Repositories.ParticipacionRepository;
 import com.jugarjuntos.Repositories.UsuarioRepository;
@@ -30,7 +27,8 @@ import com.jugarjuntos.Transfers.TUsuario;
 
 @SpringBootTest(classes = JugarJuntosApplication.class)
 @TestMethodOrder(MethodOrderer.MethodName.class)
-public class EnviarSolicitud {
+public class AñadirMensajeSolicitud {
+
 
 	@Autowired
 	private SAParticipacion saParticipacion;
@@ -65,7 +63,7 @@ public class EnviarSolicitud {
 
 	@Test
 	public void bTestEnviarSolicitudBien() {
-		assertEquals(saParticipacion.enviarSolicitud(new TParticipacion(idUsuario, idAnuncio,"pendiente", "")), 0);
+		assertEquals(saParticipacion.enviarSolicitud(new TParticipacion(idUsuario, idAnuncio,"pendiente", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")), 0);
 	}
 	
 	@Test
@@ -77,6 +75,5 @@ public class EnviarSolicitud {
 		anuncioRepo.deleteById(idAnuncio);
 		userRepo.deleteById(idUsuario);
 	}
-
-
+	
 }
