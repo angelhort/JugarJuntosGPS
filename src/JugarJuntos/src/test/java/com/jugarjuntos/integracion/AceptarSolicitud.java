@@ -11,8 +11,12 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.jugarjuntos.JugarJuntosApplication;
+import com.jugarjuntos.Entities.Anuncio;
+import com.jugarjuntos.Entities.Participacion;
+import com.jugarjuntos.Entities.Usuario;
 import com.jugarjuntos.Exceptions.BusinessException;
 import com.jugarjuntos.Repositories.AnuncioRepository;
+import com.jugarjuntos.Repositories.ParticipacionRepository;
 import com.jugarjuntos.Repositories.UsuarioRepository;
 import com.jugarjuntos.ServiciosAplicacion.SAAnuncio;
 import com.jugarjuntos.ServiciosAplicacion.SAParticipacion;
@@ -35,6 +39,8 @@ public class AceptarSolicitud {
 	AnuncioRepository anuncioRepo;
 	@Autowired
 	UsuarioRepository userRepo;
+	@Autowired
+	ParticipacionRepository participacionRepo;
 
 	private TAnuncio anuncio;
 	private TUsuario usuario;
@@ -44,9 +50,9 @@ public class AceptarSolicitud {
 
 	@BeforeEach
 	public void stat() {
-		anunciante = new TUsuario("anunciantePrueba", "Anunpro@gmail.com", "1234", "anun#3341");
+		anunciante = new TUsuario("aane2errqwue", "aAnqrwrrw@gmail.com", "1234", "aarnqqrwii#3341");
 		id_anunciante = saUsuario.altaUsuario(anunciante);
-		usuario = new TUsuario("kyliansito", "kiliapro@gmail.com", "1234", "kili#3245");
+		usuario = new TUsuario("akrrq2t", "akis2qro1rqw@gmail.com", "1234", "akqrwwsr#3245");
 		usuario.setId(saUsuario.altaUsuario(usuario));
 		
 	}
@@ -55,7 +61,7 @@ public class AceptarSolicitud {
 	public void bAceptarSolicitudOK() throws BusinessException {
 		// Anuncio normal que permitirá aceptar solicitudes	
 		anuncio = new TAnuncio();
-		anuncio.setJuego("anuncioPruebaAS");
+		anuncio.setJuego("anuncioPrrruebAS");
 		anuncio.setPersonas_actuales(1);
 		anuncio.setMax_personas(200);
 		anuncio.setEstado("pendiente");
@@ -63,15 +69,20 @@ public class AceptarSolicitud {
 		anuncio.setId_Usuario(id_anunciante);
 		anuncio.setId(saAnuncio.altaAnuncio(anuncio));
 		
-		participacion = new TParticipacion(usuario.getId(), anuncio.getId());
+		participacion = new TParticipacion(usuario.getId(), anuncio.getId(),"pendiente",  "");
 		saParticipacion.enviarSolicitud(participacion);
 
 		assertTrue(saParticipacion.aceptarSolicitud(participacion));
+
+		Anuncio anuncio1 = anuncioRepo.findById(anuncio.getId());
+		Usuario usuario1 = userRepo.findUsuarioById(usuario.getId());
+		Usuario usuario2 = userRepo.findUsuarioById(id_anunciante);
+
+		participacionRepo.delete(participacionRepo.findParticipacionById(anuncio.getId(), usuario.getId()).get(0));
+		anuncioRepo.delete(anuncio1);
+		userRepo.delete(usuario1);
+		userRepo.delete(usuario2);
 	}
 	
-	@Test
-	public void zEnd() {
-		anuncioRepo.deleteById(anuncio.getId());
-		userRepo.deleteById(usuario.getId());
-	}
+
 }

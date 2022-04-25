@@ -40,7 +40,7 @@ public class SAAnuncioImp implements SAAnuncio {
 	public long altaAnuncio(TAnuncio tAnuncio) {
 		long id = -1;
 		long id_usr = -1;
-		
+
 		if (tAnuncio.getMax_personas() > 226 || tAnuncio.getMax_personas() <= 1)
 			return -1; // Invalid player number
 
@@ -109,13 +109,13 @@ public class SAAnuncioImp implements SAAnuncio {
 		return null;
 
 	}
-	
+
 	public List<Anuncio> findAnunciosByAnunciante(long id_anunciante) {
 		Usuario usuario = em.find(Usuario.class, id_anunciante);
-		
-		if(usuario == null)
+
+		if (usuario == null)
 			return null;
-		
+
 		return anuncioRepo.findAllByAnunciante(id_anunciante);
 	}
 
@@ -141,15 +141,17 @@ public class SAAnuncioImp implements SAAnuncio {
 		});
 		return sol;
 	}
-	
+
 	@Override
 	public List<Anuncio> getAllAnunciosOrderByValoracion(String juego) {
 		List<Anuncio> sol = (juego.equals("")) ? anuncioRepo.findAllPend() : anuncioRepo.findAllByJuego(juego);
 		Collections.sort(sol, new Comparator<Anuncio>() {
 			@Override
 			public int compare(Anuncio o1, Anuncio o2) {
-				Double mediaA1 = (double) o1.getAnunciante().getPuntuacion_total() / o1.getAnunciante().getNum_votaciones(), 
-						mediaA2 = (double) o2.getAnunciante().getPuntuacion_total() / o2.getAnunciante().getNum_votaciones();
+				Double mediaA1 = (double) o1.getAnunciante().getPuntuacion_total()
+						/ o1.getAnunciante().getNum_votaciones(),
+						mediaA2 = (double) o2.getAnunciante().getPuntuacion_total()
+								/ o2.getAnunciante().getNum_votaciones();
 				return mediaA2.compareTo(mediaA1);
 			}
 

@@ -3,6 +3,7 @@ package com.jugarjuntos.integracion;
 import java.time.ZoneId;
 import java.util.Date;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -77,7 +78,7 @@ public class RechazarSolicitud {
 	
 	@Test
 	public void checkRechazarSolicitud() throws BusinessException {
-		assertEquals(true, saParticipacion.rechazarSolicitud(participacion));
+		assertTrue(saParticipacion.rechazarSolicitud(participacion));
 	}
 	
 	@Test

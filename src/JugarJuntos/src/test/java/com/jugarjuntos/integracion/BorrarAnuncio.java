@@ -51,33 +51,28 @@ public class BorrarAnuncio {
 	private static TParticipacion participacion;
 
 	@Test
-	void aSetup() {
-		us1 = new TUsuario("IntegBorrarAnuncio1", "unCorreo@test.com", "tester", "test#9876");
+	void aSetup() throws BusinessException {
+		us1 = new TUsuario("integBorrar1", "unCorr@test.com", "tester", "test#9876");
 		us1.setEstado("libre");
-		us2 = new TUsuario("IntegBorrarAnuncio2", "otroCorreo@test.com", "tester", "nerd#7766");
+		us2 = new TUsuario("integBorrar2", "otroCorr@test.com", "tester", "nerd#7766");
 		us2.setEstado("libre");
 		
 		us1.setId(sAUsuario.altaUsuario(us1));
 		us2.setId(sAUsuario.altaUsuario(us2));
 
 		anuncio = new TAnuncio();
-		anuncio.setEstado("Pendiente");
+		anuncio.setEstado("pendiente");
 		anuncio.setId_Usuario(us1.getId());
-		anuncio.setJuego("Juegostest1");
+		anuncio.setJuego("Juegosrtest1");
 		anuncio.setMax_personas(2);
 		anuncio.setPersonas_actuales(1);
 		
 		anuncio.setId(sAAnuncio.altaAnuncio(anuncio));
 		
 		participacion = new TParticipacion(us2.getId(), anuncio.getId(), "pendiente", "");
-		
-		try {
-			sAParticipacion.enviarSolicitud(participacion);
-			sAParticipacion.aceptarSolicitud(participacion);
-		} catch (BusinessException e) {
-			e.printStackTrace();
-			dClean();
-		}
+
+		sAParticipacion.enviarSolicitud(participacion);
+		sAParticipacion.aceptarSolicitud(participacion);
 	}
 	
 	@Test
@@ -92,9 +87,7 @@ public class BorrarAnuncio {
 	
 	@Test
 	void dClean() {
-		for (Participacion p: anuncioRepo.findById(anuncio.getId()).getParticipacion()) {
-			partRepo.delete(p);
-		}
+		partRepo.delete(partRepo.findParticipacionById(anuncio.getId(), us2.getId()).get(0));
 		anuncioRepo.deleteById(anuncio.getId());
 		userRepo.deleteById(us1.getId());
 		userRepo.deleteById(us2.getId());
