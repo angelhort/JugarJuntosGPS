@@ -1,0 +1,57 @@
+<div class="modal fade" id="verSolicitudesModal" tabindex="-1"
+	aria-hidden="true">
+	<div
+		class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" th:text="${anuncio.juego}"></h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<table class="table text-center caption-top">
+					<caption>Lista de solicitudes pendientes</caption>
+					<thead>
+						<tr>
+							<th scope="col">Nombre Usuario</th>
+							<th scope="col">Aceptar</th>
+							<th scope="col">Rechazar</th>
+							<th scope="col">Mensaje</th>
+						</tr>
+					</thead>
+					<tr th:each="participante: ${anuncio.participacion}"
+						th:object="${participante}"
+						th:if="${participante.estado_solicitud} == 'pendiente'">
+						<td th:text="${participante.usuario.nombre}"></td>
+						<td>
+							<form th:action="@{/aceptarSolicitud}" method="POST">
+								<input id="idAnuncio" name="idAnuncio" type="hidden"
+									th:value="${anuncio.id}"> <input id="idUsuario"
+									name="idUsuario" type="hidden"
+									th:value="${participante.usuario.id}">
+								<button class="btn shadow-none" type="submit"
+									style="color: green;">
+									<i class="fa-solid fa-circle-check"></i>
+								</button>
+							</form>
+						</td>
+						<td>
+							<form th:action="@{/rechazarSolicitud}" method="POST">
+								<input id="idAnuncio" name="idAnuncio" type="hidden"
+									th:value="${anuncio.id}"> <input id="idUsuario"
+									name="idUsuario" type="hidden"
+									th:value="${participante.usuario.id}">
+								<button class="btn shadow-none" type="submit"
+									style="color: red;">
+									<i class="fa-solid fa-circle-xmark"></i>
+								</button>
+							</form>
+						</td>
+						<td th:text="${participante.text != ''} ? ${participante.text} : 'Sin mensaje.'"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+</div>

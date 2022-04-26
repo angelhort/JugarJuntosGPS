@@ -1,10 +1,7 @@
 package com.jugarjuntos.Controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,53 +38,56 @@ public class JugarJuntosController {
 	}
 	
 	@PostMapping("/enviarSolicitud")
-	public String enviarSolicitud(Model model, RedirectAttributes redirAttrs, @RequestParam long id_anuncio) {
+	public String enviarSolicitud(Model model, RedirectAttributes redirAttrs, @RequestParam long id_anuncio, @RequestParam String text) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Long idUsuario = -1L;
-		try {
-			idUsuario = ((CustomUserDetails) principal).getId();
-			TParticipacion participacion = new TParticipacion(idUsuario, id_anuncio, null);
-			
-			try {
-				saParticipacion.enviarSolicitud(participacion);
-			} catch (BusinessException e) {
-				redirAttrs.addAttribute("juego", id_anuncio);
-				return "redirect:/detalles";
-			}
-			
-			
-		}catch(Exception e) {
-			
-		}
-		redirAttrs.addAttribute("id", id_anuncio);
-		if (idUsuario != -1L)
-			redirAttrs.addFlashAttribute("success", "Se ha enviado la solicitud correctamente.");
-		else
-			redirAttrs.addFlashAttribute("error", "Error al unirte al anuncio.");
+		Long idUsuario = ((CustomUserDetails) principal).getId();
+		TParticipacion participacion = new TParticipacion(idUsuario, id_anuncio, null, text);
 		
+		int res = saParticipacion.enviarSolicitud(participacion);
+		System.out.println(res);
+		if (res == 0)
+			redirAttrs.addFlashAttribute("success", "Se ha enviado la solicitud correctamente.");
+		else if (res == -1)
+			redirAttrs.addFlashAttribute("error", "Error. El usuario o el anuncio no son válidos");
+		else if (res == -2)
+			redirAttrs.addFlashAttribute("error", "Error. El anuncio ha sido finalizado o está en juego");
+		else if (res == -3)
+			redirAttrs.addFlashAttribute("error", "Error. Se ha alcanzado el número máximo de jugadores.");
+		else
+			redirAttrs.addFlashAttribute("error", "Error al unirse al anuncio");
+
+		redirAttrs.addAttribute("id", id_anuncio);
 		return "redirect:/detalles";
 	}
 	
+
 	@PostMapping("/aceptarSolicitud")
-	public String aceptarSolicitud(Model model, @RequestParam TParticipacion participacion) {
+	public String aceptarSolicitud(Model model,RedirectAttributes redirAttrs, @RequestParam long idAnuncio, @RequestParam long idUsuario) {
+		TParticipacion participacion = new TParticipacion();
+		participacion.setEstado("pendiente");
+		participacion.setId_anuncio(idAnuncio);
+		participacion.setId_usuario(idUsuario);
 		try {
 			saParticipacion.aceptarSolicitud(participacion);
 		} catch (BusinessException e) {
-			model.addAttribute("excepcion", e.toString());
-			return "index";
+			e.printStackTrace();
 		}
-		//TODO cambiar la pagina devuelta a la que querais recibir en el frontend
-		return "index";
+		redirAttrs.addAttribute("id", idAnuncio);
+		return "redirect:/detalles";
 	}
 	
 	@PostMapping("/rechazarSolicitud")
-	public String rechazarSolicitud(Model model,@RequestParam TParticipacion participacion) {
+	public String rechazarSolicitud(Model model, RedirectAttributes redirAttrs, @RequestParam String idAnuncio, @RequestParam String idUsuario) {
+		TParticipacion participacion = new TParticipacion();
+		participacion.setId_anuncio(Long.parseLong(idAnuncio));
+		participacion.setId_usuario(Long.parseLong(idUsuario));
 		try {
 			saParticipacion.rechazarSolicitud(participacion);
 		} catch (BusinessException e) {
-			model.addAttribute("excepcion", e.toString());
-			return "index";
+			e.printStackTrace();
 		}
-		return "index";
+		redirAttrs.addAttribute("id", idAnuncio);
+		return "redirect:/detalles";
 	}
+	
 }

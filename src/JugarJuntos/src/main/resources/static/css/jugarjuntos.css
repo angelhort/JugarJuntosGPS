@@ -51,8 +51,6 @@ body {
 }
 
 .formregisterBackground {
-	width: 450px;
-	height: 500px;
 	background: #F7F7F7;
 	border-radius: 10px;
 }
@@ -105,7 +103,6 @@ body {
 }
 
 .fullWidthHeader {
-	height: 250px;
 	background-color: #F7F7F7;
 	margin-bottom: 20px;
 	padding:30px;
@@ -143,25 +140,31 @@ body {
 
 .welcomePhrase {
 	font-weight: 700;
-	margin-bottom: 75px;
 }
 
 .searchBar {
 	font-size: 20px;
-	border: 0px;
 }
 
 .searchBarInput {
 	background-color: #E7E7E7;
-	height: 50px;
 }
 
 .searchButton {
 	background-color: #E2C044;
 	color: white;
 	font-weight: 500;
-	width: 140px;
-	height: 50px;
+}
+
+.orderButton {
+	background-color: #E2C044;
+	color: white;
+	font-weight: 500;
+}
+
+.orderButton:hover {
+	background-color: #E2C044;
+	color: white;
 }
 
 .searchButton:hover {
@@ -173,8 +176,6 @@ body {
 	background-color: #E7E7E7;
 	color: #939393;
 	font-weight: 500;
-	width: 210px;
-	height: 50px;
 }
 
 .suggestButton:hover {
@@ -261,4 +262,33 @@ body {
 	padding-bottom:50px;
     padding-left: 100px;
     padding-right: 100px;
+}
+
+
+.rating {
+   position: relative;
+   
+   background: transparent;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: .3em;
+   padding: 4px;
+   overflow: hidden;
+   border-radius: 20px;
+   box-shadow: 0 0 2px #b3acac;
+}
+
+.rating__star {
+   cursor: pointer;
+   color: #dabd18b2;
+   transition: filter linear .3s;
+}
+
+.rating__star:hover {
+   filter: drop-shadow(1px 1px 2px gold);
+}
+
+.rating_star_solo {
+   color: #dabd18b2;
 }

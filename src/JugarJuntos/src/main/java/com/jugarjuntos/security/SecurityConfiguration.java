@@ -1,5 +1,10 @@
 package com.jugarjuntos.security;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +17,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.jugarjuntos.Entities.UsuarioDetalles.CustomUserDetailsService;
@@ -19,15 +26,6 @@ import com.jugarjuntos.Entities.UsuarioDetalles.CustomUserDetailsService;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
-
-//	    @Override
-//	    protected void configure(HttpSecurity http) throws Exception {
-//	    	 http.csrf() 
-//				.disable()
-//				.authorizeRequests()
-//				.antMatchers("/**").permitAll()
-//				.anyRequest().authenticated();
-//	    }
 	@Autowired
     private DataSource dataSource;
      
@@ -61,8 +59,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         http.authorizeRequests()
                 .antMatchers("/css/jugarjuntos.css", "/", "/fragments", 
                 			 "/login", "/registro", "/detalles", 
-                			 "/getAnunciosPorNombre").permitAll()
-                .antMatchers("/enviarSolicitud").permitAll()
+                			 "/getAnunciosPorNombre", "/getAnunciosOrderByTime","/getAnunciosOrderByValoracion").permitAll()
                 .antMatchers("/registro").permitAll()
                 .anyRequest().authenticated()
                 .and()

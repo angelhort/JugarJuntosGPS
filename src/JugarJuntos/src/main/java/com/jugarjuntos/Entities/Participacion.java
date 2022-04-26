@@ -33,25 +33,19 @@ public class Participacion implements Serializable{
 	@MapsId("anuncio_id") private Anuncio anuncio;
 	
 	//Pendiente -> Meter atributo para saber si está en lobby o solo te la has añadido (cuando se pueda añadir futuras partidas)
-	@NonNull
+	@NonNull		//pendiente,aceptado,rechazado
 	private String estado_solicitud = "pendiente";
 	
-	@NonNull
-	private String estado_partida = "finalizado"; //Valores: esperando, en_lobby, finalizado
+	private String text;
 	
-	public Participacion(Usuario usuario, Anuncio anuncio, String estado) {
+	public Participacion(Usuario usuario, Anuncio anuncio, String estado, String text) {
 		super();
 		
 		this.id = new ParticipacionId(usuario.getId(), anuncio.getId());
 		this.usuario=usuario;
 		this.anuncio=anuncio;
-		if(check_status(estado)) this.estado_partida=estado;
 		estado_solicitud="pendiente";
-	}
-
-	private boolean check_status(String estado) {
-		if(estado == "finalizado" || estado == "en_lobby" || estado == "expulsado") return true;
-		return false;
+		this.text = text;
 	}
 
 	public Participacion() {
@@ -81,14 +75,6 @@ public class Participacion implements Serializable{
 	public void setAnuncio(Anuncio anuncio) {
 		this.anuncio = anuncio;
 	}
-
-	public String getEstado_partida() {
-		return estado_partida;
-	}
-
-	public void setEstado_partida(String estado_partida) {
-		this.estado_partida = estado_partida;
-	}
 	
 	public String getEstado_solicitud() {
 		return estado_solicitud;
@@ -98,11 +84,18 @@ public class Participacion implements Serializable{
 		this.estado_solicitud = estado_solicitud;
 	}
 
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
 	public TParticipacion entityToTransfer() {
 		TParticipacion t = new TParticipacion();
 		t.setId_anuncio(this.anuncio.getId());
 		t.setId_usuario(this.usuario.getId());
-		t.setEstado(this.estado_partida);
 		return t;
 	}
 	

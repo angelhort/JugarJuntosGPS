@@ -1,0 +1,61 @@
+<!doctype html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div th:replace="fragments/head"></div>
+</head>
+
+<body>
+    <div th:replace="fragments/navbar"></div>
+
+    <main class="landingPage vh-100">
+
+		<div class="container-fluid pt-5 pb-5" style="background-color: #F7F7F7;">
+			<h1 class="text-center fw-bold" th:text="${usuario.nombre}">Nombre de Usuario</h1>
+            <div class="text-center fs-5">
+            	<b class="text-center">Valoración media:</b>
+                <span class="text-center" th:text="${media}"></span>
+                <i class="rating_star_solo fa-star fas"> </i>
+                <b class="opacity-50"> (</b>
+                <b class="opacity-50" th:text="${usuario.num_votaciones}"></b>
+                <span th:switch="${usuario.num_votaciones}" class="opacity-50"> 
+                	<b th:case="'1'"> Voto )</b>
+                	<b th:case="*"> Votos )</b>
+                </span>
+            </div>   
+		</div>
+
+		<div class="container-fluid pt-5 fs-3 text-center">
+			<b>Lista de anuncios</b>
+		</div>
+
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-3 d-flex justify-content-center" th:each="anuncio: ${anuncios}">
+					<div class="addCard card">
+						<div class="card-body">
+							<h5 class="card-title" th:text="${anuncio.juego}"></h5>
+
+							<ul class="mb-0 list-inline mt-3">
+								<li class="list-inline-item">
+									<i class="fa-solid fa-circle-user fa-xl" style="color: #C4C4C4;"></i>
+								</li>
+								<li class="list-inline-item">
+									<p th:text="${anuncio.personas_actuales}+'/'+${anuncio.max_personas}"
+										style="color: #939393;"></p>
+								</li>
+							</ul>
+
+							<a th:href="@{/detalles?id={id}(id=${anuncio.id})}"
+								class="rounded-pill detailsButton btn">Ver
+								detalles</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+</body>
+
+</html>

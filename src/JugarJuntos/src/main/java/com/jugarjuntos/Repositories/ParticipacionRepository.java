@@ -16,8 +16,11 @@ public interface ParticipacionRepository extends CrudRepository<Participacion , 
 	@Query(value = "SELECT * FROM participacion WHERE anuncio_id = ?1 AND estado_solicitud = 'pendiente'", nativeQuery = true)
 	 public List<Participacion> findAllByIdAnuncio_idPendientes(long id);
 	
+	@Query(value = "SELECT * FROM participacion WHERE usuario_id = ?1 AND estado_solicitud = 'aceptado' AND estado_partida <> 'finalizado'", nativeQuery = true)
+	 public List<Participacion> findAllByIdUsuarioAnuncioAceptado(long id);
+	
 	@Query(value = "SELECT * FROM participacion WHERE anuncio_id = ?1 AND usuario_id = ?2", nativeQuery = true)
-	 public Participacion findParticipacionById(long anuncioId, long usuarioId);
+	 public List<Participacion> findParticipacionById(long anuncioId, long usuarioId);
 
 	@Query(value = "SELECT * FROM participacion WHERE usuario_id = ?1", nativeQuery = true)
 	public Participacion findParticipacionByIdUsuario(long usuarioId);
@@ -25,7 +28,7 @@ public interface ParticipacionRepository extends CrudRepository<Participacion , 
 	@Modifying
 	@Query(value = "INSERT INTO participacion VALUES (?1, ?2, ?3, ?4)", nativeQuery = true)
 	@Transactional
-	public void aniadirSolicitud(long anuncioId, long usuarioId, String s, String p);
+	public void aniadirSolicitud(String estado, long l, long m, String texto);
 	
 	@Query(value = "DELETE from participacion WHERE usuario_id = ?1 AND anuncio_id = ?2", nativeQuery = true)
 	public void eliminarUsuarioParticipacion(long usuarioId , long anuncioId);
