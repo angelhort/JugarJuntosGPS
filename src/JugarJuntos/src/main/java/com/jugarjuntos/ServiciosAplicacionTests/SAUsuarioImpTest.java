@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.jugarjuntos.Entities.Usuario;
 import com.jugarjuntos.Transfers.TAnuncio;
 import com.jugarjuntos.Transfers.TParticipacion;
 import com.jugarjuntos.Transfers.TUsuario;
@@ -42,6 +43,12 @@ public class SAUsuarioImpTest implements SAUsuarioTest {
 			return 1;
 		else
 			return -1;
+	}
+	
+	public Usuario getUsuarioByID(long id) {
+		Usuario dummy = new Usuario();
+		dummy.setId(id);
+		return dummy;
 	}
 
 }
